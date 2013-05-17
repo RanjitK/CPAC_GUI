@@ -1,5 +1,5 @@
 import wx
-from config_frame import MainFrame
+from config_window import MainFrame
 from dataconfig_window import DataConfig
 import wx.lib.agw.aquabutton as AB
 import os

@@ -1,6 +1,5 @@
 import wx
 from ..utils import  substitution_map
-#from constants import substitution_map
 from ..pages import Anatomical, AnatomicalPreprocessing, Segmentation,  Registration,\
                           FunctionalPreProcessing, Functional, Scrubbing, \
                           AnatToFuncRegistration, FuncToMNIRegistration,\
@@ -12,21 +11,6 @@ from ..pages import Anatomical, AnatomicalPreprocessing, Segmentation,  Registra
                           Filtering, FilteringSettings, TimeSeries, ROITimeseries,\
                           VOXELTimeseries, SpatialRegression, GenerateSeeds,\
                           GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings
-#from CPACGUI.pages.anatomical import Anatomical, AnatomicalPreprocessing, Segmentation,  Registration
-#from CPACGUI.pages.functional_tab import FunctionalPreProcessing, Functional, Scrubbing, \
-#                                         AnatToFuncRegistration, FuncToMNIRegistration
-#from CPACGUI.pages.vmhc import VMHC, VMHCSettings 
-#from CPACGUI.pages.reho import ReHo, ReHoSettings
-#from CPACGUI.pages.sca import SCA, SCASettings, MultipleRegressionSCA
-#from CPACGUI.pages.settings import Settings, ComputerSettings, GeneralSettings, DirectorySettings
-#from CPACGUI.pages.nuisance import Nuisance, NuisanceCorrection, MedianAngleCorrection 
-#from CPACGUI.pages.centrality import CentralitySettings, Centrality
-#from CPACGUI.pages.alff import ALFF, ALFFSettings
-#from CPACGUI.pages.smoothing import Smoothing, SmoothingSettings
-#from CPACGUI.pages.filtering import Filtering, FilteringSettings
-#from CPACGUI.pages.timeseries import TimeSeries, ROITimeseries,VOXELTimeseries, SpatialRegression, GenerateSeeds
-#from CPACGUI.pages.group_analysis import GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings
-
 
 ID_SUBMIT = 6 
 

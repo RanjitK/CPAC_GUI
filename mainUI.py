@@ -1,5 +1,5 @@
 import wx
-from gui.windows.firstWindow import ListBox
+from gui.windows.main_window import ListBox
 
 
 app = wx.App()

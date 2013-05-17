@@ -56,10 +56,10 @@ class GenerateSeeds(wx.ScrolledWindow):
                  control=control.COMBO_BOX, 
                  name = "seedSpecificationFile", 
                  type = dtype.STR, 
-                 comment = "Path to Seed Specification File \n " 
+                 comment = "Path to Seed Specification File \n" 
                             "If seedSpecificationFile is not None and \n"
-                            "points to a valid text file \n"
-                            "CPAC Creates ROI file given user specifications \n"
+                            "points to a valid text file, CPAC Creates \n" 
+                            "ROI file given user specifications \n"
                             "The ROI nifti file is saved in seed Output Location \n" 
                             "If seed Output Location does not exist, we create it for \n"
                             "as long as you specify it in the setting \n"
@@ -78,7 +78,7 @@ class GenerateSeeds(wx.ScrolledWindow):
                             "60     0   52  6   4 1mm \n"
                             "1     -54 -54  28  4 4mm \n"
                             "7     -60 -24 -18  4 4mm",
-                 values = "None")
+                 values = "/path/to/seed_specification_txt_file")
         
         self.page.add(label = "Seed Output Location:", 
                       control = control.DIR_COMBO_BOX, 
