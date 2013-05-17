@@ -66,7 +66,6 @@ class Control(wx.Control):
                                         size=size, 
                                         validator = validator,
                                         value = values)  
-            
             self.text_ctrl = self.ctrl.GetTextCtrl()
             self.selection = self.text_ctrl.GetValue()
             
@@ -128,9 +127,9 @@ class Control(wx.Control):
                 value = str(value)
                 
             if remove:
-                self.selection.remove(str(value))
+                self.selection.remove(value)
             else:
-                self.selection.append(str(value))
+                self.selection.append(value)
                 
         elif isinstance(self.selection, dict):
             if remove:
@@ -279,38 +278,37 @@ class GenericClass(wx.ScrolledWindow):
         
     def TxtEnterBox(self, event, ctrl):
         ctrl.get_ctrl().SetBackgroundColour("white")
-        print "inside ctrl -->", ctrl
-        print "type event.GetString() -->", type(event.GetString())
-        print "ctrl.get_ctrl().GetValue() -->", ctrl.get_ctrl().GetValue()
-        #ctrl.set_selection(event.GetString())
+        #print "inside ctrl -->", ctrl
+        #print "type event.GetString() -->", type(event.GetString())
+        #print "ctrl.get_ctrl().GetValue() -->", ctrl.get_ctrl().GetValue()
         ctrl.set_selection(ctrl.get_ctrl().GetValue())
         
     def TxtEnterCombo(self, event, ctrl):
         ctrl.text_ctrl.SetBackgroundColour("white")
-        print "type ctrl.text_ctrl.GetValue() -->", type(ctrl.text_ctrl.GetValue())
-        print "ctrl.text_ctrl.GetValue() -->", ctrl.text_ctrl.GetValue()
+        #print "type ctrl.text_ctrl.GetValue() -->", type(ctrl.text_ctrl.GetValue())
+        #print "ctrl.text_ctrl.GetValue() -->", ctrl.text_ctrl.GetValue()
         ctrl.set_selection(ctrl.text_ctrl.GetValue())
     
     def EvtCheckListBox(self, event, ctrl):
         index = event.GetSelection()
         label = ctrl.get_ctrl().GetString(index)
         if ctrl.get_ctrl().IsChecked(index):
-            print "label selected -->", label
+            #print "label selected -->", label
             ctrl.set_selection(label, index)
         else:
-            print "label to be removed -->", label
+            #print "label to be removed -->", label
             ctrl.set_selection(label,index, True)
     
     def EvtListBoxCombo(self, event, ctrl):
         
         index = event.GetSelection()
         label = ctrl.get_ctrl().GetListBoxCtrl().GetString(index)
-        print "EvtListBoxCombo label -->", label
+        #print "EvtListBoxCombo label -->", label
         if ctrl.get_ctrl().GetListBoxCtrl().IsChecked(index):
-            print "label selected -->", label
+            #print "label selected -->", label
             ctrl.set_selection(label, index)
         else:
-            print "label to be removed -->", label
+            #print "label to be removed -->", label
             ctrl.set_selection(label,index, True)
         print ctrl.get_selection()
         

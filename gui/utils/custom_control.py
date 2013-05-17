@@ -22,6 +22,7 @@ class FileSelectorCombo(wx.combo.ComboCtrl):
         try:
             if dlg.ShowModal() == wx.ID_OK:
                 self.SetValue(dlg.GetPath())
+                self.GetTextCtrl().SetValue(dlg.GetPath())
                 dlg.Destroy()
         except:
             pass
@@ -47,11 +48,11 @@ class DirSelectorCombo(wx.combo.ComboCtrl):
         try:
             if dlg.ShowModal() == wx.ID_OK:
                 self.SetValue(dlg.GetPath())
+                self.GetTextCtrl().SetValue(dlg.GetPath())
                 dlg.Destroy()
         except:
             pass
         
-        print "self.GetValue() -->", self.GetValue()
         
         self.SetFocus()
         
