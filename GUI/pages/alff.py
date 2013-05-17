@@ -1,7 +1,7 @@
 import wx
 import wx.html
 from ..windows.generic_class import GenericClass
-from constants import control, dtype
+from ..utils import control, dtype
 from ..utils import CharValidator
 
 class ALFF(wx.html.HtmlWindow):

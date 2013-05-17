@@ -124,7 +124,7 @@ class ListBox(wx.Frame):
         outerSizer1.Add(innerPanel2, 1, wx.EXPAND | wx.ALL)
         
         outerPanel1.SetSizer(outerSizer1)
-        print os.path.abspath(os.path.curdir)
+        
         bmp = wx.Bitmap("images/cpac_logo2.jpg", wx.BITMAP_TYPE_ANY)
         self.runCPAC1 = AB.AquaButton(outerPanel2, bitmap = bmp, label="Run Individual Level Analysis")
         self.runCPAC1.SetFont(wx.Font(13, wx.SWISS, wx.ITALIC, wx.LIGHT))
