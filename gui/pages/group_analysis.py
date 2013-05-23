@@ -1,8 +1,8 @@
 import wx
 import wx.html
-from ..windows.generic_class import GenericClass
-from ..utils import control, dtype
-from ..utils import CharValidator
+from ..utils.generic_class import GenericClass
+from ..utils.constants import control, dtype
+from ..utils.validator import CharValidator
 
 class GroupAnalysis(wx.html.HtmlWindow):
     def __init__(self, parent, counter  = 0):
@@ -68,34 +68,22 @@ class GPASettings(wx.ScrolledWindow):
                               "Reho = reho_Z_to_standard_smooth\n"\
                               "Dual Regression = dr_tempreg_maps_z_files_smooth")
         
-        self.page.add(label="Model Subjects Specification File:", 
-                     control=control.COMBO_BOX, 
-                     name='modelFile', 
-                     type=dtype.STR, 
-                     values = "/path/to/file_containing_templates.txt",
+        self.page.add(label = "Model Subjects Specification File:",
+                      control = control.LISTBOX_COMBO,
+                      name = 'modelFile',
+                      type = dtype.LOFL,
+                      values = "",
                      comment="Location of a text file containing a list of FSL models\n"\
                              "Each line in this file should be the path\n"\
                              "to a model directory space subject list for that model\n"\
                              "Each model directory should contain a .mat, .con, and .grp file\n"\
                              "If fTest = True (see below), model directories must also contain a .fts file\n"\
                              "These models can be generated through FSL, or using create_fsl_model.py\n"\
-                             "For instructions on using create_fsl_model.py, see the user guide\n\n"\
+                             "For instructions on using create_fsl_model.py, see the user guide\n"\
                              "It can be a file with model and subject list(for that model) path in each line\n"\
-                             "Example: /path.to/model_directory /path/to/model_list_and_subject_list.txt\n"\
-                             "Note:- This file should have full path to model directory space full path to subject list for that model\n"\
-                             "or\n"\
-                             "It can be yaml list\n"\
-                             "   modelFile:\n"\
-                             "   -\n"\
-                             "     - /home/data/configs/model_a\n"\
-                             "     - /home/data/configs/subject_list_group_analysis_a.txt\n"\
-                             "   -\n"\
-                             "     - /home/data/configs/model_b\n"\
-                             "     - /home/data/configs/subject_list_group_analysis_b.txt\n\n"\
-                            "or\n"\
-                            "it can be a simple list\n"\
-                            "  modelFile : [ ['/home/data/configs/model_a', '/home/data/configs/model_a_sublist.txt']\n" \
-                            "                ['/home/data/configs/model_b', '/home/data/configs/model_b_sublist.txt'] ]")
+                             " or list of model_dir and subject_list",
+                     size = (400,100),
+                     combo_type = 3)
         
         self.page.add(label="Z threshold:", 
                      control=control.FLOAT_CTRL, 

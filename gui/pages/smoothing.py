@@ -1,8 +1,8 @@
 import wx
 import wx.html
-from ..windows.generic_class import GenericClass
-from ..utils import control, dtype
-from ..utils import CharValidator
+from ..utils.generic_class import GenericClass
+from ..utils.constants import control, dtype
+from ..utils.validator import CharValidator
 
 class Smoothing(wx.html.HtmlWindow):
 

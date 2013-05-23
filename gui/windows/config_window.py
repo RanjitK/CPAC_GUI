@@ -1,5 +1,5 @@
 import wx
-from ..utils import  substitution_map
+from ..utils.constants import  substitution_map
 from ..pages import Anatomical, AnatomicalPreprocessing, Segmentation,  Registration,\
                           FunctionalPreProcessing, Functional, Scrubbing, \
                           AnatToFuncRegistration, FuncToMNIRegistration,\
@@ -312,25 +312,23 @@ class MainFrame(wx.Frame):
                     print "ctrl.get_selection()", ctrl.get_selection()
                     print "type(ctrl.get_selection())", type(ctrl.get_selection())
                     
-                    value = str(ctrl.get_selection())
-                  
+                    
+                    if isinstance(ctrl.get_selection(), list):
+                        value = ctrl.get_selection()
+                        if not value:
+                            display(win,"%s field is empty or the items are not checked!"%ctrl.get_name(), False)
+                            return
+                    else:
+                        value = str(ctrl.get_selection())
+                        
                     if len(value) == 0:
                         display(win,"%s field is empty!"%ctrl.get_name())
                         return
                         
-                    if '/' in value and '$' not in value:
+                    if '/' in value and '$' not in value and not isinstance(value, list):
                         if not os.path.exists(ctrl.get_selection()):
                             display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
                             return                   
-                        
-                    try:
-                        value = ast.literal_eval(value)
-                        if isinstance(value, list):
-                            if not value:
-                                display(win,"%s field is empty or the items are not checked!"%ctrl.get_name(), False)
-                                return
-                    except:
-                        pass
                     
                 config_list.append(ctrl)
         

@@ -1,8 +1,8 @@
 import wx
 import wx.html
-from ..windows.generic_class import GenericClass
-from ..utils import control, dtype
-from ..utils import CharValidator
+from ..utils.generic_class import GenericClass
+from ..utils.constants import control, dtype
+from ..utils.validator import CharValidator
 class Nuisance(wx.html.HtmlWindow):
 
     def __init__(self, parent, counter  = 0):
@@ -54,7 +54,8 @@ class NuisanceCorrection(wx.ScrolledWindow):
                      comment="Standard FSL Anatomical Brain Image")
 
         self.page.add(label = "Corrections:",
-                      control = control.CHECKLISTBOX_COMBO,
+                      #control = control.CHECKLISTBOX_COMBO,
+                      control = control.LISTBOX_COMBO,
                       name = "Corrections",
                       type = dtype.LDICT,
                       values = ['compcor', 'wm','csf','global','pc1','motion','linear','quadratic'],
@@ -67,7 +68,9 @@ class NuisanceCorrection(wx.ScrolledWindow):
                                  "pc1 = First Principle Component\n"\
                                  "motion = Motion\n"\
                                  "linear = Linear Trend\n"\
-                                 "quadratic = Quadratic Trend")
+                                 "quadratic = Quadratic Trend",
+                     size = (300,120),
+                     combo_type =1)
                     
         self.page.add(label= "Number of Compoenents:",
                       control = control.TEXT_BOX,

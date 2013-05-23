@@ -2,6 +2,8 @@ import wx
 import wx.combo
 import os
 from wx.lib.masked import NumCtrl
+import modelconfig_window
+import wx.lib.agw.balloontip as BT
 
 class FileSelectorCombo(wx.combo.ComboCtrl):
     def __init__(self, *args, **kw):
@@ -85,28 +87,6 @@ class CheckBox(wx.Frame):
             parent.listbox.Append(val)
             self.Close()
         
-class CheckListBoxCombo(wx.Panel):
-    
-    def __init__(self, parent, size, validator, style,values):
-        wx.Panel.__init__(self, parent)
-        
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.values = values
-        self.listbox = wx.CheckListBox(self, id = wx.ID_ANY, size = (300,120))
-        bmp = wx.Bitmap("images/plus12.jpg", wx.BITMAP_TYPE_ANY)
-        self.button = wx.BitmapButton(self, -1, bmp, size= (30,30))
-        self.button.Bind(wx.EVT_BUTTON, self.onButtonClick)
-        sizer.Add(self.listbox,wx.EXPAND | wx.ALL, 10)
-        sizer.Add(self.button)
-        self.SetSizer(sizer)
-        
-    def onButtonClick(self, event):
-        CheckBox(self, self.values)
-        
-    def GetListBoxCtrl(self):
-        return self.listbox
-    
-
 
 class TextBoxFrame(wx.Frame):
 
@@ -160,24 +140,108 @@ class TextBoxFrame(wx.Frame):
                 parent.listbox.Append(str(val))
                 self.Close()
                           
-
-class TextListBoxCombo(wx.Panel):
     
-    def __init__(self, parent, size, validator, style,values):
+class ConfigFslFrame(wx.Frame):
+    
+    def __init__(self, parent, values):
+        wx.Frame.__init__(self, parent, title="Select FSL Model Directory and SubjectList", size = (650,200))
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        panel = wx.Panel(self)
+        
+        button1 = wx.Button(panel, -1, 'Create FSL Model', size= (150,50))
+        button1.Bind(wx.EVT_BUTTON, self.onButtonClick)
+        sizer.Add(button1,1, wx.LEFT, border = 10)
+        
+        flexsizer = wx.FlexGridSizer(cols=2, hgap=5, vgap=10) 
+        
+        label1 = wx.StaticText(panel, -1, label = 'Select Model Directory:')
+        self.box1 = DirSelectorCombo(panel, id = wx.ID_ANY, size = (500, -1))
+        
+        flexsizer.Add(label1)
+        flexsizer.Add(self.box1,flag = wx.EXPAND | wx.ALL)
+        
+        label2 = wx.StaticText(panel, -1, label = 'Select Subject List for the model:')
+        self.box2 = FileSelectorCombo(panel, id = wx.ID_ANY,  size = (500, -1))
+        
+        flexsizer.Add(label2)
+        flexsizer.Add(self.box2, flag = wx.EXPAND | wx.ALL)
+        
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+        button3 = wx.Button(panel, wx.ID_CANCEL, 'Cancel', size =(120,30))
+        button3.Bind(wx.EVT_BUTTON, self.onCancel)
+        
+        button2 = wx.Button(panel, wx.ID_OK, 'OK', size= (120,30))
+        button2.Bind(wx.EVT_BUTTON, self.onOK)
+        
+        hbox.Add(button3, 1, wx.EXPAND, border =5)
+        hbox.Add(button2, 1, wx.EXPAND, border =5)
+        
+        sizer.Add(flexsizer, 1, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(hbox,0, wx.ALIGN_RIGHT)
+        panel.SetSizer(sizer)
+        
+        self.Show()
+        
+    def onCancel(self, event):
+        self.Close()
+        
+    def onButtonClick(self,event):
+        modelconfig_window.ModelConfig(self)
+
+    def onOK(self, event):
+        parent = self.Parent
+        print parent
+        
+        if self.box1.GetValue() and self.box2.GetValue():
+                val = [str(self.box1.GetValue()) , str(self.box2.GetValue())]
+                parent.listbox.Append(str(val))
+                self.Close()
+        else:
+            wx.MessageBox("Please provide the path for the model directory and subject list.")
+
+class ListBoxCombo(wx.Panel):
+    
+    def __init__(self, parent, size, validator, style, values, combo_type):
         wx.Panel.__init__(self, parent)
+        
+        self.ctype = combo_type
         
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.values = values
-        self.listbox = wx.CheckListBox(self, id = wx.ID_ANY, size = (200,100))
+        self.listbox = wx.CheckListBox(self, id = wx.ID_ANY, size = size, style = wx.LB_HSCROLL)
+        self.listbox.Bind(wx.EVT_LISTBOX_DCLICK, self.onHover)
         bmp = wx.Bitmap("images/plus12.jpg", wx.BITMAP_TYPE_ANY)
-        self.button = wx.BitmapButton(self, -1, bmp, size= (25,25))
+        self.button = wx.BitmapButton(self, -1, bmp, size= (30,30))
         self.button.Bind(wx.EVT_BUTTON, self.onButtonClick)
         sizer.Add(self.listbox,wx.EXPAND | wx.ALL, 10)
         sizer.Add(self.button)
         self.SetSizer(sizer)
         
     def onButtonClick(self, event):
-        TextBoxFrame(self, self.values)
+        if self.ctype == 3:
+            print "calling config Fsl Frame"
+            ConfigFslFrame(self, self.values)
+        elif self.ctype == 2:    
+            TextBoxFrame(self, self.values)
+        elif self.ctype == 1:
+            CheckBox(self, self.values)
         
     def GetListBoxCtrl(self):
         return self.listbox
+
+    def onHover(self, event):
+        sel = self.listbox.GetSelection()
+        if sel != -1:
+            text = self.listbox.GetString(sel)
+            tip = BT.BalloonTip(toptitle= "selected value", message = text,
+                                tipstyle= BT.BT_LEAVE)
+            tip.SetTarget(self)
+            tip.SetBalloonColour(wx.WHITE)
+            # Set the font for the balloon title
+            tip.SetTitleFont(wx.Font(15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False))
+            # Set the colour for the balloon title
+            tip.SetTitleColour(wx.BLACK)
+            # Leave the message font as default
+            tip.SetMessageFont(wx.Font(9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False))
+            # Set the message (tip) foreground colour
+            tip.SetMessageColour(wx.BLUE)

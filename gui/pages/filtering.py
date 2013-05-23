@@ -1,8 +1,8 @@
 import wx
 import wx.html
-from ..windows.generic_class import GenericClass
-from ..utils import control, dtype
-from ..utils import CharValidator
+from ..utils.generic_class import GenericClass
+from ..utils.constants import control, dtype
+from ..utils.validator import CharValidator
 
 class Filtering(wx.html.HtmlWindow):
 
@@ -46,12 +46,15 @@ class FilteringSettings(wx.ScrolledWindow):
                  wkf_switch = True)
         
         self.page.add(label = "BandPass Filter Frequency:",
-                      control = control.TEXTLISTBOX_COMBO,
+                      #control = control.TEXTLISTBOX_COMBO,
+                      control = control.LISTBOX_COMBO,
                       name = "nuisanceBandpassFreq",
                       type = dtype.LOFL,
                       values = [0.01, 0.1],
                       comment = "First value = Lower bound for a band-pass filter\n"\
-                                "Second value = Upper bound for a band-pass filter")
+                                "Second value = Upper bound for a band-pass filter",
+                     size = (200,100),
+                     combo_type = 2)
 
         
         self.page.set_sizer()

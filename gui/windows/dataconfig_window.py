@@ -1,6 +1,6 @@
 import wx
-from generic_class import GenericClass
-from ..utils import control, dtype
+from ..utils.generic_class import GenericClass
+from ..utils.constants import control, dtype
 import os
 
 ID_RUN_EXT = 11
