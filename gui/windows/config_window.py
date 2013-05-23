@@ -171,7 +171,7 @@ class Mybook(wx.Treebook):
     
 class MainFrame(wx.Frame):
     def __init__(self, parent, option='save', path="", pipeline_id =""):
-        wx.Frame.__init__(self, parent = parent, title="CPAC Pipeline Configuration", size = (1150, 500))
+        wx.Frame.__init__(self, parent = parent, title="CPAC Pipeline Configuration", size = (1200, 500))
 
         # Here we create a panel and a notebook on the panel
         self.p = wx.Panel(self)
@@ -219,7 +219,6 @@ class MainFrame(wx.Frame):
         print "config_file_map ->", config_file_map
         for page in self.nb.get_page_list():
             ctrl_list = page.page.get_ctrl_list()
-            switch = page.page.get_switch()
 
             for ctrl in ctrl_list:
                 name = ctrl.get_name()
@@ -274,7 +273,7 @@ class MainFrame(wx.Frame):
 
     def submit_item(self, event):
         import os
-        import ast, linecache
+        import linecache
         
         def display(win, msg, changeBg = True ):
             wx.MessageBox(msg, "Error")
@@ -325,7 +324,7 @@ class MainFrame(wx.Frame):
                         display(win,"%s field is empty!"%ctrl.get_name())
                         return
                         
-                    if '/' in value and '$' not in value and not isinstance(value, list):
+                    if '/' in value and '$' not in value and not isinstance(value, list) and ctrl.get_validation():
                         if not os.path.exists(ctrl.get_selection()):
                             display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
                             return                   

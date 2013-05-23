@@ -103,19 +103,22 @@ class DirectorySettings(wx.ScrolledWindow):
          control=control.DIR_COMBO_BOX, 
          name='workingDirectory', 
          type=dtype.STR, 
-         comment="Directory where CPAC should store temporary and intermediate files.")
+         comment="Directory where CPAC should store temporary and intermediate files.",
+         validation_req = False)
         
         self.page.add(label="Crash Log Directory:", 
          control=control.DIR_COMBO_BOX, 
          name='crashLogDirectory', 
          type=dtype.STR, 
-         comment="Directory where CPAC should write crash logs.")
+         comment="Directory where CPAC should write crash logs.",
+         validation_req = False)
         
         self.page.add(label="Output Directory:", 
          control=control.DIR_COMBO_BOX, 
          name='outputDirectory', 
          type=dtype.STR, 
-         comment="Directory where CPAC should place processed data.")
+         comment="Directory where CPAC should place processed data.",
+         validation_req = False)
                 
         self.page.add(label="Remove Working Directory:", 
          control=control.CHOICE_BOX, 
