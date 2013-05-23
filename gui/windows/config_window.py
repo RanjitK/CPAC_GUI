@@ -102,7 +102,7 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page16, "Median Angle Correction", wx.ID_ANY)
         
         self.AddPage(page17, "Temporal Filtering", wx.ID_ANY)
-        self.AddSubPage(page18, "Temporal Filter Options", wx.ID_ANY)
+        self.AddSubPage(page18, "Temporal Filtering Options", wx.ID_ANY)
         
         self.AddPage(page19, "Time Series Analysis", wx.ID_ANY)
         self.AddSubPage(page20, "Seed Analysis", wx.ID_ANY)

@@ -11,7 +11,7 @@ class DataConfig(wx.Frame):
     
     def __init__(self, parent):
 
-        wx.Frame.__init__(self, parent, title="Data Configuration", size = (800,450))
+        wx.Frame.__init__(self, parent, title="CPAC - Subject List Setup", size = (800,450))
         
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         
@@ -19,74 +19,77 @@ class DataConfig(wx.Frame):
         
         self.window = wx.ScrolledWindow(self.panel)
         
-        self.page = GenericClass(self.window, "Data Setup Configuration")
+        self.page = GenericClass(self.window, "Subject List Setup")
         
-        self.page.add(label="Subject to Include", 
-                 control=control.COMBO_BOX, 
-                 name = "subjectList", 
-                 type = dtype.COMBO, 
-                 comment = "List of subjects that are included, can be a text file or a list.\n"\
-                            "If None, extract data runs on all the subjects.\n"\
-                            "Example1:- /home/data/settings/include_subjects.txt\n"\
-                            "Example2:- sub001, sub003", 
-                 values = "None")
-        
-        self.page.add(label="Subject to Exclude", 
-                 control=control.COMBO_BOX, 
-                 name = "exclusionSubjectList", 
-                 type = dtype.COMBO, 
-                 comment = "List of subjects that are to be excluded, can be a text file or a list.\n"\
-                            "Example1:- /home/data/settings/ex_subjects.txt\n"\
-                            "Example2:- sub001, sub003", 
-                 values = "None")
-        
-        self.page.add(label= "Anatomical Template",
+        self.page.add(label= "Anatomical File Path Template ",
                  control = control.TEXT_BOX,
                  name = "anatomicalTemplate",
                  type = dtype.STR,
-                 comment = "Path structure to extract anatomical files.\nPut %s where site and subjects are in the path.\n"\
-                            "Example 1:- /home/data/Incoming/cambridge_fcon/%s/%s/*/mprage_anonymized.nii.gz\n"\
-                            "Example 2:- /home/data/sites/%s/%s/session_1/*/mprage.nii.gz",
+                 comment = "File Path Template for Anatomical Files\n\n"
+                           "Replace the site- and subject-level directories with %s.\n\n"
+                           "See User Guide for more detailed instructions.",
                  values ="",
                  style= wx.EXPAND | wx.ALL,
                  size = (532,-1))
         
-        self.page.add(label= "Functional Template",
+        self.page.add(label= "Functional File Path Template ",
                  control = control.TEXT_BOX,
                  name = "functionalTemplate",
                  type = dtype.STR,
-                 comment = "Path structure to extract anatomical files.\nPut %s where site and subjects are in the path.\n"\
-                            "Example 1:- /home/data/Incoming/cambridge_fcon/%s/%s/*/rest.nii.gz\n"\
-                            "Example 2:- /home/data/sites/%s/%s/session_1/*/rest.nii.gz",
+                 comment = "File Path Template for Functional Files\n\n"
+                           "Replace the site- and subject-level directories with %s.\n\n"
+                           "See User Guide for more detailed instructions.",
                  values ="",
                  style= wx.EXPAND | wx.ALL,
                  size = (532,-1))
+
+        self.page.add(label="Subjects to Include (Optional) ", 
+                 control=control.COMBO_BOX, 
+                 name = "subjectList", 
+                 type = dtype.COMBO, 
+                 comment = "Include only a sub-set of the subjects present in the folders defined above.\n\n"
+                           "List subjects in this box (e.g., sub101, sub102) or provide the path to a\n"
+                           "text file with one subject on each line.\n\n"
+                           "If 'None' is specified, CPAC will include all subjects.", 
+                 values = "None")
         
-        self.page.add(label= "List of Sites",
+        self.page.add(label="Subject to Exclude (Optional) ", 
+                 control=control.COMBO_BOX, 
+                 name = "exclusionSubjectList", 
+                 type = dtype.COMBO, 
+                 comment = "Exclude a sub-set of the subjects present in the folders defined above.\n\n"
+                           "List subjects in this box (e.g., sub101, sub102) or provide the path to a\n"
+                           "text file with one subject on each line.\n\n"
+                           "If 'None' is specified, CPAC will not exclude any subjects.", 
+                 values = "None")
+        
+        self.page.add(label= "Sites to Include (Optional) ",
                  control = control.TEXT_BOX,
                  name = "siteList",
                  type = dtype.STR,
-                 comment = "list of sites, can be a text file or a list.\n"\
-                            "If None, extract data runs on all sites\n"\
-                            "Example:- ABIDE, ADHD-200",
+                 comment = "Include only a sub-set of the sites present in the folders defined above.\n\n"
+                           "List sites in this box (e.g., NYU, UCLA) or provide the path to a text\n"
+                           "file with one site on each line.\n\n"
+                           "If 'None' is specified, CPAC will include all sites.",
                  values ="None",
                  style= wx.EXPAND | wx.ALL,
                  size = (532,-1))
         
-        self.page.add(label="Scan Parameters CSV file", 
+        self.page.add(label="Scan Parameters File (Optional) ", 
                  control=control.COMBO_BOX, 
                  name = "scanParametersCSV", 
                  type = dtype.COMBO, 
-                 comment = "Scan Parameters csv file path. This file is mandatory for slice timing correction.\n"\
-                           "please use the right format for the csv, refer to http://fcp-indi.github.io/docs/user/slice.html.\n"\
-                           "If None, CPAC does not do slice timing correction",
+                 comment = "Required for Slice Timing Correction.\n\n"
+                           "Path to a .csv file containing information about scan acquisition parameters.\n\n"
+                           "For instructions on how to create this file, see the User Guide.\n\n"
+                           "If 'None' is specified, CPAC will skip Slice Timing Correction.",
                  values = "None")
         
-        self.page.add(label = "Output SubList Directory", 
+        self.page.add(label = "Output Directory ", 
                       control = control.DIR_COMBO_BOX, 
                       name = "outputSubjectListLocation", 
                       type = dtype.STR, 
-                      comment = "Output Directory Location of CPAC Subject List file",
+                      comment = "Directory where CPAC should place subject list files.",
                       values = os.getcwd())
         self.page.set_sizer()
          
@@ -107,6 +110,7 @@ class DataConfig(wx.Frame):
         hbox.Add(buffer)
     
         cancel = wx.Button(btnPanel, wx.ID_CANCEL, "Cancel",(220,10), wx.DefaultSize, 0 )
+
         self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
         hbox.Add( cancel, 0, flag=wx.LEFT|wx.BOTTOM, border=5)
         

@@ -44,6 +44,15 @@ class ComputerSettings(wx.ScrolledWindow):
                  values=["False","True"],
                  wkf_switch = True)
 
+        self.page.add(label="FSL Path", 
+                 control=control.DIR_COMBO_BOX, 
+                 name='FSLDIR', 
+                 type=dtype.STR, 
+                 values = os.environ['FSLDIR'],
+                 comment="Full path to the FSL install to be used by CPAC.\n\n"
+                         "If you have specified an FSL path in your .bashrc file,\n"
+                         "this path will be set automatically.")
+
         self.page.add(label= "Job Scheduler / Resource Manager ",
                  control=control.CHOICE_BOX, 
                  name='resourceManager', 
@@ -148,12 +157,6 @@ class GeneralSettings(wx.ScrolledWindow):
         self.page = GenericClass(self, "General Settings")
         self.counter = counter 
                 
-        self.page.add(label="FSL Directory Path:", 
-                 control=control.DIR_COMBO_BOX, 
-                 name='FSLDIR', 
-                 type=dtype.STR, 
-                 values = os.environ.get('FSLDIR'),
-                 comment="Directory where FSL is located. If you have added FSL to your .bashrc file, this will be set automatically")
                 
         self.page.add(label= "First Timepoint (start Index):",
                  control=control.INT_CTRL, 
