@@ -91,7 +91,7 @@ class CheckBox(wx.Frame):
 class TextBoxFrame(wx.Frame):
 
     def __init__(self, parent, values):
-        wx.Frame.__init__(self, parent, title="Enter BandPass Frequency", size = (300,140))
+        wx.Frame.__init__(self, parent, title="Enter Frequency Cutoffs (in Hz)", size = (300,140))
         
         panel = wx.Panel(self)
         
@@ -99,7 +99,7 @@ class TextBoxFrame(wx.Frame):
         
         flexsizer = wx.FlexGridSizer(cols=2, hgap=10, vgap=15) 
         
-        label1 = wx.StaticText(panel, -1, label = 'Band Pass Filter Lower Bound')
+        label1 = wx.StaticText(panel, -1, label = 'Low-frequency cutoff')
         self.box1 = NumCtrl(panel, id = wx.ID_ANY, value= values[0],
                             integerWidth=2, fractionWidth = 3, 
                             allowNegative=False, allowNone = True)
@@ -108,7 +108,7 @@ class TextBoxFrame(wx.Frame):
         flexsizer.Add(label1)
         flexsizer.Add(self.box1,0,wx.ALIGN_RIGHT, 5)
         
-        label2 = wx.StaticText(panel, -1, label = 'Band Pass Filter Upper Bound')
+        label2 = wx.StaticText(panel, -1, label = 'High-frequency cutoff')
         self.box2 = NumCtrl(panel, id = wx.ID_ANY, value= values[1],
                             integerWidth=2, fractionWidth = 3, 
                             allowNegative=False, allowNone = True)

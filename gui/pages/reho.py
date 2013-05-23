@@ -33,24 +33,26 @@ class ReHoSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "ReHo Settings")
+        self.page = GenericClass(self, "ReHo Options")
         
-        self.page.add(label="Run Regional Homogeneity (ReHo):", 
+        self.page.add(label="Calculate Regional Homogeneity (ReHo) ", 
                  control=control.CHOICE_BOX, 
                  name='runReHo', 
                  type=dtype.LSTR, 
-                 comment="Calculate Regional Homogeneity", 
+                 comment="Calculate Regional Homogeneity (ReHo) for all voxels.", 
                  values=["On","Off"],
                  wkf_switch = True)
         
         
-        self.page.add(label="Cluster Size:", 
+        self.page.add(label="Voxel Cluster Size ", 
                      control=control.CHOICE_BOX, 
                      name='clusterSize', 
                      type=dtype.NUM, 
-                     comment="# Cluster size (number of neighboring voxels)\n"
-                             "Options are 7, 19, and 27", 
-                     values=["27","19", "7"])
+                     comment="Number of neighboring voxels used when calculating ReHo\n"
+                             "7 (Faces)\n"
+                             "19 (Faces + Edges)\n"
+                             "27 (Faces + Edges + Corners)", 
+                     values=["7","19", "27"])
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

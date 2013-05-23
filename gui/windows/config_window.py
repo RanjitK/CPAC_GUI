@@ -81,17 +81,17 @@ class Mybook(wx.Treebook):
         page42 = GPASettings(self)
         
         # add the pages to the notebook with the label to show on the tab
-        self.AddPage(page1, "Settings", wx.ID_ANY)
+        self.AddPage(page1, "Environment Setup", wx.ID_ANY)
         self.AddSubPage(page2, "Computer Settings", wx.ID_ANY)
         self.AddSubPage(page3, "General Settings", wx.ID_ANY)
-        self.AddSubPage(page4, "Directory Settings", wx.ID_ANY)
+        self.AddSubPage(page4, "Output Settings", wx.ID_ANY)
         
-        self.AddPage(page5, "AnatomicalPreProcessing", wx.ID_ANY)
+        self.AddPage(page5, "Anatomical Preprocessing", wx.ID_ANY)
         self.AddSubPage(page6, "Anatomical", wx.ID_ANY)
         self.AddSubPage(page7, "Registration", wx.ID_ANY)
         self.AddSubPage(page8, "Segmentation", wx.ID_ANY)
         
-        self.AddPage(page9, "Functional PreProcessing", wx.ID_ANY)
+        self.AddPage(page9, "Functional Preprocessing", wx.ID_ANY)
         self.AddSubPage(page10, "Functional", wx.ID_ANY)
         self.AddSubPage(page11, "Scrubbing", wx.ID_ANY)
         self.AddSubPage(page12, "Anatomical to Functional Registration", wx.ID_ANY)
@@ -101,8 +101,8 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page15, "Nuisance Correction", wx.ID_ANY)
         self.AddSubPage(page16, "Median Angle Correction", wx.ID_ANY)
         
-        self.AddPage(page17, "Filtering", wx.ID_ANY)
-        self.AddSubPage(page18, "Filtering Settings", wx.ID_ANY)
+        self.AddPage(page17, "Temporal Filtering", wx.ID_ANY)
+        self.AddSubPage(page18, "Temporal Filter Options", wx.ID_ANY)
         
         self.AddPage(page19, "Time Series Analysis", wx.ID_ANY)
         self.AddSubPage(page20, "Seed Analysis", wx.ID_ANY)
@@ -113,14 +113,14 @@ class Mybook(wx.Treebook):
         self.AddPage(page24, "VMHC", wx.ID_ANY)
         self.AddSubPage(page25, "VMHC Settings", wx.ID_ANY)
         
-        self.AddPage(page26, "ALFF", wx.ID_ANY)
-        self.AddSubPage(page27, "ALFF Settings", wx.ID_ANY)
+        self.AddPage(page26, "ALFF and fALFF", wx.ID_ANY)
+        self.AddSubPage(page27, "ALFF and fALFF Options", wx.ID_ANY)
         
-        self.AddPage(page28, "Centrality", wx.ID_ANY)
-        self.AddSubPage(page29, "Centrality Settings", wx.ID_ANY)
+        self.AddPage(page28, "Network Centrality", wx.ID_ANY)
+        self.AddSubPage(page29, "Network Centrality Options", wx.ID_ANY)
         
-        self.AddPage(page30, "ReHo", wx.ID_ANY)
-        self.AddSubPage(page31, "ReHo Settings", wx.ID_ANY)
+        self.AddPage(page30, "Regional Homogeneity (ReHo)", wx.ID_ANY)
+        self.AddSubPage(page31, "ReHo Options", wx.ID_ANY)
         
         self.AddPage(page32, "SCA", wx.ID_ANY)
         self.AddSubPage(page33, "SCA Settings", wx.ID_ANY)

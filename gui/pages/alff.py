@@ -35,31 +35,31 @@ class ALFFSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "ALFF and FALFF Settings")
+        self.page = GenericClass(self, "ALFF and fALFF Options")
         
-        self.page.add(label="Run ALFF and FALFF:", 
+        self.page.add(label="Calculate ALFF and fALFF ", 
                  control=control.CHOICE_BOX, 
                  name='runALFF', 
                  type=dtype.LSTR, 
-                 comment="Calculate ALFF and fALFF", 
+                 comment="Calculate ALFF and fALFF for all voxels.", 
                  values=["On","Off"],
                  wkf_switch = True)
         
-        self.page.add(label= "High Pass Cutoff:",
+        self.page.add(label= "fALFF High-Pass Cutoff ",
                  control=control.TEXT_BOX, 
                  name='highPassFreqALFF', 
                  type=dtype.LNUM, 
                  values= "0.01",
                  validator = CharValidator("no-alpha"),
-                 comment="Frequency cutoff (in Hz) for a high-pass filter")
+                 comment="Frequency cutoff (in Hz) for the high-pass filter used when calculating fALFF.")
         
-        self.page.add(label= "Low Pass Cutoff:",
+        self.page.add(label= "fALFF Low-Pass Cutoff ",
                  control=control.TEXT_BOX, 
                  name='lowPassFreqALFF', 
                  type=dtype.LNUM, 
                  values= "0.1",
                  validator = CharValidator("no-alpha"),
-                 comment="Frequency cutoff (in Hz) for a low-pass filter")
+                 comment="Frequency cutoff (in Hz) for the low-pass filter used when calculating fALFF")
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

@@ -43,42 +43,48 @@ class ComputerSettings(wx.ScrolledWindow):
                  comment="True = Run on compute cluster, False = Run on non-cluster machine", 
                  values=["False","True"],
                  wkf_switch = True)
-        
-        self.page.add(label= "Number of Subjects to Run Simultaneously",
-                 control=control.INT_CTRL, 
-                 name='numSubjectsAtOnce', 
-                 type=dtype.NUM, 
-                 comment="This number depends on computing resources. Only applies when running on a non-cluster machine with multiple cores", 
-                 values=2)
-        
-        self.page.add(label= "Number of Cores per Subject",
-                 control=control.INT_CTRL, 
-                 name='numCoresPerSubject', 
-                 type=dtype.NUM, 
-                 comment="Number of cores (non-cluster) or slots on a node (cluster) per subject. Slots are cores on a cluster node."\
-                         "This number depends on computing resources.Only applies when non-cluster machine has multiple cores or runOnGrid = True", 
-                 values=1)
-        
-        self.page.add(label= "Resource Manager on Cluster",
+
+        self.page.add(label= "Job Scheduler / Resource Manager ",
                  control=control.CHOICE_BOX, 
                  name='resourceManager', 
                  type=dtype.STR, 
                  values = ["SGE", "PBS"],
-                 comment="Options are 'SGE' (Sun Grid Engine) or 'PBS' (Portable Batch System. Only applies when runOnGrid : True")
+                 comment="Sun Grid Engine (SGE) or Portable Batch System (PBS)")
         
-        self.page.add(label= 'SGE Parallel Environment', 
+        self.page.add(label= 'SGE Parallel Environment ', 
                       control= control.TEXT_BOX, 
                       name= 'parallelEnvironment', 
                       type= dtype.STR, 
-                      comment='Specify your SGE parallel environment for running CPAC on cluster', 
+                      comment='SGE Parallel Environment to use when running CPAC.', 
                       values= 'cpac')
         
-        self.page.add(label='Queue for SGE cluster', 
+        self.page.add(label='SGE Queue ', 
                       control= control.TEXT_BOX, 
                       name='queue', 
                       type= dtype.STR, 
-                      comment='Queue to use when running on an SGE cluster', 
-                      values = 'all.q')        
+                      comment='SGE Queue to use when running CPAC.', 
+                      values = 'all.q')
+        
+        
+        self.page.add(label= "Number of Cores Per Subject ",
+                 control=control.INT_CTRL, 
+                 name='numCoresPerSubject', 
+                 type=dtype.NUM, 
+                 comment="Number of cores (on a single machine) or slots on\n" 
+                         "a node (cluster/grid) per subject. Slots are cores\n"
+                         "on a cluster/grid node.\n\n"
+                         "IMPORTANT: Number of Cores Per Subject multiplied\n"
+                         "by Number of Subjects to Run Simultaneously must\n"
+                         "not be greater than the total number of cores.", 
+                 values=1)
+
+        self.page.add(label= "Number of Subjects to Run Simultaneously ",
+                 control=control.INT_CTRL, 
+                 name='numSubjectsAtOnce', 
+                 type=dtype.NUM, 
+                 comment="This number depends on computing resources.", 
+                 values=2)
+                
         
         self.page.set_sizer() 
         parent.get_page_list().append(self)
@@ -90,26 +96,26 @@ class DirectorySettings(wx.ScrolledWindow):
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
         
-        self.page = GenericClass(self, "Directory Settings")
+        self.page = GenericClass(self, "Output Settings")
         self.counter = counter
         
-        self.page.add(label="CPAC Working Directory:", 
+        self.page.add(label="Working Directory:", 
          control=control.DIR_COMBO_BOX, 
          name='workingDirectory', 
          type=dtype.STR, 
-         comment="Directory where C-PAC should store temporary and intermediate files")
+         comment="Directory where CPAC should store temporary and intermediate files.")
         
-        self.page.add(label="CPAC Crash Log Directory:", 
+        self.page.add(label="Crash Log Directory:", 
          control=control.DIR_COMBO_BOX, 
          name='crashLogDirectory', 
          type=dtype.STR, 
-         comment="Directory where C-PAC should place crash logs")
+         comment="Directory where CPAC should write crash logs.")
         
-        self.page.add(label="CPAC Output Directory:", 
+        self.page.add(label="Output Directory:", 
          control=control.DIR_COMBO_BOX, 
          name='outputDirectory', 
          type=dtype.STR, 
-         comment="Directory where C-PAC should put processed data")
+         comment="Directory where CPAC should place processed data.")
                 
         self.page.add(label="Remove Working Directory:", 
          control=control.CHOICE_BOX, 

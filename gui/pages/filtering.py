@@ -35,24 +35,23 @@ class FilteringSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Filtering Settings")
+        self.page = GenericClass(self, "Temporal Filtering Options")
         
-        self.page.add(label="Run Temporal Filtering:", 
+        self.page.add(label="Run Temporal Filtering ", 
                  control=control.CHOICE_BOX, 
                  name='runFrequencyFiltering', 
                  type=dtype.LSTR, 
-                 comment="Apply Temporal Filtering", 
+                 comment="Apply a temporal band-pass filter to functional data.", 
                  values=["On","Off"],
                  wkf_switch = True)
         
-        self.page.add(label = "BandPass Filter Frequency:",
+        self.page.add(label = "Band-Pass Filters ",
                       #control = control.TEXTLISTBOX_COMBO,
                       control = control.LISTBOX_COMBO,
                       name = "nuisanceBandpassFreq",
                       type = dtype.LOFL,
                       values = [0.01, 0.1],
-                      comment = "First value = Lower bound for a band-pass filter\n"\
-                                "Second value = Upper bound for a band-pass filter",
+                      comment = "Define one or more band-pass filters.",
                      size = (200,100),
                      combo_type = 2)
 
