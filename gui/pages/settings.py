@@ -137,13 +137,13 @@ class GeneralSettings(wx.ScrolledWindow):
         wx.ScrolledWindow.__init__(self, parent)
         
         self.page = GenericClass(self, "General Settings")
-        self.counter = counter
+        self.counter = counter 
                 
         self.page.add(label="FSL Directory Path:", 
                  control=control.DIR_COMBO_BOX, 
                  name='FSLDIR', 
                  type=dtype.STR, 
-                 values = os.environ['FSLDIR'],
+                 values = os.environ.get('FSLDIR'),
                  comment="Directory where FSL is located. If you have added FSL to your .bashrc file, this will be set automatically")
                 
         self.page.add(label= "First Timepoint (start Index):",

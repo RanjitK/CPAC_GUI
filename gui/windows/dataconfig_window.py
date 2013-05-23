@@ -95,24 +95,32 @@ class DataConfig(wx.Frame):
         btnPanel = wx.Panel(self.panel, -1)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         
-        save = wx.Button(btnPanel, wx.ID_SAVE, "SAVE", (280,10), wx.DefaultSize, 0 )
-        self.Bind(wx.EVT_BUTTON, self.save, id=wx.ID_SAVE)
-        hbox.Add(save, 0.6, wx.ALIGN_RIGHT|wx.ALL, 5)
-    
-        run_ext = wx.Button(btnPanel, ID_RUN_EXT, "CREATE SUBLIST", (280,10), wx.DefaultSize, 0 )
+
+        self.multiscan = wx.CheckBox(btnPanel, -1, label = "Multiscan Data")
+        hbox.Add(self.multiscan, 0.6, flag = wx.RIGHT| wx.BOTTOM, border =5)
+        
+        run_ext = wx.Button(btnPanel, ID_RUN_EXT, "Generate Sublist", (280,10), wx.DefaultSize, 0 )
         self.Bind(wx.EVT_BUTTON, self.run_extract_data, id=ID_RUN_EXT)
-        hbox.Add( run_ext, 0.6, wx.ALIGN_RIGHT|wx.ALL, 5)
+        hbox.Add( run_ext, 1, flag=wx.LEFT|wx.ALIGN_LEFT, border=10)
         
-        #run_mext = wx.Button(btnPanel, ID_RUN_MEXT, "RUN MultiScanExtractData", (280,10), wx.DefaultSize, 0 )
-        #self.Bind(wx.EVT_BUTTON, self.run_extract_data, id=ID_RUN_MEXT)
-        #hbox.Add( run_mext, 0.6, wx.ALIGN_RIGHT|wx.ALL, 5)
-        
-        cancel = wx.Button(btnPanel, wx.ID_CANCEL, "CLOSE",(220,10), wx.DefaultSize, 0 )
+        buffer = wx.StaticText(btnPanel, label = "\t\t\t\t")
+        hbox.Add(buffer)
+    
+        cancel = wx.Button(btnPanel, wx.ID_CANCEL, "Cancel",(220,10), wx.DefaultSize, 0 )
         self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
-        hbox.Add( cancel, 0.6, wx.ALIGN_RIGHT|wx.ALL, 5)
+        hbox.Add( cancel, 0, flag=wx.LEFT|wx.BOTTOM, border=5)
+        
+        load = wx.Button(btnPanel, wx.ID_ADD, "Load Settings", (280,10), wx.DefaultSize, 0 )
+        self.Bind(wx.EVT_BUTTON, self.save, id=wx.ID_ADD)
+        hbox.Add(load, 0.6, flag=wx.LEFT|wx.BOTTOM, border=5)
+        
+        save = wx.Button(btnPanel, wx.ID_SAVE, "Save Settings", (280,10), wx.DefaultSize, 0 )
+        self.Bind(wx.EVT_BUTTON, self.save, id=wx.ID_SAVE)
+        hbox.Add(save, 0.6, flag=wx.LEFT|wx.BOTTOM, border=5)
+    
         btnPanel.SetSizer(hbox)
         
-        mainSizer.Add(btnPanel, 0.5, wx.EXPAND | wx.RIGHT, 20)
+        mainSizer.Add(btnPanel, 0.5,  flag=wx.ALIGN_RIGHT|wx.RIGHT, border=20)
         
         self.panel.SetSizer(mainSizer)
         
@@ -120,6 +128,11 @@ class DataConfig(wx.Frame):
         
     def cancel(self, event):
         self.Close()
+        
+        
+    def run(self, event):
+        pass
+        
         
     def run_extract_data(self, event):
         import os
@@ -169,7 +182,7 @@ class DataConfig(wx.Frame):
                 dlg2.Destroy()
          
          
-    def save(self, event):
+    def save(self, event, flag):
         
         config_list =[]
         def display(win, msg):
@@ -196,6 +209,9 @@ class DataConfig(wx.Frame):
                 if value.count('%s') != 2:
                     display(win,"Incorrect template, two \'%s\' values are required. One for site and another for"\
                             " subject location in the path. Please refere to example!")
+                    
+                if value.startswith('%s'):
+                    display(win, "Template cannot start with %s")
                     return
             
             if '/' in value and 'Template' not in name:
@@ -203,9 +219,6 @@ class DataConfig(wx.Frame):
                     display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
                     return
                 
-            if value.startswith('%s'):
-                display(win, "Template cannot start with %s")
-                return
             config_list.append((name, value, dtype))
                 
         

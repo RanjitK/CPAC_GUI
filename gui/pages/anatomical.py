@@ -3,7 +3,7 @@ import wx.html
 from ..utils.generic_class import GenericClass
 from ..utils.constants import control, dtype
 from ..utils.validator import CharValidator
-
+import os
 
 class AnatomicalPreprocessing(wx.html.HtmlWindow):
 
@@ -145,6 +145,10 @@ class Registration(wx.ScrolledWindow):
                 
         self.page = GenericClass(self, "Anatomical Registration")
         
+        fsl = os.environ.get('FSLDIR')
+        if not fsl:
+            fsl = "$FSLDIR"
+        
         self.page.add(label="Run Registration:", 
                      control=control.CHOICE_BOX, 
                      name='runRegistrationPreprocessing', 
@@ -164,14 +168,14 @@ class Registration(wx.ScrolledWindow):
                      control=control.COMBO_BOX, 
                      name='standardResolutionBrainAnat', 
                      type=dtype.STR, 
-                     values = "$FSLDIR/data/standard/MNI152_T1_${standardResolutionAnat}_brain.nii.gz",
+                     values = str(os.path.join(fsl, "data/standard/MNI152_T1_${standardResolutionAnat}_brain.nii.gz")),
                      comment="Standard FSL Skull Stripped Template. Used as a reference image for anatomical registration")
 
         self.page.add(label="Standard Template with Skull (anatomical resolution):", 
                      control=control.COMBO_BOX, 
                      name='standardAnat', 
                      type=dtype.STR, 
-                     values = "$FSLDIR/data/standard/MNI152_T1_${standardResolutionAnat}.nii.gz",
+                     values =  str(os.path.join(fsl, "data/standard/MNI152_T1_${standardResolutionAnat}.nii.gz")),
                      comment="Standard FSL Template with Skull. Used as a reference image for anatomical registration")
 
         self.page.set_sizer()

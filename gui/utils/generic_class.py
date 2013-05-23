@@ -43,7 +43,11 @@ class GenericClass(wx.ScrolledWindow):
             
         label = wx.StaticText(self.parent, -1, label)
         hbox= wx.BoxSizer(wx.HORIZONTAL)
-        button = wx.Button(self.parent, id = wx.ID_HELP)
+        image1 = wx.Image("images/help.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        button = wx.BitmapButton(self.parent, id=-1, bitmap=image1,
+                                 pos=(10, 20), size = (image1.GetWidth()+5, image1.GetHeight()+5))
+        #button = wx.Button(self.parent, id = wx.ID_HELP)
+    
         button.Bind(wx.EVT_BUTTON, lambda event: \
                          self.OnShowDoc(event, comment))
         hbox.Add(label)

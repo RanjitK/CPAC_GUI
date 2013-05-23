@@ -171,7 +171,7 @@ class Mybook(wx.Treebook):
     
 class MainFrame(wx.Frame):
     def __init__(self, parent, option='save', path="", pipeline_id =""):
-        wx.Frame.__init__(self, parent = parent, title="CPAC Pipeline Configuration", size = (1130, 480))
+        wx.Frame.__init__(self, parent = parent, title="CPAC Pipeline Configuration", size = (1150, 500))
 
         # Here we create a panel and a notebook on the panel
         self.p = wx.Panel(self)
