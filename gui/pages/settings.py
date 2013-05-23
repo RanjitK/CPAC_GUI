@@ -44,12 +44,12 @@ class ComputerSettings(wx.ScrolledWindow):
                  values=["False","True"],
                  wkf_switch = True)
 
-        self.page.add(label="FSL Path", 
+        self.page.add(label="FSL Path ", 
                  control=control.DIR_COMBO_BOX, 
                  name='FSLDIR', 
                  type=dtype.STR, 
                  values = os.environ['FSLDIR'],
-                 comment="Full path to the FSL install to be used by CPAC.\n\n"
+                 comment="Full path to the FSL version to be used by CPAC.\n\n"
                          "If you have specified an FSL path in your .bashrc file,\n"
                          "this path will be set automatically.")
 
@@ -108,40 +108,52 @@ class DirectorySettings(wx.ScrolledWindow):
         self.page = GenericClass(self, "Output Settings")
         self.counter = counter
         
-        self.page.add(label="Working Directory:", 
+        self.page.add(label="Working Directory ", 
          control=control.DIR_COMBO_BOX, 
          name='workingDirectory', 
          type=dtype.STR, 
          comment="Directory where CPAC should store temporary and intermediate files.",
          validation_req = False)
         
-        self.page.add(label="Crash Log Directory:", 
+        self.page.add(label="Crash Log Directory ", 
          control=control.DIR_COMBO_BOX, 
          name='crashLogDirectory', 
          type=dtype.STR, 
          comment="Directory where CPAC should write crash logs.",
          validation_req = False)
         
-        self.page.add(label="Output Directory:", 
+        self.page.add(label="Output Directory ", 
          control=control.DIR_COMBO_BOX, 
          name='outputDirectory', 
          type=dtype.STR, 
          comment="Directory where CPAC should place processed data.",
          validation_req = False)
+
+        self.page.add(label="Create Symbolic Links ", 
+                 control=control.CHOICE_BOX, 
+                 name='runSymbolicLinks', 
+                 type=dtype.BOOL, 
+                 comment="Create a user-friendly, well organized version of the output directory.\n\n"
+                         "We recommend all users enable this option.", 
+                 values=["On","Off"])
                 
-        self.page.add(label="Remove Working Directory:", 
+        self.page.add(label="Remove Working Directory ", 
          control=control.CHOICE_BOX, 
          name='removeWorkingDir', 
          type=dtype.BOOL, 
          values = ["False", "True"],
-         comment="Truncate Working Directory after subject run. This helps remove the space occupied by intermediate files")
+         comment="Deletes the contents of the Working Directory after running.\n\n"
+                 "This saves disk space, but any additional preprocessing or analysis\n"
+                 "will have to be completely re-run.")
                 
-        self.page.add(label="Regenerate Outputs Option:", 
+        self.page.add(label="Regenerate Outputs ", 
          control=control.CHOICE_BOX, 
          name='reGenerateOutputs', 
          type=dtype.BOOL, 
          values = ["True", "False"],
-         comment="Regenerates all the outputs for all the subjects and their symlinks")
+         comment="Uses the contents of the Working Directory to regenerate all outputs\n"
+                 "and their symbolic links.\n\n"
+                 "Requires an intact Working Directory.")
         
         self.page.set_sizer() 
         parent.get_page_list().append(self)
@@ -181,13 +193,7 @@ class GeneralSettings(wx.ScrolledWindow):
                  validator = CharValidator("no-alpha"),
                  comment="Specify a TR other than what is listen in image headers.Options are an integer or None (defaults to header information)")
         
-        self.page.add(label="Create Symbolic Links:", 
-                 control=control.CHOICE_BOX, 
-                 name='runSymbolicLinks', 
-                 type=dtype.BOOL, 
-                 comment="Option to Create Symbolic links of the outputs and creates a pretty output structure.\n" 
-                         "We suggest you to always put this option ON", 
-                 values=["On","Off"])
+        
     
         self.page.set_sizer() 
         parent.get_page_list().append(self)
