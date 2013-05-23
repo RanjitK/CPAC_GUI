@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import wx
 from gui.windows.main_window import ListBox
 

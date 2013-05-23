@@ -1,5 +1,6 @@
 import wx
 import wx.html
+import os
 from ..utils.generic_class import GenericClass
 from ..utils.constants import control, dtype
 from ..utils.validator import CharValidator
@@ -127,6 +128,11 @@ class AnatToFuncRegistration(wx.ScrolledWindow):
                 
         self.page = GenericClass(self, "Anatomical to Functional Registration")
         
+        fsl = os.environ.get('FSLDIR')
+        if fsl == None:
+            fsl = "$FSLDIR"
+        
+        
         self.page.add(label="Run Anatomical to Functional Registration:", 
                      control=control.CHOICE_BOX, 
                      name='runAnatomicalToFunctionalRegistration', 
@@ -146,14 +152,14 @@ class AnatToFuncRegistration(wx.ScrolledWindow):
                       control=control.COMBO_BOX, 
                       name='standardResolutionBrain', 
                       type=dtype.STR, 
-                      values = "$FSLDIR/data/standard/MNI152_T1_${standardResolution}_brain.nii.gz",
+                      values = str(os.path.join(fsl,"data/standard/MNI152_T1_${standardResolution}_brain.nii.gz")),
                       comment="Standard FSL Skull Stripped Template. Used as a reference image for functional registration")
         
         self.page.add(label="Standard Template with Skull (functional resolution):", 
                       control=control.COMBO_BOX, 
                       name='standard', 
                       type=dtype.STR, 
-                      values = "$FSLDIR/data/standard/MNI152_T1_$standardResolution.nii.gz",
+                      values =  str(os.path.join(fsl,"data/standard/MNI152_T1_$standardResolution.nii.gz")),
                       comment="Standard FSL Anatomical Brain Image with Skull")
         
         self.page.set_sizer()
@@ -170,6 +176,10 @@ class FuncToMNIRegistration(wx.ScrolledWindow):
                 
         self.page = GenericClass(self, "Functional to MNI Registration")
         
+        fsl = os.environ.get('FSLDIR')
+        if fsl == None:
+            fsl = "$FSLDIR"
+        
         self.page.add(label="Run Functional to MNI Registration:", 
                      control=control.CHOICE_BOX, 
                      name='runRegisterFuncToMNI', 
@@ -182,14 +192,14 @@ class FuncToMNIRegistration(wx.ScrolledWindow):
                      control=control.COMBO_BOX, 
                      name='identityMatrix', 
                      type=dtype.STR, 
-                     values = "$FSLDIR/etc/flirtsch/ident.mat",
+                     values = str(os.path.join(fsl,"etc/flirtsch/ident.mat")),
                     comment="Matrix with all 1's. Used as a transformation matrix for re-sampling an image by flirt ")
                     
         self.page.add(label="Boundary Based Registration Scheduler:", 
                      control=control.COMBO_BOX, 
                      name='boundaryBasedRegistrationSchedule', 
                      type=dtype.STR, 
-                     values = "$FSLDIR/etc/flirtsch/bbr.sch",
+                     values = str(os.path.join(fsl,"etc/flirtsch/bbr.sch")),
                      comment="Standard FSL Scheduler used for Boundary Based Registration. Available in FSL 5.0")
      
         self.page.set_sizer()

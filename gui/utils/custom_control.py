@@ -144,7 +144,7 @@ class TextBoxFrame(wx.Frame):
 class ConfigFslFrame(wx.Frame):
     
     def __init__(self, parent, values):
-        wx.Frame.__init__(self, parent, title="Select FSL Model Directory and SubjectList", size = (650,200))
+        wx.Frame.__init__(self, parent, title="Select FSL Model Directory and SubjectList", size = (700,200))
         sizer = wx.BoxSizer(wx.VERTICAL)
         panel = wx.Panel(self)
         
@@ -211,7 +211,7 @@ class ListBoxCombo(wx.Panel):
         self.listbox = wx.CheckListBox(self, id = wx.ID_ANY, size = size, style = wx.LB_HSCROLL)
         self.listbox.Bind(wx.EVT_LISTBOX_DCLICK, self.onHover)
         bmp = wx.Bitmap("images/plus12.jpg", wx.BITMAP_TYPE_ANY)
-        self.button = wx.BitmapButton(self, -1, bmp, size= (30,30))
+        self.button = wx.BitmapButton(self, -1, bmp,size = (bmp.GetWidth(), bmp.GetHeight()))# size= (30,30))
         self.button.Bind(wx.EVT_BUTTON, self.onButtonClick)
         sizer.Add(self.listbox,wx.EXPAND | wx.ALL, 10)
         sizer.Add(self.button)

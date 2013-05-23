@@ -66,7 +66,8 @@ class GPASettings(wx.ScrolledWindow):
                               "fALFF = falff_Z_to_standard_smooth\n"\
                               "VMHC = vmhc_z_score_stat_map\n"\
                               "Reho = reho_Z_to_standard_smooth\n"\
-                              "Dual Regression = dr_tempreg_maps_z_files_smooth")
+                              "Dual Regression = dr_tempreg_maps_z_files_smooth",
+                    size = (220,160))
         
         self.page.add(label = "Model Subjects Specification File:",
                       control = control.LISTBOX_COMBO,

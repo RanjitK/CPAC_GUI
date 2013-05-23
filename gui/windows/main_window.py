@@ -200,7 +200,7 @@ class ListBox(wx.Frame):
                 
                 
     def OnDelete(self, event):
-        import os
+
         def removekey(d, key):
             r = dict(d)
             del r[key]
@@ -228,7 +228,6 @@ class ListBox(wx.Frame):
 
         
     def OnEdit(self, event):
-        import os
         
         sel = self.listbox.GetSelection()
         if sel != -1:
@@ -242,7 +241,6 @@ class ListBox(wx.Frame):
      
     def OnLoad(self, event):
         
-        import os
         dlg = wx.FileDialog(
             self, message="Choose the config yaml file",
                 defaultDir=os.getcwd(), 
@@ -311,8 +309,7 @@ class ListBox(wx.Frame):
     
     
     def AddItem(self, event):
-        import os
-        import yaml
+        
         dlg = wx.FileDialog(
             self, message="Choose the CPAC Subject list file",
             defaultDir=os.getcwd(), 
@@ -341,4 +338,3 @@ class ListBox(wx.Frame):
                             dlg3.Destroy()
                         
                     
-       

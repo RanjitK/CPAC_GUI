@@ -165,8 +165,6 @@ class ModelConfig(wx.Frame):
         
         self.panel.SetSizer(mainSizer)
         
-        self.result = []
-        
         self.Show()
         
     def cancel(self, event):
@@ -298,16 +296,9 @@ class ModelConfig(wx.Frame):
                             
                 if flag == 'run':
                     if self.run_model(path) >0:
-                        self.result = []
-                        self.result.append(config_map.get('outputModelFilesDirectory')[1])
-                        self.result.append(config_map.get('subjectListFile')[1])
-                        
-                
-                if len(self.result) ==2:
-                    self.Parent.box1.GetTextCtrl().SetValue(self.result[0])
-                    self.Parent.box2.GetTextCtrl().SetValue(self.result[1])
-                
-                self.Close()
+                        self.Parent.box1.GetTextCtrl().SetValue(config_map.get('outputModelFilesDirectory')[1])
+                        self.Parent.box2.GetTextCtrl().SetValue(config_map.get('subjectListFile')[1])
+                        self.Close()
    
         except Exception:
             print "error writing temp file "
