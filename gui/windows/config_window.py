@@ -88,8 +88,8 @@ class Mybook(wx.Treebook):
         
         self.AddPage(page5, "Anatomical Preprocessing", wx.ID_ANY)
         self.AddSubPage(page6, "Anatomical", wx.ID_ANY)
-        self.AddSubPage(page7, "Registration", wx.ID_ANY)
-        self.AddSubPage(page8, "Segmentation", wx.ID_ANY)
+        self.AddSubPage(page7, "Anatomial Registration", wx.ID_ANY)
+        self.AddSubPage(page8, "Tissue Segmentation", wx.ID_ANY)
         
         self.AddPage(page9, "Functional Preprocessing", wx.ID_ANY)
         self.AddSubPage(page10, "Functional", wx.ID_ANY)
@@ -126,8 +126,8 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page33, "SCA Settings", wx.ID_ANY)
         self.AddSubPage(page34, "Mutiple Regression SCA", wx.ID_ANY)
         
-        self.AddPage(page35, "Smoothing", wx.ID_ANY)
-        self.AddSubPage(page36, "Smoothing Settings", wx.ID_ANY)
+        self.AddPage(page35, "Spatial Smoothing", wx.ID_ANY)
+        self.AddSubPage(page36, "Spatial Smoothing Options", wx.ID_ANY)
         
         self.AddPage(page37, "BASC", wx.ID_ANY)
         self.AddSubPage(page38, "BASC Settings", wx.ID_ANY)
