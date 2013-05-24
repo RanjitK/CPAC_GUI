@@ -103,7 +103,8 @@ class DataConfig(wx.Frame):
         self.multiscan = wx.CheckBox(btnPanel, -1, label = "Multiscan Data")
         hbox.Add(self.multiscan, 0.6, flag = wx.RIGHT| wx.BOTTOM, border =5)
         
-        run_ext = wx.Button(btnPanel, ID_RUN_EXT, "Generate Sublist", (280,10), wx.DefaultSize, 0 )
+
+        run_ext = wx.Button(btnPanel, ID_RUN_EXT, "Generate Subject Lists", (280,10), wx.DefaultSize, 0 )
         self.Bind(wx.EVT_BUTTON, lambda event: self.save(event,'run'), id=ID_RUN_EXT)
         hbox.Add( run_ext, 1, flag=wx.LEFT|wx.ALIGN_LEFT, border=10)
         
