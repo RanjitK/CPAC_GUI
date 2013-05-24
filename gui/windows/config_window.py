@@ -88,8 +88,8 @@ class Mybook(wx.Treebook):
         
         self.AddPage(page5, "Anatomical Preprocessing", wx.ID_ANY)
         self.AddSubPage(page6, "Anatomical", wx.ID_ANY)
-        self.AddSubPage(page7, "Registration", wx.ID_ANY)
-        self.AddSubPage(page8, "Segmentation", wx.ID_ANY)
+        self.AddSubPage(page7, "Anatomial Registration", wx.ID_ANY)
+        self.AddSubPage(page8, "Tissue Segmentation", wx.ID_ANY)
         
         self.AddPage(page9, "Functional Preprocessing", wx.ID_ANY)
         self.AddSubPage(page10, "Functional", wx.ID_ANY)

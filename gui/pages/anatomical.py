@@ -59,7 +59,6 @@ class Anatomical(wx.ScrolledWindow):
 
 class Segmentation(wx.ScrolledWindow):
 
-    
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
         import os
@@ -146,34 +145,34 @@ class Registration(wx.ScrolledWindow):
         if not fsl:
             fsl = "$FSLDIR"
         
-        self.page.add(label="Run Registration:", 
+        self.page.add(label="Run Anatomical Registration ", 
                      control=control.CHOICE_BOX, 
                      name='runRegistrationPreprocessing', 
                      type=dtype.LSTR, 
-                     comment="Run anatomical registration to generate anatomical-mni linear and non-linear transforms", 
+                     comment="Register anatomical images to a template.\n\nFor more information on this process, see the Registration page of the User Guide.", 
                      values=["On","Off"],
                      wkf_switch = True)
         
-        self.page.add(label="Standard Resolution:", 
+        self.page.add(label="Anatomical Template Resolution ", 
                       control=control.CHOICE_BOX, 
                       name='standardResolutionAnat', 
                       type=dtype.STR, 
-                      values = ["2mm", "1mm", "3mm"],
-                      comment="The resolution (in mm) to which functional images are transformed during registration")
+                      values = ["1mm", "2mm", "3mm"],
+                      comment="The resolution to which anatomical images should be transformed during registration.")
         
-        self.page.add(label="Standard Brain only Template (anatomical resolution):", 
+        self.page.add(label="Anatomical Template (Brain Only) ", 
                      control=control.COMBO_BOX, 
                      name='standardResolutionBrainAnat', 
                      type=dtype.STR, 
                      values = str(os.path.join(fsl, "data/standard/MNI152_T1_${standardResolutionAnat}_brain.nii.gz")),
-                     comment="Standard FSL Skull Stripped Template. Used as a reference image for anatomical registration")
+                     comment="Template to be used during registration.\n\nIt is not necessary to change this path unless you intend to use a non-standard template.")
 
-        self.page.add(label="Standard Template with Skull (anatomical resolution):", 
+        self.page.add(label="Anatomical Template (With Skull) ", 
                      control=control.COMBO_BOX, 
                      name='standardAnat', 
                      type=dtype.STR, 
                      values =  str(os.path.join(fsl, "data/standard/MNI152_T1_${standardResolutionAnat}.nii.gz")),
-                     comment="Standard FSL Template with Skull. Used as a reference image for anatomical registration")
+                     comment="Template to be used during registration.\n\nIt is not necessary to change this path unless you intend to use a non-standard template.")
 
         self.page.set_sizer()
         parent.get_page_list().append(self)
