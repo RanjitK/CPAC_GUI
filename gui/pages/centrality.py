@@ -36,74 +36,56 @@ class CentralitySettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Network Centrality")
+        self.page = GenericClass(self, "Network Centrality Options")
         
-        self.page.add(label="Run Network Centrality:", 
+        self.page.add(label="Calculate Network Centrality Measures ", 
                  control=control.CHOICE_BOX, 
                  name='runNetworkCentrality', 
                  type=dtype.LSTR, 
-                 comment="Calculate network centrality measures", 
+                 comment="Calculate Degree Centrality and/or Eigenvector Centrality.", 
                  values=["Off","On"],
                  wkf_switch = True)
+
+        self.page.add(label="ROI / Mask Specification File ", 
+                     control=control.COMBO_BOX, 
+                     name='templateSpecificationFile', 
+                     type=dtype.STR, 
+                     values = "",
+                     comment="Full path to a text file containing a mask or list of ROIs.\n\nEach line of this file should contain the path to an ROI or mask.\n\nIf a mask is specified, centrality will be calculated for all voxels within the mask.\n\nIf a list of ROIs is specified, each ROI will be treated as a node, and centrality will be calculated for each node.")
         
-        self.page.add(label = "Centrality Method Options:",
+        self.page.add(label = "Measures to Calculate ",
                       control = control.CHECKLIST_BOX,
                       name = "centralityMethodOptions",
                       type = dtype.LBOOL,
-                      values = ['Degree', 'EigenVector'],
-                      comment = "Select which centrality measures to calculate\n"\
-                                "First Value = Degree Centrality \n Second value = Eigenvector Centrality")
+                      values = ['Degree Centrality', 'Eigenvector Centrality'],
+                      comment = "Calculating Eigenvector Centrality will take significantly longer and require significantly more computing power to calculate than Degree Centrality.")
         
-        self.page.add(label = "Centrality Weight Options:",
+        self.page.add(label = "Connection Weight Options ",
                       control = control.CHECKLIST_BOX,
                       name = "centralityWeightOptions",
                       type = dtype.LBOOL,
                       values = ['Binarized', 'Weighted'],
-                      comment = "Specify how connections are defined during graph construction\n"\
-                                "First value = Binarized (connection strenth is either 0 or 1)\n"\
-                                "Second value = Weighted (connection strength is a correlation value)")
+                      comment = "Specify how connections are represented during graph construction.\n\nBinarized: Connection strength is either 1 or 0.\n\nWeighted: Connection strength is a correlation value.")
         
-        self.page.add(label="Centrality Threshold Options:", 
+        self.page.add(label="Threshold Type ", 
                      control=control.CHOICE_BOX, 
                      name='correlationThresholdOption', 
                      type=dtype.NUM, 
-                     comment="Select what type of threshold is applied to create an adjacency matrix\n"\
-                             "0 = Significance threshold (P-value)\n"\
-                             "1 = Sparsity threshold (Sparsity value)\n"\
-                             "2 = Correlation threshold (Pearson's r)", 
+                     comment="Select the type of threshold used when creating the adjacency matrix.\n\n0 = Significance threshold\n1 = Sparsity threshold\n2 = Correlation threshold", 
                      values=["0","1", "2"])
         
-        self.page.add(label="Correlation Threshold:", 
+        self.page.add(label="Threshold Value ", 
                      control=control.FLOAT_CTRL, 
                      name='correlationThreshold', 
                      type=dtype.NUM, 
-                     comment="Based on the type of threshold selected above, enter the appropriate value\n"\
-                             "Significance threshold = P-value\n"\
-                             "Sparsity threshold = sparsity value\n"\
-                             "Correlation threshold = Pearsons' r value", 
+                     comment="Based on the Threshold Type selected above, enter a Threshold Value.\n\nP-value for Significance Threshold\nSparsity value for Sparsity Threshold\nPearson's r value for Correlation Threshold", 
                      values=0.001)
         
-        self.page.add(label="Template Specification File:", 
-                     control=control.COMBO_BOX, 
-                     name='templateSpecificationFile', 
-                     type=dtype.STR, 
-                     values = "/path/to/file_containing_templates.txt",
-                     comment="File containing ROI definitions or masks\n"\
-                            "Using ROIs will result in node-based centrality measures\n"\
-                            "Using a mask will result in voxel-based centrality measures\n"\
-                            "Each line of file contains full path to ROI or mask files\n"\
-                            "Example:\n"\
-                            "/path/to/template_1.nii.gz\n"\
-                            "/path/to/template_2.nii.gz\n"\
-                            "/path/to/template_3.nii.gz")
-        
-        self.page.add(label="Memory Allocated for Degree Centrality:", 
+        self.page.add(label="Maximum RAM Use ", 
                      control=control.FLOAT_CTRL, 
                      name='memoryAllocatedForDegreeCentrality', 
                      type=dtype.NUM, 
-                     comment="Memory allocated for degree centrality in GB\n"\
-                              "Note:- If eigen vector is turned on, CPAC will take extra memory to calculate\n"\
-                              "eigen vector centrality. This memory is based on size of mask/template used.", 
+                     comment="Maximum amount of RAM (in GB) to be used when calculating Degree Centrality.\n\nCalculating Eigenvector Centrality will require additional memory based on the size of the mask or number of ROI nodes.", 
                      values=2)
         
         

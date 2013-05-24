@@ -126,8 +126,8 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page33, "SCA Settings", wx.ID_ANY)
         self.AddSubPage(page34, "Mutiple Regression SCA", wx.ID_ANY)
         
-        self.AddPage(page35, "Smoothing", wx.ID_ANY)
-        self.AddSubPage(page36, "Smoothing Settings", wx.ID_ANY)
+        self.AddPage(page35, "Spatial Smoothing", wx.ID_ANY)
+        self.AddSubPage(page36, "Spatial Smoothing Options", wx.ID_ANY)
         
         self.AddPage(page37, "BASC", wx.ID_ANY)
         self.AddSubPage(page38, "BASC Settings", wx.ID_ANY)

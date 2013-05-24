@@ -41,7 +41,7 @@ class ALFFSettings(wx.ScrolledWindow):
                  control=control.CHOICE_BOX, 
                  name='runALFF', 
                  type=dtype.LSTR, 
-                 comment="Calculate ALFF and fALFF for all voxels.", 
+                 comment="Calculate Amplitude of Low Frequency Fluctuations (ALFF) and and fractional ALFF (fALFF) for all voxels.", 
                  values=["On","Off"],
                  wkf_switch = True)
         

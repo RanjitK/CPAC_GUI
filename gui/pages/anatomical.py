@@ -71,7 +71,7 @@ class Segmentation(wx.ScrolledWindow):
                  control=control.CHOICE_BOX, 
                  name='runSegmentationPreprocessing', 
                  type=dtype.LSTR, 
-                 comment="Automatically segment anatomical images into white matter, gray matter, and CSF based on prior probability maps.\n\nFor more information on this process, see the Tissue Segmentation page of the User Guide.", 
+                 comment="Automatically segment anatomical images into white matter, gray matter, and CSF based on prior probability maps.", 
                  values=["On","Off"],
                  wkf_switch = True)
 
@@ -149,7 +149,7 @@ class Registration(wx.ScrolledWindow):
                      control=control.CHOICE_BOX, 
                      name='runRegistrationPreprocessing', 
                      type=dtype.LSTR, 
-                     comment="Register anatomical images to a template.\n\nFor more information on this process, see the Registration page of the User Guide.", 
+                     comment="Register anatomical images to a template.", 
                      values=["On","Off"],
                      wkf_switch = True)
         
