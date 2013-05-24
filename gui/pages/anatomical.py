@@ -66,71 +66,68 @@ class Segmentation(wx.ScrolledWindow):
         
         self.counter = counter
                 
-        self.page = GenericClass(self, "Anatomical Segmentation")
+        self.page = GenericClass(self, "Automatic Tissue Segmentation ")
         
-        self.page.add(label="Run Tissue Segmentation:", 
+        self.page.add(label="Run Tissue Segmentation ", 
                  control=control.CHOICE_BOX, 
                  name='runSegmentationPreprocessing', 
                  type=dtype.LSTR, 
-                 comment="Run automatic tissue segmentation using fsl fast", 
+                 comment="Automatically segment anatomical images into white matter, gray matter, and CSF based on prior probability maps.\n\nFor more information on this process, see the Tissue Segmentation page of the User Guide.", 
                  values=["On","Off"],
                  wkf_switch = True)
-        
-        self.page.add(label= "Path to Priors:",
-                 control=control.DIR_COMBO_BOX, 
-                 name='prior_path', 
-                 type=dtype.STR, 
-                 values= os.path.join(os.environ['FSLDIR'], 'data/standard/tissuepriors/$standardResolution'),
-                 comment="Tissue Prior Directory")
-        
-        self.page.add(label= "Prior CSF Tissue Path",
-                 control=control.COMBO_BOX, 
-                 name='PRIOR_CSF', 
-                 type=dtype.STR, 
-                 values = '$prior_path/avg152T1_csf_bin.nii.gz',
-                 comment="location of your prior CSF tissue file")
-        
-        self.page.add(label= "Prior Gray Matter Tissue Path",
-                 control=control.COMBO_BOX, 
-                 name='PRIOR_GRAY', 
-                 type=dtype.STR, 
-                 values = '$prior_path/avg152T1_gray_bin.nii.gz',
-                 comment="location of your prior gray matter tissue file")
-                
-        self.page.add(label= "Prior White Matter Path",
-                 control=control.COMBO_BOX, 
-                 name='PRIOR_WHITE', 
-                 type=dtype.STR, 
-                 values = '$prior_path/avg152T1_white_bin.nii.gz',
-                 comment="location of your prior White matter tissue file")
-                
-        self.page.add(label= "CSF threshold",
-                 control=control.TEXT_BOX, 
-                 name='cerebralSpinalFluidThreshold', 
-                 type=dtype.LNUM, 
-                 values = "0.98",
-                 validator = CharValidator("no-alpha"),
-                 comment="CSF threshold. It can have one value eg: 0.98 or" \
-                         "list of values seprated by comma eg: 0.98, 0.95",
-                 size=(100,-1))
-        
-        self.page.add(label= "White matter threshold",
+
+        self.page.add(label= "White Matter Probability Threshold ",
                  control=control.TEXT_BOX, 
                  name='whiteMatterThreshold', 
                  type=dtype.LNUM, 
-                 values= "0.98",
+                 values= "0.96",
                  validator = CharValidator("no-alpha"),
-                 comment="White matter threshold. It can have one value eg: 0.98 or"\
-                         "list of values seprated by comma eg: 0.98, 0.95")
+                 comment="Only voxels with a White Matter probability greater than this value will be classified as White Matter.\n\nCan be a single value or a list of values separated by commas.")
         
-        self.page.add(label = 'Gray matter threshold',
+        self.page.add(label = "Gray Matter Probability Threshold ",
                  control =control.TEXT_BOX,
                  name = 'grayMatterThreshold',
                  type =dtype.LNUM,
                  values= "0.7",
                  validator = CharValidator("no-alpha"),
-                 comment= "Gray matter threshold")
+                 comment= "Only voxels with a Gray Matter probability greater than this value will be classified as Gray Matter.\n\nCan be a single value or a list of values separated by commas.")
+
+        self.page.add(label= "CSF Probability Threshold ",
+                 control=control.TEXT_BOX, 
+                 name='cerebralSpinalFluidThreshold', 
+                 type=dtype.LNUM, 
+                 values = "0.96",
+                 validator = CharValidator("no-alpha"),
+                 comment="Only voxels with a CSF probability greater than this value will be classified as CSF.\n\nCan be a single value or a list of values separated by commas.")
         
+        self.page.add(label= "Priors Directory ",
+                 control=control.DIR_COMBO_BOX, 
+                 name='prior_path', 
+                 type=dtype.STR, 
+                 values= os.path.join(os.environ['FSLDIR'], 'data/standard/tissuepriors/$standardResolution'),
+                 comment="Full path to a directory containing binarized prior probability maps.\n\nThese maps are included as part of the 'Image Resource Files' package avialble for download from the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")
+
+        self.page.add(label= "White Matter Prior Probability Map ",
+                 control=control.COMBO_BOX, 
+                 name='PRIOR_WHITE', 
+                 type=dtype.STR, 
+                 values = '$prior_path/avg152T1_white_bin.nii.gz',
+                 comment="Full path to a binarized White Matter prior probability map.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")
+        
+        self.page.add(label= "Gray Matter Prior Probability Map ",
+                 control=control.COMBO_BOX, 
+                 name='PRIOR_GRAY', 
+                 type=dtype.STR, 
+                 values = '$prior_path/avg152T1_gray_bin.nii.gz',
+                 comment="Full path to a binarized Gray Matter prior probability map.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")
+        
+        self.page.add(label= "CSF Prior Probability Map ",
+                 control=control.COMBO_BOX, 
+                 name='PRIOR_CSF', 
+                 type=dtype.STR, 
+                 values = '$prior_path/avg152T1_csf_bin.nii.gz',
+                 comment="Full path to a binarized CSF prior probability map.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")        
+                
         self.page.set_sizer()
         parent.get_page_list().append(self)
         

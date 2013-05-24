@@ -166,7 +166,7 @@ class GeneralSettings(wx.ScrolledWindow):
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
         
-        self.page = GenericClass(self, "General Settings")
+        self.page = GenericClass(self, "Advanced Workflow Configuration")
         self.counter = counter 
                 
                 
