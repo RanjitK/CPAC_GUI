@@ -291,21 +291,21 @@ class ModelConfig(wx.Frame):
                                        
                         print >> f, item[0], ": ", value, "\n"
                 
-                print "saving %s"%path               
-                f.close()
+                    print "saving %s"%path               
+                    f.close()
                             
-                if flag == 'run':
-                    if self.run_model(path) >0:
-                        self.Parent.box1.GetTextCtrl().SetValue(config_map.get('outputModelFilesDirectory')[1])
-                        self.Parent.box2.GetTextCtrl().SetValue(config_map.get('subjectListFile')[1])
-                        self.Close()
+                    if flag == 'run':
+                        if self.run_model(path) >0:
+                            self.Parent.box1.GetTextCtrl().SetValue(config_map.get('outputModelFilesDirectory')[1])
+                            self.Parent.box2.GetTextCtrl().SetValue(config_map.get('subjectListFile')[1])
+                            self.Close()
    
         except Exception:
             print "error writing temp file "
             raise
         
     def load(self, event):
-        import os
+
         dlg = wx.FileDialog(
             self, message="Choose the config fsl yaml file",
                 defaultDir=os.getcwd(), 
@@ -317,6 +317,7 @@ class ModelConfig(wx.Frame):
             path = dlg.GetPath()
                 
             config_map = yaml.load(open(path, 'r'))
+            s_map = dict((v,k) for k,v in substitution_map.iteritems())
             
             for ctrl in self.page.get_ctrl_list():
                 name = ctrl.get_name()
@@ -330,7 +331,7 @@ class ModelConfig(wx.Frame):
                         else:
                             val = str(v)
                 else:
-                    val = substitution_map.get(value)
+                    val = s_map.get(value)
                     if val == None:
                         val = value
             

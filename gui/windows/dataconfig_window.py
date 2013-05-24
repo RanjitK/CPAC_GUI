@@ -2,6 +2,7 @@ import wx
 from ..utils.generic_class import GenericClass
 from ..utils.constants import control, dtype
 import os
+import yaml
 
 ID_RUN_EXT = 11
 ID_RUN_MEXT = 12
@@ -102,8 +103,9 @@ class DataConfig(wx.Frame):
         self.multiscan = wx.CheckBox(btnPanel, -1, label = "Multiscan Data")
         hbox.Add(self.multiscan, 0.6, flag = wx.RIGHT| wx.BOTTOM, border =5)
         
+
         run_ext = wx.Button(btnPanel, ID_RUN_EXT, "Generate Subject Lists", (280,10), wx.DefaultSize, 0 )
-        self.Bind(wx.EVT_BUTTON, self.run_extract_data, id=ID_RUN_EXT)
+        self.Bind(wx.EVT_BUTTON, lambda event: self.save(event,'run'), id=ID_RUN_EXT)
         hbox.Add( run_ext, 1, flag=wx.LEFT|wx.ALIGN_LEFT, border=10)
         
         buffer = wx.StaticText(btnPanel, label = "\t\t\t\t")
@@ -115,11 +117,11 @@ class DataConfig(wx.Frame):
         hbox.Add( cancel, 0, flag=wx.LEFT|wx.BOTTOM, border=5)
         
         load = wx.Button(btnPanel, wx.ID_ADD, "Load Settings", (280,10), wx.DefaultSize, 0 )
-        self.Bind(wx.EVT_BUTTON, self.save, id=wx.ID_ADD)
+        self.Bind(wx.EVT_BUTTON, self.load, id=wx.ID_ADD)
         hbox.Add(load, 0.6, flag=wx.LEFT|wx.BOTTOM, border=5)
         
         save = wx.Button(btnPanel, wx.ID_SAVE, "Save Settings", (280,10), wx.DefaultSize, 0 )
-        self.Bind(wx.EVT_BUTTON, self.save, id=wx.ID_SAVE)
+        self.Bind(wx.EVT_BUTTON, lambda event: self.save(event,'save'), id=wx.ID_SAVE)
         hbox.Add(save, 0.6, flag=wx.LEFT|wx.BOTTOM, border=5)
     
         btnPanel.SetSizer(hbox)
@@ -134,57 +136,63 @@ class DataConfig(wx.Frame):
         self.Close()
         
         
-    def run(self, event):
-        pass
-        
-        
-    def run_extract_data(self, event):
-        import os
-        import yaml
-        dlg = wx.FileDialog(
-            self, message="Choose the data configuration file",
-            defaultDir=os.getcwd(), 
-            defaultFile="data_config.yaml",
-            wildcard="YAML files(*.yaml, *.yml)|*.yaml;*.yml",
-            style=wx.OPEN | wx.CHANGE_DIR)
-        
-        if dlg.ShowModal() == wx.ID_OK:
-            path = dlg.GetPath()
+    def run(self, config):
             
-            try:  
-                config_map = yaml.load(open(path, 'r'))
+        try:  
+
+            try:
+                config_map = yaml.load(open(config, 'r'))
                 out_location = os.path.join(\
                                os.path.realpath(config_map.get('outputSubjectListLocation')),\
                                'CPAC_subject_list.yml')
-                os.system("python extract_data.py " + path)    
-                while True:
-                    
-                    dlg2 = wx.TextEntryDialog(self, 'Please enter a name for the Subject List',
-                                                     'Sublist Name', "CPAC_Sublist")
-                    if dlg2.ShowModal() == wx.ID_OK:
-                        if len(dlg2.GetValue()) >0:
-                            parent = self.Parent
-                            map = parent.get_sublist_map()
-                            if map.get(dlg2.GetValue()) == None:
-                                map[dlg2.GetValue()]= out_location
-                                parent.listbox2.Append(dlg2.GetValue())
-                                dlg2.Destroy()
-                                dlg.Destroy()
-                                break
-                            else:
-                                dlg3 = wx.MessageDialog(self, 'Subject List with this name already exist','Error!',
-                                                        wx.OK | wx.ICON_ERROR)
-                                dlg3.ShowModal()
-                                dlg3.Destroy()
+            except Exception, e:
+                print "Error loading data config file", e
+                raise 
             
+            
+            print "executing extract data"
+            multiscan = self.multiscan.IsChecked()
+            
+            import CPAC
+            
+            if multiscan:
+                CPAC.utils.extract_data_multiscan.run(config)
+            else:
+                CPAC.utils.extract_data.run(config)
+            
+            while True:
+                
+                dlg2 = wx.TextEntryDialog(self, 'Please enter a name for the Subject List',
+                                                 'Sublist Name', "CPAC_Sublist")
+                if dlg2.ShowModal() == wx.ID_OK:
+                    if len(dlg2.GetValue()) >0:
+                        parent = self.Parent
+                        map = parent.get_sublist_map()
+                        if map.get(dlg2.GetValue()) == None:
+                            map[dlg2.GetValue()]= out_location
+                            parent.listbox2.Append(dlg2.GetValue())
+                            dlg2.Destroy()
+                            break
+                        else:
+                            dlg3 = wx.MessageDialog(self, 'Subject List with this name already exist','Error!',
+                                                    wx.OK | wx.ICON_ERROR)
+                            dlg3.ShowModal()
+                            dlg3.Destroy()
+            return 1
         
-            except Exception:
-                dlg2 = wx.MessageDialog(self, "Error Creating CPAC Subject List.",
-                                   'Error!',
-                               wx.OK | wx.ICON_ERROR)
-                dlg2.ShowModal()
-                dlg2.Destroy()
-         
+        except ImportError, e:
+            wx.MessageBox("Error importing CPAC. Unable to run extract data tool.", "Error") 
+            print "Error importing CPAC"
+            print e
+            return -1
+        
+        except Exception, e:
+            dlg2 = wx.MessageDialog(self, "Error Creating CPAC Subject List.%s"%e,
+                               'Error!',
+                           wx.OK | wx.ICON_ERROR)
+            dlg2.ShowModal()
+            dlg2.Destroy()
+            return -1
          
     def save(self, event, flag):
         
@@ -194,65 +202,104 @@ class DataConfig(wx.Frame):
             win.SetBackgroundColour("pink")
             win.SetFocus()
             win.Refresh()
+            raise ValueError
         
-        for ctrl in self.page.get_ctrl_list():
-            print "validating ctrl-->", ctrl.get_name()
-            win = ctrl.get_ctrl()
-            print "ctrl.get_selection()", ctrl.get_selection()
-            print "type(ctrl.get_selection())", type(ctrl.get_selection())
-                    
-            value = str(ctrl.get_selection())
-            name = ctrl.get_name()
-            dtype= ctrl.get_datatype()
-                  
-            if len(value) == 0:
-                display(win,"%s field must contain some text!"%ctrl.get_name())
-                return
+        try:
+            for ctrl in self.page.get_ctrl_list():
+                print "validating ctrl-->", ctrl.get_name()
+                win = ctrl.get_ctrl()
+                print "ctrl.get_selection()", ctrl.get_selection()
+                print "type(ctrl.get_selection())", type(ctrl.get_selection())
                         
-            if 'Template' in name:
-                if value.count('%s') != 2:
-                    display(win,"Incorrect template, two \'%s\' values are required. One for site and another for"\
-                            " subject location in the path. Please refere to example!")
+                value = str(ctrl.get_selection())
+                name = ctrl.get_name()
+                dtype= ctrl.get_datatype()
+                      
+                if len(value) == 0:
+                    display(win,"%s field must contain some text!"%ctrl.get_name())
+                            
+                if 'Template' in name:
+                    if value.count('%s') != 2:
+                        display(win,"Incorrect template, two \'%s\' values are required. One for site and another for"\
+                                " subject location in the path. Please refere to example!")
+                        
+                    if value.startswith('%s'):
+                        display(win, "Template cannot start with %s")
+                        
+                if '/' in value and 'Template' not in name:
+                    if not os.path.exists(ctrl.get_selection()):
+                        display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
+         
+                config_list.append((name, value, dtype))
+                
+        except Exception, e:
+            print e
+            return
+            
+        else:
+        
+            dlg = wx.FileDialog(
+                self, message="Save file as ...", 
+                defaultDir=os.getcwd(), 
+                defaultFile="data_config.yaml", 
+                wildcard="YAML files(*.yaml, *.yml)|*.yaml;*.yml", 
+                style=wx.SAVE)
+            
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                dlg.Destroy()
+                f = open(path, 'w')
+                for ctrl in config_list:
+        
+                    if "/" in ctrl[1] or "%s" in ctrl[1] or 'None' in ctrl[1]: 
+                        value = ctrl[1]
+                    else:
+                        value =[val.strip() for val in ctrl[1].split(',')]
                     
-                if value.startswith('%s'):
-                    display(win, "Template cannot start with %s")
-                    return
-            
-            if '/' in value and 'Template' not in name:
-                if not os.path.exists(ctrl.get_selection()):
-                    display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
-                    return
+                    print name, ":", value, "\n"
+                    print >>f, ctrl[0], " : ", value, "\n"
                 
-            config_list.append((name, value, dtype))
+                f.close()
+                print "saving %s"%path
                 
-        
-        dlg = wx.FileDialog(
-            self, message="Save file as ...", 
-            defaultDir=os.getcwd(), 
-            defaultFile="data_config.yaml", 
-            wildcard="YAML files(*.yaml, *.yml)|*.yaml;*.yml", 
-            style=wx.SAVE)
-        
-        if dlg.ShowModal() == wx.ID_OK:
-            path = dlg.GetPath()
-        
-            f = open(path, 'w')
-            for ctrl in config_list:
-    
-                if "/" in ctrl[1] or "%s" in ctrl[1] or 'None' in ctrl[1]: 
-                    value = ctrl[1]
-                else:
-                    value =[val.strip() for val in ctrl[1].split(',')]
-                
-                print name, ":", value, "\n"
-                print >>f, ctrl[0], " : ", value, "\n"
+                if flag == 'run':
+                    if self.run(path) >0:
+                        self.Close()
+                    
             
-            f.close()
-            
-            print "saving %s"%path
 
-            
-        dlg.Destroy()
+    def load(self, event):
+            dlg = wx.FileDialog(
+            self, message="Choose the config fsl yaml file",
+                defaultDir=os.getcwd(), 
+                defaultFile="",
+                wildcard= "YAML files(*.yaml, *.yml)|*.yaml;*.yml",
+                style=wx.OPEN | wx.CHANGE_DIR)
+        
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                    
+                config_map = yaml.load(open(path, 'r'))
+                for ctrl in self.page.get_ctrl_list():
+                    name = ctrl.get_name()
+                    value = config_map.get(name)
+                    dtype = ctrl.get_datatype()
+                    if isinstance(value, list):
+                        val = None
+                        for v in value:
+                            if val:
+                                val = val + "," + str(v)
+                            else:
+                                val = str(v)
+                    else:
+                        val = value
+                
+                    #print "setting value in ctrl name, value -->", name, val             
+                    ctrl.set_value(str(val))
+                
+                        
+                dlg.Destroy()
+        
         
 #app = wx.App()
 #DataConfig(None).Show()
