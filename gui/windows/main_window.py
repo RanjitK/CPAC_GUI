@@ -105,7 +105,7 @@ class ListBox(wx.Frame):
         clr2 = wx.Button(btnPanel2, ID_CLEAR, 'Clear', size=(90, 30))
         self.Bind(wx.EVT_BUTTON, self.CreateItem, id=ID_CREATE)
         self.Bind(wx.EVT_BUTTON, self.AddItem, id=ID_ADD)
-        self.Bind(wx.EVT_BUTTON, lambda event: self.OnShow, id= ID_SHOW)
+        self.Bind(wx.EVT_BUTTON, self.OnShow, id= ID_SHOW)
         self.Bind(wx.EVT_BUTTON, lambda event: self.OnClear(event, 2), id=ID_CLEAR)
         btnSizer2.Add((-1, 30))
         btnSizer2.Add(create)
