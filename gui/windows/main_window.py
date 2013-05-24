@@ -149,13 +149,36 @@ class ListBox(wx.Frame):
 
     def runIndividualAnalysis(self, event):
 
-        if (self.listbox.GetChecked() or self.listbox.GetSelection()!= -1) and \
-            (self.listbox2.GetChecked() or self.listbox2.GetSelection()!= -1):
-            
-            self.runCPAC1.SetPulseOnFocus(True)
-        else:
-            print "no pipeline and subject list selected"
-        
+        try:
+                if (self.listbox.GetChecked() or self.listbox.GetSelection()!= -1) and \
+                    (self.listbox2.GetChecked() or self.listbox2.GetSelection()!= -1):
+                    
+                    pipelines = self.listbox.GetChecked()
+                    sublists = self.listbox2.GetChecked()
+                    
+                    self.runCPAC1.SetPulseOnFocus(True)
+                    
+                    import CPAC
+                    
+                    for s in sublists:
+                        sublist = self.sublist_map.get(s)
+                        for p in pipelines:
+                            pipeline = self.pipeline_map.get(p)
+                            
+                            CPAC.pipeline.cpac_runner.run(pipeline, sublist)
+                            print "Pipeline %s successfully ran for subject list %s"%(p,s)
+                    
+                else:
+                    print "no pipeline and subject list selected"
+                    
+        except ImportError, e:
+                wx.MessageBox("Error importing CPAC. %s"%e, "Error") 
+                print "Error importing CPAC"
+                print e
+        except Exception, e:
+                print e
+                wx.MessageBox(e, "Error") 
+                
     def runGroupLevelAnalysis(self, event):
         print "running Group Analysis"
 
