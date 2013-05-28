@@ -178,27 +178,27 @@ class FuncToMNIRegistration(wx.ScrolledWindow):
         if fsl == None:
             fsl = "$FSLDIR"
         
-        self.page.add(label="Run Functional to MNI Registration:", 
+        self.page.add(label="Run Functional to MNI Registration ", 
                      control=control.CHOICE_BOX, 
                      name='runRegisterFuncToMNI', 
                      type=dtype.LSTR, 
-                     comment="Run Functional to MNI Registration. Required for derivatives.", 
+                     comment="Register functional images to a standard MNI152 template.\n\nThis option must be enabled if you wish to calculate any derivatives.", 
                      values=["On","Off"],
                      wkf_switch = True)
         
-        self.page.add(label="Standard Identity Matrix:", 
+        self.page.add(label="Standard Identity Matrix ", 
                      control=control.COMBO_BOX, 
                      name='identityMatrix', 
                      type=dtype.STR, 
                      values = str(os.path.join(fsl,"etc/flirtsch/ident.mat")),
-                    comment="Matrix with all 1's. Used as a transformation matrix for re-sampling an image by flirt ")
+                    comment="Matrix containing all 1's. Used as an identity matrix during registration.\n\nIt is not necessary to change this path unless you intend to use non-standard MNI registration.")
                     
-        self.page.add(label="Boundary Based Registration Scheduler:", 
+        self.page.add(label="Boundary Based Registration Scheduler ", 
                      control=control.COMBO_BOX, 
                      name='boundaryBasedRegistrationSchedule', 
                      type=dtype.STR, 
                      values = str(os.path.join(fsl,"etc/flirtsch/bbr.sch")),
-                     comment="Standard FSL Scheduler used for Boundary Based Registration. Available in FSL 5.0")
+                     comment="Standard FSL 5.0 Scheduler used for Boundary Based Registration.\n\nIt is not necessary to change this path unless you intend to use non-standard MNI registration.")
      
         self.page.set_sizer()
         parent.get_page_list().append(self)
