@@ -49,9 +49,7 @@ class ComputerSettings(wx.ScrolledWindow):
                  name='FSLDIR', 
                  type=dtype.STR, 
                  values = os.environ['FSLDIR'],
-                 comment="Full path to the FSL version to be used by CPAC.\n\n"
-                         "If you have specified an FSL path in your .bashrc file,\n"
-                         "this path will be set automatically.")
+                 comment="Full path to the FSL version to be used by CPAC.\n\nIf you have specified an FSL path in your .bashrc file, this path will be set automatically.")
 
         self.page.add(label= "Job Scheduler / Resource Manager ",
                  control=control.CHOICE_BOX, 
@@ -79,12 +77,7 @@ class ComputerSettings(wx.ScrolledWindow):
                  control=control.INT_CTRL, 
                  name='numCoresPerSubject', 
                  type=dtype.NUM, 
-                 comment="Number of cores (on a single machine) or slots on\n" 
-                         "a node (cluster/grid) per subject. Slots are cores\n"
-                         "on a cluster/grid node.\n\n"
-                         "IMPORTANT: Number of Cores Per Subject multiplied\n"
-                         "by Number of Subjects to Run Simultaneously must\n"
-                         "not be greater than the total number of cores.", 
+                 comment="Number of cores (on a single machine) or slots on a node (cluster/grid) per subject. Slots are cores on a cluster/grid node.\n\nIMPORTANT: Number of Cores Per Subject multiplied by Number of Subjects to Run Simultaneously must not be greater than the total number of cores.", 
                  values=1)
 
         self.page.add(label= "Number of Subjects to Run Simultaneously ",
@@ -133,8 +126,14 @@ class DirectorySettings(wx.ScrolledWindow):
                  control=control.CHOICE_BOX, 
                  name='runSymbolicLinks', 
                  type=dtype.BOOL, 
-                 comment="Create a user-friendly, well organized version of the output directory.\n\n"
-                         "We recommend all users enable this option.", 
+                 comment="Create a user-friendly, well organized version of the output directory.\n\nWe recommend all users enable this option.", 
+                 values=["On","Off"])
+
+        self.page.add(label="Enable Quality Control Interface ", 
+                 control=control.CHOICE_BOX, 
+                 name='generateQualityControlImages', 
+                 type=dtype.BOOL, 
+                 comment="Generate quality control pages for rapid inspection of preprocessing and deriviative outputs.", 
                  values=["On","Off"])
                 
         self.page.add(label="Remove Working Directory ", 
@@ -142,18 +141,14 @@ class DirectorySettings(wx.ScrolledWindow):
          name='removeWorkingDir', 
          type=dtype.BOOL, 
          values = ["False", "True"],
-         comment="Deletes the contents of the Working Directory after running.\n\n"
-                 "This saves disk space, but any additional preprocessing or analysis\n"
-                 "will have to be completely re-run.")
+         comment="Deletes the contents of the Working Directory after running.\n\nThis saves disk space, but any additional preprocessing or analysis will have to be completely re-run.")
                 
         self.page.add(label="Regenerate Outputs ", 
          control=control.CHOICE_BOX, 
          name='reGenerateOutputs', 
          type=dtype.BOOL, 
          values = ["True", "False"],
-         comment="Uses the contents of the Working Directory to regenerate all outputs\n"
-                 "and their symbolic links.\n\n"
-                 "Requires an intact Working Directory.")
+         comment="Uses the contents of the Working Directory to regenerate all outputs and their symbolic links.\n\nRequires an intact Working Directory.")
         
         self.page.set_sizer() 
         parent.get_page_list().append(self)

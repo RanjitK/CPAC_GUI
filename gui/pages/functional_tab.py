@@ -79,39 +79,37 @@ class Scrubbing(wx.ScrolledWindow):
         
         self.counter = counter
                 
-        self.page = GenericClass(self, "Scrubbing")
+        self.page = GenericClass(self, "Scrubbing Options")
         
-        self.page.add(label="Run Scrubbing:", 
+        self.page.add(label="Run Scrubbing ", 
                  control=control.CHOICE_BOX, 
                  name='runScrubbing', 
                  type=dtype.LSTR, 
-                 comment="Scrubbing is performed to remove frames baed on Frame Displacement Calculations", 
+                 comment="Remove volumes exhibiting excessive motion.", 
                  values=["Off","On"],
                  wkf_switch = True)
-        
-                
-        self.page.add(label= "Scrubbing Threshold:",
+                        
+        self.page.add(label= "Framewise Displacement (FD) Threshold ",
                  control=control.TEXT_BOX, 
                  name='scrubbingThreshold', 
                  type=dtype.LNUM, 
                  values = "0.2",
                  validator = CharValidator("no-alpha"),
-                 comment="Specify maximum acceptable Framewise Displacement (in mm)"\
-                          "Any volume with displacement greater than this value will be removed.",
+                 comment="Specify the maximum acceptable Framewise Displacement (FD) in millimeters.\n\nAny volume exhibiting FD greater than this value will be removed.",
                  size=(100,-1))
         
-        self.page.add(label= "Count of Preceding Frames to Remove:",
+        self.page.add(label= "Preceeding Volumes to Remove ",
                  control=control.INT_CTRL, 
                  name='numRemovePrecedingFrames', 
                  type=dtype.NUM, 
-                 comment="Number of volumes to remove prior to a volume with excessive FD", 
+                 comment="Number of volumes to remove preceeding a volume with excessive FD.", 
                  values=1)
         
-        self.page.add(label= "Count of Subsequent Frames to Remove:",
+        self.page.add(label= "Subsequent Volumes to Remove ",
                  control=control.INT_CTRL, 
                  name='numRemoveSubsequentFrames', 
                  type=dtype.NUM, 
-                 comment="Number of volumes to remove following a volume with excessive FD", 
+                 comment="Number of volumes to remove subsequent to a volume with excessive FD.", 
                  values=2)        
         
         self.page.set_sizer()

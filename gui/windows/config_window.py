@@ -93,7 +93,7 @@ class Mybook(wx.Treebook):
         
         self.AddPage(page9, "Functional Preprocessing", wx.ID_ANY)
         self.AddSubPage(page10, "Functional", wx.ID_ANY)
-        self.AddSubPage(page11, "Scrubbing", wx.ID_ANY)
+        self.AddSubPage(page11, "Scrubbing Options", wx.ID_ANY)
         self.AddSubPage(page12, "Anatomical to Functional Registration", wx.ID_ANY)
         self.AddSubPage(page13, "Functional to MNI Registration", wx.ID_ANY)
         
@@ -110,7 +110,7 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page22, "VOXEL Timeseries", wx.ID_ANY)
         self.AddSubPage(page23, "Spatial Regression", wx.ID_ANY)
         
-        self.AddPage(page24, "VMHC", wx.ID_ANY)
+        self.AddPage(page24, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
         self.AddSubPage(page25, "VMHC Settings", wx.ID_ANY)
         
         self.AddPage(page26, "ALFF and f/ALFF", wx.ID_ANY)

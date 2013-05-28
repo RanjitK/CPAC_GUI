@@ -33,7 +33,7 @@ class ReHoSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "ReHo Options")
+        self.page = GenericClass(self, "Regional Homogeneity (ReHo) Options")
         
         self.page.add(label="Calculate Regional Homogeneity (ReHo) ", 
                  control=control.CHOICE_BOX, 
