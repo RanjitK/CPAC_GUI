@@ -166,32 +166,32 @@ class GeneralSettings(wx.ScrolledWindow):
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
         
-        self.page = GenericClass(self, "Advanced Workflow Configuration")
+        self.page = GenericClass(self, "Time Series Options")
         self.counter = counter 
                 
                 
-        self.page.add(label= "First Timepoint (start Index):",
+        self.page.add(label= "First Timepoint ",
                  control=control.INT_CTRL, 
                  name='startIdx', 
                  type=dtype.NUM, 
-                 comment="Ignore volumes before this timepoint. Defaults to beginning of timeseries", 
+                 comment="First timepoint to include in analysis.\n\nDefault is 0 (beginning of timeseries).", 
                  values=0)
         
-        self.page.add(label= "Last Timepoint (stop Index):",
+        self.page.add(label= "Last Timepoint ",
                  control=control.TEXT_BOX, 
                  name='stopIdx', 
                  type=dtype.NUM, 
                  values= "None",
                  validator = CharValidator("no-alpha"),
-                 comment="Ignore volumes after this timepoint. Options are an integer or None (defaults to end of timeseries)")
+                 comment="Last timepoint to include in analysis.\n\nDefault is None (end of timeseries).")
         
-        self.page.add(label= "TR:",
+        self.page.add(label= "TR ",
                  control=control.TEXT_BOX, 
                  name='TR', 
                  type=dtype.NUM, 
                  values= "None",
                  validator = CharValidator("no-alpha"),
-                 comment="Specify a TR other than what is listen in image headers.Options are an integer or None (defaults to header information)")
+                 comment="Specify the TR at which images were acquired.\n\nDefault is None (TR information is read from image file header)")
         
         
     

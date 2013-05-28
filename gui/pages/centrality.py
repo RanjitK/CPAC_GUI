@@ -81,7 +81,7 @@ class CentralitySettings(wx.ScrolledWindow):
                      comment="Based on the Threshold Type selected above, enter a Threshold Value.\n\nP-value for Significance Threshold\nSparsity value for Sparsity Threshold\nPearson's r value for Correlation Threshold", 
                      values=0.001)
         
-        self.page.add(label="Maximum RAM Use ", 
+        self.page.add(label="Maximum RAM Use (GB) ", 
                      control=control.FLOAT_CTRL, 
                      name='memoryAllocatedForDegreeCentrality', 
                      type=dtype.NUM, 

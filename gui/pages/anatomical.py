@@ -158,7 +158,7 @@ class Registration(wx.ScrolledWindow):
                       name='standardResolutionAnat', 
                       type=dtype.STR, 
                       values = ["1mm", "2mm", "3mm"],
-                      comment="The resolution to which anatomical images should be transformed during registration.")
+                      comment="The resolution to which anatomical images should be transformed during registration.\n\nThis is the resolution at which processed anatomical files will be output.")
         
         self.page.add(label="Anatomical Template (Brain Only) ", 
                      control=control.COMBO_BOX, 

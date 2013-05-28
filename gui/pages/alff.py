@@ -35,31 +35,31 @@ class ALFFSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "ALFF and fALFF Options")
+        self.page = GenericClass(self, "ALFF and f/ALFF Options")
         
-        self.page.add(label="Calculate ALFF and fALFF ", 
+        self.page.add(label="Calculate ALFF and f/ALFF ", 
                  control=control.CHOICE_BOX, 
                  name='runALFF', 
                  type=dtype.LSTR, 
-                 comment="Calculate Amplitude of Low Frequency Fluctuations (ALFF) and and fractional ALFF (fALFF) for all voxels.", 
+                 comment="Calculate Amplitude of Low Frequency Fluctuations (ALFF) and and fractional ALFF (f/ALFF) for all voxels.", 
                  values=["On","Off"],
                  wkf_switch = True)
         
-        self.page.add(label= "fALFF High-Pass Cutoff ",
+        self.page.add(label= "f/ALFF High-Pass Cutoff ",
                  control=control.TEXT_BOX, 
                  name='highPassFreqALFF', 
                  type=dtype.LNUM, 
                  values= "0.01",
                  validator = CharValidator("no-alpha"),
-                 comment="Frequency cutoff (in Hz) for the high-pass filter used when calculating fALFF.")
+                 comment="Frequency cutoff (in Hz) for the high-pass filter used when calculating f/ALFF.")
         
-        self.page.add(label= "fALFF Low-Pass Cutoff ",
+        self.page.add(label= "f/ALFF Low-Pass Cutoff ",
                  control=control.TEXT_BOX, 
                  name='lowPassFreqALFF', 
                  type=dtype.LNUM, 
                  values= "0.1",
                  validator = CharValidator("no-alpha"),
-                 comment="Frequency cutoff (in Hz) for the low-pass filter used when calculating fALFF")
+                 comment="Frequency cutoff (in Hz) for the low-pass filter used when calculating f/ALFF")
         
         self.page.set_sizer()
         parent.get_page_list().append(self)
