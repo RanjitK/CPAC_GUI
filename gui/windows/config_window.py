@@ -113,8 +113,8 @@ class Mybook(wx.Treebook):
         self.AddPage(page24, "VMHC", wx.ID_ANY)
         self.AddSubPage(page25, "VMHC Settings", wx.ID_ANY)
         
-        self.AddPage(page26, "ALFF and fALFF", wx.ID_ANY)
-        self.AddSubPage(page27, "ALFF and fALFF Options", wx.ID_ANY)
+        self.AddPage(page26, "ALFF and f/ALFF", wx.ID_ANY)
+        self.AddSubPage(page27, "ALFF and f/ALFF Options", wx.ID_ANY)
         
         self.AddPage(page28, "Network Centrality", wx.ID_ANY)
         self.AddSubPage(page29, "Network Centrality Options", wx.ID_ANY)
