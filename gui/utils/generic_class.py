@@ -26,10 +26,16 @@ class GenericClass(wx.ScrolledWindow):
         self.parent.SetScrollRate(20,20)
         
     def add_static(self):
+        hbox= wx.BoxSizer(wx.HORIZONTAL)
         t = wx.StaticText(self.parent, -1, self.title)
         t.SetFont(wx.Font(18, wx.SWISS, wx.NORMAL, wx.BOLD))
         
-        self.mainSizer.Add(t, proportion=0, flag=wx.ALL, border=5)
+        img = wx.Image('images/cpac_logo2.jpg', wx.BITMAP_TYPE_JPEG).ConvertToBitmap()
+        bmp = wx.StaticBitmap(self.parent, -1, img)
+        
+        hbox.Add(bmp)
+        hbox.Add(t)
+        self.mainSizer.Add(hbox, proportion=0, flag=wx.ALL, border=5)
         self.mainSizer.Add(wx.StaticLine(self.parent), 0, wx.EXPAND|wx.TOP|wx.BOTTOM, 5)
         
     __add_static = add_static

@@ -10,7 +10,8 @@ from ..pages import Anatomical, AnatomicalPreprocessing, Segmentation,  Registra
                           Centrality,ALFF, ALFFSettings, Smoothing, SmoothingSettings, \
                           Filtering, FilteringSettings, TimeSeries, ROITimeseries,\
                           VOXELTimeseries, SpatialRegression, GenerateSeeds,\
-                          GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings
+                          GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings,\
+                          DualRegression, DualRegressionOptions, VerticesTimeSeries
 
 ID_SUBMIT = 6 
 
@@ -51,34 +52,38 @@ class Mybook(wx.Treebook):
         page21 = ROITimeseries(self)
         page22 = VOXELTimeseries(self)
         page23 = SpatialRegression(self)
+        page24 = VerticesTimeSeries(self)
         
-        page24 = VMHC(self)
-        page25 = VMHCSettings(self)
+        page25 = VMHC(self)
+        page26 = VMHCSettings(self)
         
-        page26 = ALFF(self)
-        page27 = ALFFSettings(self)
+        page27 = ALFF(self)
+        page28 = ALFFSettings(self)
         
-        page28 = Centrality(self)
-        page29 = CentralitySettings(self)
+        page29 = Centrality(self)
+        page30 = CentralitySettings(self)
         
-        page30 = ReHo(self)
-        page31 = ReHoSettings(self)
+        page31 = ReHo(self)
+        page32 = ReHoSettings(self)
         
-        page32 = SCA(self)
-        page33 = SCASettings(self)
-        page34 = MultipleRegressionSCA(self)
+        page33 = SCA(self)
+        page34 = SCASettings(self)
+        page35 = MultipleRegressionSCA(self)
         
-        page35 = Smoothing(self)
-        page36 = SmoothingSettings(self)
+        page36 = DualRegression(self)
+        page37 = DualRegressionOptions(self)
         
-        page37 = BASC(self)
-        page38 = BASCSettings(self)
+        page38 = Smoothing(self)
+        page39 = SmoothingSettings(self)
         
-        page39 = CWAS(self)
-        page40 = CWASSettings(self)
+        page40 = BASC(self)
+        page41 = BASCSettings(self)
         
-        page41 = GroupAnalysis(self)
-        page42 = GPASettings(self)
+        page42 = CWAS(self)
+        page43 = CWASSettings(self)
+        
+        page44 = GroupAnalysis(self)
+        page45 = GPASettings(self)
         
         # add the pages to the notebook with the label to show on the tab
         self.AddPage(page1, "Environment Setup", wx.ID_ANY)
@@ -109,34 +114,40 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page21, "ROI Timeseries", wx.ID_ANY)
         self.AddSubPage(page22, "VOXEL Timeseries", wx.ID_ANY)
         self.AddSubPage(page23, "Spatial Regression", wx.ID_ANY)
+        self.AddSubPage(page24, "Vertices Timeseries", wx.ID_ANY)
         
-        self.AddPage(page24, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
-        self.AddSubPage(page25, "VMHC Settings", wx.ID_ANY)
+        self.AddPage(page25, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
+        self.AddSubPage(page26, "VMHC Settings", wx.ID_ANY)
         
-        self.AddPage(page26, "ALFF and f/ALFF", wx.ID_ANY)
-        self.AddSubPage(page27, "ALFF and f/ALFF Options", wx.ID_ANY)
+
+        self.AddPage(page27, "ALFF and f/ALFF", wx.ID_ANY)
+        self.AddSubPage(page28, "ALFF and f/ALFF Options", wx.ID_ANY)
+
         
-        self.AddPage(page28, "Network Centrality", wx.ID_ANY)
-        self.AddSubPage(page29, "Network Centrality Options", wx.ID_ANY)
+        self.AddPage(page29, "Network Centrality", wx.ID_ANY)
+        self.AddSubPage(page30, "Network Centrality Options", wx.ID_ANY)
         
-        self.AddPage(page30, "Regional Homogeneity (ReHo)", wx.ID_ANY)
-        self.AddSubPage(page31, "ReHo Options", wx.ID_ANY)
+        self.AddPage(page31, "Regional Homogeneity (ReHo)", wx.ID_ANY)
+        self.AddSubPage(page32, "ReHo Options", wx.ID_ANY)
         
-        self.AddPage(page32, "SCA", wx.ID_ANY)
-        self.AddSubPage(page33, "SCA Settings", wx.ID_ANY)
-        self.AddSubPage(page34, "Mutiple Regression SCA", wx.ID_ANY)
+        self.AddPage(page33, "SCA", wx.ID_ANY)
+        self.AddSubPage(page34, "SCA Settings", wx.ID_ANY)
+        self.AddSubPage(page35, "Mutiple Regression SCA", wx.ID_ANY)
         
-        self.AddPage(page35, "Spatial Smoothing", wx.ID_ANY)
-        self.AddSubPage(page36, "Spatial Smoothing Options", wx.ID_ANY)
+        self.AddPage(page36, "Dual Regression", wx.ID_ANY)
+        self.AddSubPage(page37, "Dual Regression Options", wx.ID_ANY)
         
-        self.AddPage(page37, "BASC", wx.ID_ANY)
-        self.AddSubPage(page38, "BASC Settings", wx.ID_ANY)
+        self.AddPage(page38, "Spatial Smoothing", wx.ID_ANY)
+        self.AddSubPage(page39, "Spatial Smoothing Options", wx.ID_ANY)
         
-        self.AddPage(page39, "CWAS", wx.ID_ANY)
-        self.AddSubPage(page40, "CWAS Settings", wx.ID_ANY)
+        self.AddPage(page40, "BASC", wx.ID_ANY)
+        self.AddSubPage(page41, "BASC Settings", wx.ID_ANY)
         
-        self.AddPage(page41, "Group Analysis", wx.ID_ANY)
-        self.AddSubPage(page42, "Group Analysis Settings", wx.ID_ANY)
+        self.AddPage(page42, "CWAS", wx.ID_ANY)
+        self.AddSubPage(page43, "CWAS Settings", wx.ID_ANY)
+        
+        self.AddPage(page44, "Group Analysis", wx.ID_ANY)
+        self.AddSubPage(page45, "Group Analysis Settings", wx.ID_ANY)
         
         
         self.Bind(wx.EVT_TREEBOOK_PAGE_CHANGED, self.OnPageChanged)
@@ -211,12 +222,10 @@ class MainFrame(wx.Frame):
         import yaml 
         try:
             config_file_map = yaml.load(open(self.path, 'r'))
-            print "config_file_map --> ", config_file_map
         except:
             Exception("Error importing file - %s , Make"\
                       " sure it is in correct yaml format")
             
-        print "config_file_map ->", config_file_map
         for page in self.nb.get_page_list():
             ctrl_list = page.page.get_ctrl_list()
 
@@ -250,10 +259,8 @@ class MainFrame(wx.Frame):
                         elif ctrl.get_datatype() ==4: 
                             s_map = dict((v,k) for k,v in substitution_map.iteritems())
                             value = [ s_map.get(item) for item in val if s_map.get(item) != None]
-                            print "dtype ==4 s_map, value", s_map, value
                             if not value:
                                 value = [ str(item) for item in val]
-                            print "dtype ==4 , value again", value
                                                         
                         else:
                             value = None

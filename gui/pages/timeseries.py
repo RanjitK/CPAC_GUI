@@ -1,5 +1,6 @@
 import wx
 import wx.html
+import os
 from ..utils.generic_class import GenericClass
 from ..utils.constants import control, dtype
 from ..utils.validator import CharValidator
@@ -31,8 +32,6 @@ class TimeSeries(wx.html.HtmlWindow):
 class GenerateSeeds(wx.ScrolledWindow):
     
     def __init__(self, parent, counter = 0):
-        
-        import os
         
         wx.ScrolledWindow.__init__(self, parent)
                 
@@ -224,3 +223,52 @@ class SpatialRegression(wx.ScrolledWindow):
             return self.counter
         
         
+class VerticesTimeSeries(wx.ScrolledWindow):
+    
+    def __init__(self, parent, counter = 0):
+        wx.ScrolledWindow.__init__(self, parent)
+                
+        self.counter = counter
+        
+        self.page = GenericClass(self, "Vertices Timeseries")
+        
+        self.page.add(label="Run Surface Registration:", 
+                 control=control.CHOICE_BOX, 
+                 name='runSurfaceRegistraion', 
+                 type=dtype.LSTR, 
+                 comment="Register timeseries data to a surface model built by FreeSurfer.\n"\
+                         "Required to run vertex timeseries extraction. CPAC currently doesn't\n" 
+                         "fully support surface extraction. Not Recommended.", 
+                 values=["Off","On"],
+                 wkf_switch = True)
+        
+        self.page.add(label = "Recon Subject Directory:", 
+                      control = control.DIR_COMBO_BOX, 
+                      name = "reconSubjectsDirectory", 
+                      type = dtype.STR, 
+                      comment = "Directory where FreeSurfer outputs surface data.\n"\
+                                "This should be the same as SUBJECTS_DIR in .bashrc",
+                      values = os.getcwd())
+        
+        self.page.add(label="Run Vertices Timeseries:", 
+                 control=control.CHOICE_BOX, 
+                 name='runVerticesTimeSeries', 
+                 type=dtype.LSTR, 
+                 comment="Extract timeseries data for surface vertices.CPAC currently doesn't\n"\
+                         "fully support surface extraction. Not Recommended.", 
+                 values=["Off","On"])
+        
+        self.page.add(label = "Vertices Timeseries Output Formats:",
+                      control = control.CHECKLIST_BOX,
+                      name = "verticesTSOutputs",
+                      type = dtype.LBOOL,
+                      values = ['CSV', 'NUMPY'],
+                      comment = "Export vertices timeseries data\n"
+                                "First value = Output .csv \n"
+                                "Second value = Output numPy array\n")
+        
+        self.page.set_sizer()
+        parent.get_page_list().append(self)
+        
+    def get_counter(self):
+            return self.counter
