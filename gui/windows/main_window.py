@@ -13,6 +13,7 @@ ID_EDIT = 7
 ID_ADD = 8
 ID_SHOW = 9
 ID_DISPLAY = 10
+ID_ADDCONFIG = 11
 
 class ListBox(wx.Frame):
     def __init__(self, parent, id, title):
@@ -58,14 +59,16 @@ class ListBox(wx.Frame):
         dlt = wx.Button(btnPanel1, ID_DELETE, 'Delete', size=(90, 30))
         load = wx.Button(btnPanel1, ID_LOAD, 'Load', size=(90,30))
         edit = wx.Button(btnPanel1, ID_EDIT, 'Edit', size=(90,30))
+#        add_config = wx.Button(btnPanel1, ID_ADDCONFIG, 'Add', size=(90,30))
         shw = wx.Button(btnPanel1, ID_DISPLAY, 'Show', size=(90,30))
         clr = wx.Button(btnPanel1, ID_CLEAR, 'Clear', size=(90, 30))
     
         self.Bind(wx.EVT_BUTTON, self.NewItem, id=ID_NEW)
         self.Bind(wx.EVT_BUTTON, self.OnRename, id=ID_RENAME)
         self.Bind(wx.EVT_BUTTON, self.OnDelete, id=ID_DELETE)
-        self.Bind(wx.EVT_BUTTON, self.OnLoad, id=ID_LOAD)
+        self.Bind(wx.EVT_BUTTON, self.AddConfig, id=ID_LOAD)
         self.Bind(wx.EVT_BUTTON, self.OnEdit, id=ID_EDIT)
+#        self.Bind(wx.EVT_BUTTON, self.AddConfig, id=ID_ADDCONFIG)
         self.Bind(wx.EVT_BUTTON, self.OnDisplay, id= ID_DISPLAY)
         self.Bind(wx.EVT_BUTTON, lambda event: self.OnClear(event, 1), id=ID_CLEAR)
         self.Bind(wx.EVT_LISTBOX_DCLICK, self.OnDisplay)        
@@ -74,6 +77,7 @@ class ListBox(wx.Frame):
         btnSizer1.Add(new)
         btnSizer1.Add(load, 0, wx.TOP, 5)
         btnSizer1.Add(edit, 0, wx.TOP, 5)
+#        btnSizer1.Add(add_config, 0, wx.TOP, 5)
         btnSizer1.Add(shw, 0, wx.TOP, 5)
         btnSizer1.Add(ren, 0, wx.TOP, 5)
         btnSizer1.Add(dlt, 0, wx.TOP, 5)
@@ -153,8 +157,8 @@ class ListBox(wx.Frame):
                 if (self.listbox.GetChecked() or self.listbox.GetSelection()!= -1) and \
                     (self.listbox2.GetChecked() or self.listbox2.GetSelection()!= -1):
                     
-                    pipelines = self.listbox.GetChecked()
-                    sublists = self.listbox2.GetChecked()
+                    pipelines = self.listbox.GetCheckedStrings()
+                    sublists = self.listbox2.GetCheckedStrings()
                     
                     self.runCPAC1.SetPulseOnFocus(True)
                     
@@ -164,9 +168,10 @@ class ListBox(wx.Frame):
                         sublist = self.sublist_map.get(s)
                         for p in pipelines:
                             pipeline = self.pipeline_map.get(p)
-                            
-                            CPAC.pipeline.cpac_runner.run(pipeline, sublist)
-                            print "Pipeline %s successfully ran for subject list %s"%(p,s)
+                            print "running for configuration, subject list, pipeline_id -->", \
+                                  pipeline, sublist, p
+                            CPAC.pipeline.cpac_runner.run(pipeline, sublist, p)
+                            #print "Pipeline %s successfully ran for subject list %s"%(p,s)
                     
                 else:
                     print "no pipeline and subject list selected"
@@ -206,21 +211,7 @@ class ListBox(wx.Frame):
                 self.listbox.Insert(renamed, sel)
                 self.pipeline_map[renamed]= self.pipeline_map[text]
                 del self.pipeline_map[text]
-
-
-    def update_listbox(self, frame, pipeline_id, path):
-        
-        if self.pipeline_map.get(pipeline_id) == None:
-                self.pipeline_map[pipeline_id] = path
-                self.listbox.Append(pipeline_id)
-                frame.close()
-        else:
-                dlg = wx.MessageDialog(self, 'Pipeline already exist',
-                                   'Error!',
-                               wx.OK | wx.ICON_ERROR)
-                dlg.ShowModal()
-                dlg.Destroy()
-                
+              
                 
     def OnDelete(self, event):
 
@@ -357,6 +348,37 @@ class ListBox(wx.Frame):
                         else:
                             dlg3 = wx.MessageDialog(self, 'Subject List with this name already exist','Error!',
                               wx.OK | wx.ICON_ERROR)
+                            dlg3.ShowModal()
+                            dlg3.Destroy()
+                            
+                            
+    def AddConfig(self, event):
+        
+        dlg = wx.FileDialog(
+            self, message="Choose the CPAC Configuration file",
+            defaultDir=os.getcwd(), 
+            defaultFile="CPAC_subject_list.yml",
+            wildcard="YAML files(*.yaml, *.yml)|*.yaml;*.yml",
+            style=wx.OPEN | wx.CHANGE_DIR)
+        
+        if dlg.ShowModal() == wx.ID_OK:
+            path = dlg.GetPath()            
+            while True:
+                dlg2 = wx.TextEntryDialog(self, 'Please enter a unique pipeline id for the configuration',
+                                         'Pipeline Id', "")
+                if dlg2.ShowModal() == wx.ID_OK:
+                    if len(dlg2.GetValue()) >0:
+                        if self.pipeline_map.get(dlg2.GetValue()) == None:
+                            self.pipeline_map[dlg2.GetValue()] = path
+                            self.listbox.Append(dlg2.GetValue())
+                            dlg2.Destroy()
+                            dlg.Destroy()
+                            break
+                        else:        
+                                   
+                            dlg3 = wx.MessageDialog(self, 'Pipeline already exist. Please enter a new name',
+                                           'Error!',
+                                       wx.OK | wx.ICON_ERROR)
                             dlg3.ShowModal()
                             dlg3.Destroy()
                         

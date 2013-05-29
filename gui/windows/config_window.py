@@ -250,8 +250,10 @@ class MainFrame(wx.Frame):
                         elif ctrl.get_datatype() ==4: 
                             s_map = dict((v,k) for k,v in substitution_map.iteritems())
                             value = [ s_map.get(item) for item in val if s_map.get(item) != None]
+                            print "dtype ==4 s_map, value", s_map, value
                             if not value:
                                 value = [ str(item) for item in val]
+                            print "dtype ==4 , value again", value
                                                         
                         else:
                             value = None
@@ -331,17 +333,18 @@ class MainFrame(wx.Frame):
                     
                 config_list.append(ctrl)
         
-        if self.option != 'edit':
+       
             
-            dlg = wx.FileDialog(self, message="Save CPAC configuration file as ...", defaultDir=os.getcwd(), 
-                            defaultFile="", wildcard= "YAML files(*.yaml, *.yml)|*.yaml;*.yml", style=wx.SAVE)
-            dlg.SetFilterIndex(2)
+        dlg = wx.FileDialog(self, message="Save CPAC configuration file as ...", defaultDir=os.getcwd(), 
+                        defaultFile="", wildcard= "YAML files(*.yaml, *.yml)|*.yaml;*.yml", style=wx.SAVE)
+        dlg.SetFilterIndex(2)
+    
+        if dlg.ShowModal() == wx.ID_OK:
+            self.path = dlg.GetPath()
         
-            if dlg.ShowModal() == wx.ID_OK:
-                self.path = dlg.GetPath()
-            
-                self.write(self.path, config_list)
-                dlg.Destroy()
+            self.write(self.path, config_list)
+            dlg.Destroy()
+            if self.option != 'edit':
                 for counter in wf_counter:
                     if counter!=0:
                         hash_val += 2 ** counter
@@ -351,15 +354,13 @@ class MainFrame(wx.Frame):
                 print "pipeline_id ==", pipeline_id        
                 if os.path.exists(self.path):
                     self.update_listbox(pipeline_id)
-                self.SetFocus()
-                self.Close()
-            
-        else:
-            self.write(self.path, config_list)
-    
-            self.SetFocus()     
+            else:
+                pipeline_map = self.parent.get_pipeline_map()
+                pipeline_map[self.pipeline_id] = self.path
+            self.SetFocus()
             self.Close()
-      
+            
+
 
     def cancel(self, event):
         self.Close()

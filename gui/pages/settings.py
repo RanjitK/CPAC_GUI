@@ -125,15 +125,16 @@ class DirectorySettings(wx.ScrolledWindow):
         self.page.add(label="Create Symbolic Links ", 
                  control=control.CHOICE_BOX, 
                  name='runSymbolicLinks', 
-                 type=dtype.BOOL, 
-                 comment="Create a user-friendly, well organized version of the output directory.\n\nWe recommend all users enable this option.", 
+                 type=dtype.LSTR, 
+                 comment="Create a user-friendly, well organized version of the output directory.\n\n"
+                         "We recommend all users enable this option.", 
                  values=["On","Off"])
-
-        self.page.add(label="Enable Quality Control Interface ", 
+                
+        self.page.add(label="Generate Quality Control Images ", 
                  control=control.CHOICE_BOX, 
                  name='generateQualityControlImages', 
-                 type=dtype.BOOL, 
-                 comment="Generate quality control pages for rapid inspection of preprocessing and deriviative outputs.", 
+                 type=dtype.LSTR, 
+                 comment="Generate Images for the Outputs.", 
                  values=["On","Off"])
                 
         self.page.add(label="Remove Working Directory ", 

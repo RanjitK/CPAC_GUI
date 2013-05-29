@@ -202,7 +202,7 @@ class SpatialRegression(wx.ScrolledWindow):
 
         self.page.add(label = "Spatial Pattern Maps Specification File:", 
                       control = control.COMBO_BOX, 
-                      name = "spatialPatternMap", 
+                      name = "spatialPatternMaps", 
                       type = dtype.STR, 
                       comment = "Path to file containing the paths to Spatial Pattern maps \n"\
                                 "All spatial patterns for one analysis have to be volumes in one 4D file \n"\

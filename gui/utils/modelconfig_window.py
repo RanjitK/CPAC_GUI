@@ -70,7 +70,7 @@ class ModelConfig(wx.Frame):
                  comment="This variable is used to setup different groups for different variances.\n"\
                          "When this option is set to 1, you need to specify the group column name below from the phenotypic file.\n" \
                          "This will result in giving different group number to different groups in the .grp file", 
-                 values=["No", "Yes"])
+                 values=["Off", "On"])
         
         self.page.add(label= "Grouping Variable",
                  control = control.TEXT_BOX,
@@ -208,7 +208,7 @@ class ModelConfig(wx.Frame):
                         self.display(val[0], "Number of values in %s do not match specified columns in the model"%key)
        
                 if key == 'groupingVariable':
-                    if str(config_map.get('modelGroupVariancesSeparately')[1]) == "Yes":
+                    if str(config_map.get('modelGroupVariancesSeparately')[1]) == "On":
                         if len(val[1]) ==0:
                             self.display(val[0],"%s field is empty!"%key)
                             
