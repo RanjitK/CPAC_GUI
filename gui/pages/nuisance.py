@@ -58,7 +58,7 @@ class NuisanceCorrection(wx.ScrolledWindow):
                       control = control.LISTBOX_COMBO,
                       name = "Corrections",
                       type = dtype.LDICT,
-                      values = ['compcor', 'wm','csf','global','pc1','motion','linear','quadratic'],
+                      values = ['compcor', 'wm','csf','global','pc1','motion','linear','quadratic', 'gm'],
                       comment = "Select which nuisance signal corrections to apply:\n"\
                                 "compcor = CompCor\n"\
                                  "wm = White Matter\n"\
