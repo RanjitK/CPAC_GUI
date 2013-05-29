@@ -9,9 +9,9 @@ from .centrality import CentralitySettings, Centrality
 from .alff import ALFF, ALFFSettings
 from .smoothing import Smoothing, SmoothingSettings
 from .filtering import Filtering, FilteringSettings
-from .timeseries import TimeSeries, ROITimeseries, VOXELTimeseries, SpatialRegression, GenerateSeeds
+from .timeseries import TimeSeries, ROITimeseries, VOXELTimeseries, SpatialRegression, GenerateSeeds, VerticesTimeSeries
 from .group_analysis import GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings
-
+from .dualreg import DualRegression, DualRegressionOptions
 
 
 __all__ = ['Anatomical', 'AnatomicalPreprocessing', \
@@ -26,6 +26,7 @@ __all__ = ['Anatomical', 'AnatomicalPreprocessing', \
            'Smoothing', 'SmoothingSettings',\
            'Filtering', 'FilteringSettings',\
            'TimeSeries', 'ROITimeseries', 'VOXELTimeseries', \
-           'SpatialRegression', 'GenerateSeeds',\
+           'SpatialRegression', 'GenerateSeeds', 'VerticesTimeSeries',\
            'GroupAnalysis', 'GPASettings', 'BASCSettings',\
-           'BASC', 'CWAS', 'CWASSettings']
+           'BASC', 'CWAS', 'CWASSettings'\
+           'DualRegression', 'DualRegressionOptions']
