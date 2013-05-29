@@ -104,7 +104,7 @@ class Segmentation(wx.ScrolledWindow):
                  name='prior_path', 
                  type=dtype.STR, 
                  values= os.path.join(os.environ['FSLDIR'], 'data/standard/tissuepriors/$standardResolution'),
-                 comment="Full path to a directory containing binarized prior probability maps.\n\nThese maps are included as part of the 'Image Resource Files' package avialble for download from the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")
+                 comment="Full path to a directory containing binarized prior probability maps.\n\nThese maps are included as part of the 'Image Resource Files' package available on the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use non-standard priors.")
 
         self.page.add(label= "White Matter Prior Probability Map ",
                  control=control.COMBO_BOX, 

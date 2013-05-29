@@ -35,43 +35,43 @@ class VMHCSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "VMHC Settings")
+        self.page = GenericClass(self, "Voxel-mirrored Homotopic Connectivity (VMHC) Options")
         
-        self.page.add(label="Voxel-mirrored Homotopic Connectivity (VMHC):", 
+        self.page.add(label="Calculate VMHC ", 
                  control=control.CHOICE_BOX, 
                  name='runVMHC', 
                  type=dtype.LSTR, 
-                 comment="Calculate VMHC for all gray matter voxels", 
+                 comment="Calculate Voxel-mirrored Homotopic Connectivity (VMHC) for all voxels.", 
                  values=["On","Off"],
                  wkf_switch = True)
         
-        self.page.add(label="Symmetric Brain only Template:", 
+        self.page.add(label="Symmetric Template (Brain Only) ", 
          control=control.COMBO_BOX, 
          name='brainSymmetric', 
          type=dtype.STR, 
-         values = "$FSLDIR/data/standard/MNI152_T1_2mm_brain_symmetric.nii.gz",
-         comment="Symmetric template. MUST BE DOWNLOADED AS PART OF cpac_resources.tgz (see User Guide)")
+         values = "$FSLDIR/data/standard/MNI152_T1_${standardResolution}_brain_symmetric.nii.gz",
+         comment="Included as part of the 'Image Resource Files' package available on the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use a non-standard symmetric template.")
         
-        self.page.add(label="Symmetric Template with Skull:", 
+        self.page.add(label="Symmetric Template (With Skull) ", 
          control=control.COMBO_BOX, 
          name='symmStandard', 
          type=dtype.STR, 
-         values = "$FSLDIR/data/standard/MNI152_T1_2mm_symmetric.nii.gz",
-         comment="Symmetric skull stripped template. MUST BE DOWNLOADED AS PART OF cpac_resources.tgz (see User Guide)")
+         values = "$FSLDIR/data/standard/MNI152_T1_${standardResolution}_symmetric.nii.gz",
+         comment="Included as part of the 'Image Resource Files' package available on the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use a non-standard symmetric template.")
 
-        self.page.add(label="Dilated Symmetric Brain Mask:", 
+        self.page.add(label="Dilated Symmetric Brain Mask ", 
          control=control.COMBO_BOX, 
          name='twommBrainMaskDiluted', 
          type=dtype.STR, 
-         values = "$FSLDIR/data/standard/MNI152_T1_2mm_brain_mask_symmetric_dil.nii.gz",
-         comment="FSL Dilated symmetric brain mask used by VMHC.")
+         values = "$FSLDIR/data/standard/MNI152_T1_${standardResolution}_brain_mask_symmetric_dil.nii.gz",
+         comment="Included as part of the 'Image Resource Files' package available on the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use a non-standard symmetric template.")
         
-        self.page.add(label="FLIRT configuration file:", 
+        self.page.add(label="FLIRT Configuration File ", 
          control=control.COMBO_BOX, 
          name='configFileTwomm', 
          type=dtype.STR, 
-         values = "$FSLDIR/etc/flirtsch/T1_2_MNI152_2mm.cnf",
-         comment="FSL FLIRT Configuration file in 2mm. Required by VMHC.")
+         values = "$FSLDIR/etc/flirtsch/T1_2_MNI152_${standardResolution}.cnf",
+         comment="Included as part of the 'Image Resource Files' package available on the Install page of the User Guide.\n\nIt is not necessary to change this path unless you intend to use a non-standard symmetric template.")
         
         
         self.page.set_sizer()

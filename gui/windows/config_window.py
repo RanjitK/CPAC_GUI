@@ -119,8 +119,10 @@ class Mybook(wx.Treebook):
         self.AddPage(page25, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
         self.AddSubPage(page26, "VMHC Settings", wx.ID_ANY)
         
+
         self.AddPage(page27, "ALFF and f/ALFF", wx.ID_ANY)
         self.AddSubPage(page28, "ALFF and f/ALFF Options", wx.ID_ANY)
+
         
         self.AddPage(page29, "Network Centrality", wx.ID_ANY)
         self.AddSubPage(page30, "Network Centrality Options", wx.ID_ANY)
