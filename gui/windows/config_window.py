@@ -250,8 +250,10 @@ class MainFrame(wx.Frame):
                         elif ctrl.get_datatype() ==4: 
                             s_map = dict((v,k) for k,v in substitution_map.iteritems())
                             value = [ s_map.get(item) for item in val if s_map.get(item) != None]
+                            print "dtype ==4 s_map, value", s_map, value
                             if not value:
                                 value = [ str(item) for item in val]
+                            print "dtype ==4 , value again", value
                                                         
                         else:
                             value = None

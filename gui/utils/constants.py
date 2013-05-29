@@ -24,8 +24,6 @@ dtype = enum(BOOL=0,
 
 substitution_map = {'On': 1,
                     'Off': 0,
-                    "Yes":1,
-                    "No": 0,
                    'SCA(voxel_based)': 'sca_seed_Z_to_standard_smooth',
                    'SCA(roi_based)':'sca_roi_Z_to_standard_smooth',
                    'SCA(temporal_regression)':'sca_tempreg_maps_z_files_smooth',
