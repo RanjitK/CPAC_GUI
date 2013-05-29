@@ -28,5 +28,5 @@ __all__ = ['Anatomical', 'AnatomicalPreprocessing', \
            'TimeSeries', 'ROITimeseries', 'VOXELTimeseries', \
            'SpatialRegression', 'GenerateSeeds', 'VerticesTimeSeries',\
            'GroupAnalysis', 'GPASettings', 'BASCSettings',\
-           'BASC', 'CWAS', 'CWASSettings'\
+           'BASC', 'CWAS', 'CWASSettings',\
            'DualRegression', 'DualRegressionOptions']
