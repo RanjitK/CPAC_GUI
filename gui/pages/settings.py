@@ -130,11 +130,11 @@ class DirectorySettings(wx.ScrolledWindow):
                          "We recommend all users enable this option.", 
                  values=["On","Off"])
                 
-        self.page.add(label="Generate Quality Control Images ", 
+        self.page.add(label="Enable Quality Control Interface ", 
                  control=control.CHOICE_BOX, 
                  name='generateQualityControlImages', 
                  type=dtype.LSTR, 
-                 comment="Generate Images for the Outputs.", 
+                 comment="Generate quality control pages containing preprocessing and derivative outputs.", 
                  values=["On","Off"])
                 
         self.page.add(label="Remove Working Directory ", 
@@ -157,43 +157,47 @@ class DirectorySettings(wx.ScrolledWindow):
     def get_counter(self):
         return self.counter
 
-class GeneralSettings(wx.ScrolledWindow):
-    
+class WorkflowConfig(wx.ScrolledWindow):
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
+        self.counter = counter
         
-        self.page = GenericClass(self, "Time Series Options")
-        self.counter = counter 
+        self.page = GenericClass(self, "Functional Preprocessing Settings")
+        self.page.add(label="Gather Functional Data:", 
+                 control=control.CHOICE_BOX, 
+                 name='runFunctionalDataGathering', 
+                 type=dtype.LSTR, 
+                 comment="option to fetch functional data", 
+                 values=["On","Off"],
+                 wkf_switch = False)
+        
+        self.page.add(label= "Run Functional Processing:",
+                 control=control.CHOICE_BOX, 
+                 name='runFunctionalPreprocessing', 
+                 type=dtype.LSTR, 
+                 comment="option to run functional processing", 
+                 values=["On","Off"],
+                 wkf_switch = True)
+
+        self.page.add(label="Gather Anatomical Data:", 
+                 control=control.CHOICE_BOX, 
+                 name='runAnatomicalDataGathering', 
+                 type=dtype.LSTR, 
+                 comment="option to fetch anatomical data", 
+                 values=["On","Off"])
+        
+        self.page.add(label= "Run Anatomical Processing",
+                 control=control.CHOICE_BOX, 
+                 name='runAnatomicalPreprocessing', 
+                 type=dtype.LSTR, 
+                 comment="option to run anatomical processing", 
+                 values=["On","Off"],
+                 wkf_switch = True)
                 
-                
-        self.page.add(label= "First Timepoint ",
-                 control=control.INT_CTRL, 
-                 name='startIdx', 
-                 type=dtype.NUM, 
-                 comment="First timepoint to include in analysis.\n\nDefault is 0 (beginning of timeseries).", 
-                 values=0)
         
-        self.page.add(label= "Last Timepoint ",
-                 control=control.TEXT_BOX, 
-                 name='stopIdx', 
-                 type=dtype.NUM, 
-                 values= "None",
-                 validator = CharValidator("no-alpha"),
-                 comment="Last timepoint to include in analysis.\n\nDefault is None (end of timeseries).")
-        
-        self.page.add(label= "TR ",
-                 control=control.TEXT_BOX, 
-                 name='TR', 
-                 type=dtype.NUM, 
-                 values= "None",
-                 validator = CharValidator("no-alpha"),
-                 comment="Specify the TR at which images were acquired.\n\nDefault is None (TR information is read from image file header)")
-        
-        
-    
         self.page.set_sizer() 
         parent.get_page_list().append(self)
-
+        
     def get_counter(self):
         return self.counter
 

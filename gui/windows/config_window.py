@@ -1,17 +1,21 @@
 import wx
 from ..utils.constants import  substitution_map
-from ..pages import Anatomical, AnatomicalPreprocessing, Segmentation,  Registration,\
-                          FunctionalPreProcessing, Functional, Scrubbing, \
-                          AnatToFuncRegistration, FuncToMNIRegistration,\
-                          VMHC, VMHCSettings, ReHo, ReHoSettings,\
-                          SCA, SCASettings, MultipleRegressionSCA,\
-                          Settings, ComputerSettings, GeneralSettings, DirectorySettings, \
-                          Nuisance, NuisanceCorrection, MedianAngleCorrection, CentralitySettings, \
-                          Centrality,ALFF, ALFFSettings, Smoothing, SmoothingSettings, \
-                          Filtering, FilteringSettings, TimeSeries, ROITimeseries,\
-                          VOXELTimeseries, SpatialRegression, GenerateSeeds,\
-                          GroupAnalysis, GPASettings, BASCSettings, BASC, CWAS, CWASSettings,\
-                          DualRegression, DualRegressionOptions, VerticesTimeSeries
+from ..pages import WorkflowConfig, Motion, AnatomicalPreprocessing, \
+           Segmentation,  Registration, FunctionalPreProcessing,\
+           MotionOptions, Scrubbing,AnatToFuncRegistration, FuncToMNIRegistration,\
+           VMHC, VMHCSettings, ReHo, ReHoSettings, \
+           SCA, SCASettings, MultipleRegressionSCA,\
+           Settings, ComputerSettings, DirectorySettings, \
+           Nuisance, NuisanceCorrection, \
+           CentralitySettings, Centrality,\
+           ALFF, ALFFSettings,\
+           Smoothing, SmoothingSettings,\
+           Filtering, FilteringSettings,\
+           TimeSeries, ROITimeseries, VOXELTimeseries, \
+           SpatialRegression, GenerateSeeds, VerticesTimeSeries,\
+           GroupAnalysis, GPASettings, BASCSettings,\
+           BASC, CWAS, CWASSettings,\
+           DualRegression, DualRegressionOptions, TimeSeriesOptions
 
 ID_SUBMIT = 6 
 
@@ -26,52 +30,53 @@ class Mybook(wx.Treebook):
         # create the page windows as children of the notebook
         page1 = Settings(self)
         page2 = ComputerSettings(self)
-        page3 = GeneralSettings(self)
-        page4 = DirectorySettings(self)
+        page3 = DirectorySettings(self)
+        page4 = WorkflowConfig(self)
         
         page5 = AnatomicalPreprocessing(self)
-        page6 = Anatomical(self)
-        page7 = Registration(self,1)
-        page8 = Segmentation(self,2)
+        page6 = Registration(self,1)
+        page7 = Segmentation(self,2)
         
-        page9 = FunctionalPreProcessing(self)
-        page10 = Functional(self,3)
-        page11 = Scrubbing(self,4)
-        page12 = AnatToFuncRegistration(self,5)
-        page13 = FuncToMNIRegistration(self,6)
+        page8 = FunctionalPreProcessing(self)
+        page9 = TimeSeriesOptions(self)
+        page10 = AnatToFuncRegistration(self,5)
+        page11 = FuncToMNIRegistration(self,6)
         
-        page14 = Nuisance(self)
-        page15 = NuisanceCorrection(self,7)
-        page16 = MedianAngleCorrection(self,8)
+        page12 = Nuisance(self)
+        page13 = NuisanceCorrection(self,7)
         
-        page17 = Filtering(self)
-        page18 = FilteringSettings(self,9)
-        
+        page14 = Filtering(self)
+        page15 = FilteringSettings(self,9)
+
+        page16 = Motion(self)
+        page17 = MotionOptions(self)
+        page18 = Scrubbing(self,4)
+       
         page19 = TimeSeries(self)
         page20 = GenerateSeeds(self)
         page21 = ROITimeseries(self)
         page22 = VOXELTimeseries(self)
         page23 = SpatialRegression(self)
         page24 = VerticesTimeSeries(self)
+
+        page25 = SCA(self)
+        page26 = SCASettings(self)
+        page27 = MultipleRegressionSCA(self)
         
-        page25 = VMHC(self)
-        page26 = VMHCSettings(self)
+        page28 = DualRegression(self)
+        page29 = DualRegressionOptions(self)
         
-        page27 = ALFF(self)
-        page28 = ALFFSettings(self)
+        page30 = VMHC(self)
+        page31 = VMHCSettings(self)
         
-        page29 = Centrality(self)
-        page30 = CentralitySettings(self)
+        page32 = ALFF(self)
+        page33 = ALFFSettings(self)
         
-        page31 = ReHo(self)
-        page32 = ReHoSettings(self)
+        page34 = Centrality(self)
+        page35 = CentralitySettings(self)
         
-        page33 = SCA(self)
-        page34 = SCASettings(self)
-        page35 = MultipleRegressionSCA(self)
-        
-        page36 = DualRegression(self)
-        page37 = DualRegressionOptions(self)
+        page36 = ReHo(self)
+        page37 = ReHoSettings(self)
         
         page38 = Smoothing(self)
         page39 = SmoothingSettings(self)
@@ -88,51 +93,54 @@ class Mybook(wx.Treebook):
         # add the pages to the notebook with the label to show on the tab
         self.AddPage(page1, "Environment Setup", wx.ID_ANY)
         self.AddSubPage(page2, "Computer Settings", wx.ID_ANY)
-        self.AddSubPage(page3, "General Settings", wx.ID_ANY)
-        self.AddSubPage(page4, "Output Settings", wx.ID_ANY)
+        self.AddSubPage(page3, "Output Settings", wx.ID_ANY)
+        self.AddSubPage(page4, "Workflow Config", wx.ID_ANY)
         
         self.AddPage(page5, "Anatomical Preprocessing", wx.ID_ANY)
-        self.AddSubPage(page6, "Anatomical", wx.ID_ANY)
-        self.AddSubPage(page7, "Anatomial Registration", wx.ID_ANY)
-        self.AddSubPage(page8, "Tissue Segmentation", wx.ID_ANY)
+        self.AddSubPage(page6, "Anatomial Registration", wx.ID_ANY)
+        self.AddSubPage(page7, "Tissue Segmentation", wx.ID_ANY)
         
-        self.AddPage(page9, "Functional Preprocessing", wx.ID_ANY)
-        self.AddSubPage(page10, "Functional", wx.ID_ANY)
-        self.AddSubPage(page11, "Scrubbing Options", wx.ID_ANY)
-        self.AddSubPage(page12, "Anatomical to Functional Registration", wx.ID_ANY)
-        self.AddSubPage(page13, "Functional to MNI Registration", wx.ID_ANY)
+        self.AddPage(page8, "Functional Preprocessing", wx.ID_ANY)
+        self.AddSubPage(page9, "Time Series Options", wx.ID_ANY)
+        self.AddSubPage(page10, "Anatomical to Functional Registration", wx.ID_ANY)
+        self.AddSubPage(page11, "Functional to MNI Registration", wx.ID_ANY)
         
-        self.AddPage(page14, "Nuisance", wx.ID_ANY)
-        self.AddSubPage(page15, "Nuisance Correction", wx.ID_ANY)
-        self.AddSubPage(page16, "Median Angle Correction", wx.ID_ANY)
+        self.AddPage(page12, "Nuisance", wx.ID_ANY)
+        self.AddSubPage(page13, "Nuisance Correction", wx.ID_ANY)
         
-        self.AddPage(page17, "Temporal Filtering", wx.ID_ANY)
-        self.AddSubPage(page18, "Temporal Filtering Options", wx.ID_ANY)
+        self.AddPage(page14, "Temporal Filtering", wx.ID_ANY)
+        self.AddSubPage(page15, "Temporal Filtering Options", wx.ID_ANY)
+
+        self.AddPage(page16, "Motion Correction", wx.ID_ANY)
+        self.AddSubPage(page17, "Motion Correction Options", wx.ID_ANY)
+        self.AddSubPage(page18, "Scrubbing Options", wx.ID_ANY)
         
-        self.AddPage(page19, "Time Series Analysis", wx.ID_ANY)
+        self.AddPage(page29, "Time Series Analysis", wx.ID_ANY)
         self.AddSubPage(page20, "Seed Analysis", wx.ID_ANY)
         self.AddSubPage(page21, "ROI Timeseries", wx.ID_ANY)
         self.AddSubPage(page22, "VOXEL Timeseries", wx.ID_ANY)
         self.AddSubPage(page23, "Spatial Regression", wx.ID_ANY)
         self.AddSubPage(page24, "Vertices Timeseries", wx.ID_ANY)
+
+        self.AddPage(page25, "SCA", wx.ID_ANY)
+        self.AddSubPage(page26, "SCA Settings", wx.ID_ANY)
+        self.AddSubPage(page27, "Mutiple Regression SCA", wx.ID_ANY)
         
-        self.AddPage(page25, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
-        self.AddSubPage(page26, "VMHC Settings", wx.ID_ANY)
+        self.AddPage(page28, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
+        self.AddSubPage(page29, "VMHC Settings", wx.ID_ANY)
         
 
-        self.AddPage(page27, "ALFF and f/ALFF", wx.ID_ANY)
-        self.AddSubPage(page28, "ALFF and f/ALFF Options", wx.ID_ANY)
+        self.AddPage(page30, "ALFF and f/ALFF", wx.ID_ANY)
+        self.AddSubPage(page31, "ALFF and f/ALFF Options", wx.ID_ANY)
 
         
-        self.AddPage(page29, "Network Centrality", wx.ID_ANY)
-        self.AddSubPage(page30, "Network Centrality Options", wx.ID_ANY)
+        self.AddPage(page32, "Network Centrality", wx.ID_ANY)
+        self.AddSubPage(page33, "Network Centrality Options", wx.ID_ANY)
         
-        self.AddPage(page31, "Regional Homogeneity (ReHo)", wx.ID_ANY)
-        self.AddSubPage(page32, "ReHo Options", wx.ID_ANY)
+        self.AddPage(page34, "Regional Homogeneity (ReHo)", wx.ID_ANY)
+        self.AddSubPage(page35, "ReHo Options", wx.ID_ANY)
         
-        self.AddPage(page33, "SCA", wx.ID_ANY)
-        self.AddSubPage(page34, "SCA Settings", wx.ID_ANY)
-        self.AddSubPage(page35, "Mutiple Regression SCA", wx.ID_ANY)
+        
         
         self.AddPage(page36, "Dual Regression", wx.ID_ANY)
         self.AddSubPage(page37, "Dual Regression Options", wx.ID_ANY)
