@@ -58,14 +58,16 @@ class GenerateSeeds(wx.ScrolledWindow):
                       name="seedSpecificationFile",
                       type=dtype.STR,
                       comment="If you wish to specify new seeds (for use in Time Series Extraction and/or Seed-based Correlation Analysis), this field should contain the full path to a text file containing seed definitions.\n\nIf you do not wish to specify new seeds, this field should be set to None.\n\nSeeds are defined by providing a seed label number, x/y/z coordinates in MNI space, seed radius (in mm), and resolution.\n\nExample:\n1 -28 -40 -12 2 3mm\n2 -4 48 24 3 2mm\n\nIf multiple seeds are specified with the same resolution, they will be grouped into a single file containing multiple seeds, with the values within each seed ROI set to the seed label number.\n\nNote that CPAC does not check for overlapping seeds. In the event that a voxel is present in multiple seeds defined here, the value of that voxel will be set to the sum of the two seed label numbers (effectively resulting in a new seed). Users should confirm the seeds they define do not overlap before running CPAC.",
-                      values="None")
+                      values="None",
+                      validation_req = False)
 
         self.page.add(label="Seed Output Directory ",
                       control=control.DIR_COMBO_BOX,
                       name="seedOutputLocation",
                       type=dtype.STR,
                       comment="Directory where CPAC should write the NIfTI file for new seeds.",
-                      values=os.getcwd())
+                      values=os.getcwd(),
+                      validation_req = False)
 
 
         self.page.set_sizer()

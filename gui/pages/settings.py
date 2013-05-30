@@ -180,24 +180,21 @@ class WorkflowConfig(wx.ScrolledWindow):
                       name='runFunctionalDataGathering',
                       type=dtype.LSTR,
                       comment="Loads functional images for processing by CPAC.\n\nMust be enabled to run preprocessing and analyses.",
-                      values=["On", "Off"],
-                      wkf_switch=False)
+                      values=["On", "Off"])
 
         self.page.add(label="Run Anatomical Preprocessing ",
                       control=control.CHOICE_BOX,
                       name='runAnatomicalPreprocessing',
                       type=dtype.LSTR,
                       comment="Runs the anatomical preprocessing workflow.\n\nMust be enabled to run any subsequent processing or analysis workflows.",
-                      values=["On", "Off"],
-                      wkf_switch=True)
+                      values=["On", "Off"])
 
         self.page.add(label="Run Functional Preprocessing ",
                       control=control.CHOICE_BOX,
                       name='runFunctionalPreprocessing',
                       type=dtype.LSTR,
                       comment="Runs the functional preprocessing workflow.\n\nMust be enabled to run any subsequent processing or analysis workflows.",
-                      values=["On", "Off"],
-                      wkf_switch=True)
+                      values=["On", "Off"])
 
         self.page.set_sizer()
         parent.get_page_list().append(self)
