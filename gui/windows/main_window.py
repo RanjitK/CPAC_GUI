@@ -17,7 +17,7 @@ ID_CLEARALL = 11
 
 class ListBox(wx.Frame):
     def __init__(self, parent, id, title):
-        wx.Frame.__init__(self, parent, id, title, size=(670, 620))
+        wx.Frame.__init__(self, parent, id, title, size=(670, 650))
         
         self.CreateStatusBar()
         self.SetStatusText("The Configurable Pipeline for the Analysis of Connectomes (C-PAC)")
@@ -34,7 +34,7 @@ class ListBox(wx.Frame):
         
         outerPanel2 = wx.Panel(mainPanel)
         outerSizer2 = wx.BoxSizer(wx.HORIZONTAL)
-        
+              
         innerPanel1 = wx.Panel(outerPanel1)
         innerSizer1 = wx.BoxSizer(wx.HORIZONTAL)
          
@@ -139,8 +139,16 @@ class ListBox(wx.Frame):
         outerSizer2.Add(self.runCPAC2, 1, wx.EXPAND | wx.LEFT, 40)
         outerPanel2.SetSizer(outerSizer2)
         
+        text1 = wx.StaticText(mainPanel, -1, "Configure CPAC")
+        text1.SetFont(wx.Font(18, wx.SWISS, wx.NORMAL, wx.BOLD))
+        
+        text2 = wx.StaticText(mainPanel, -1, "Run CPAC")
+        text2.SetFont(wx.Font(18, wx.SWISS, wx.NORMAL, wx.BOLD))
+        
+        mainSizer.Add(text1, 0, wx.EXPAND| wx.ALL, 10)
         mainSizer.Add(outerPanel1, 1, wx.EXPAND | wx.ALL, 20)
-        mainSizer.Add(wx.StaticLine(mainPanel), 0, wx.EXPAND|wx.TOP|wx.BOTTOM, 20)
+        mainSizer.Add(wx.StaticLine(mainPanel), 0, wx.EXPAND|wx.TOP|wx.BOTTOM, 10)
+        mainSizer.Add(text2, 0, wx.EXPAND| wx.ALL, 5)
         mainSizer.Add(outerPanel2, 0 ,wx.EXPAND | wx.ALL, 20)
         
         mainPanel.SetSizer(mainSizer)

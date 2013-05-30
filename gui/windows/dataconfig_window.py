@@ -103,6 +103,14 @@ class DataConfig(wx.Frame):
         self.multiscan = wx.CheckBox(btnPanel, -1, label = "Multiscan Data")
         hbox.Add(self.multiscan, 0.6, flag = wx.RIGHT| wx.BOTTOM, border =5)
         
+        img = wx.Image("images/help.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        help = wx.BitmapButton(btnPanel, id=-1, bitmap=img,
+                               pos=(10, 20), size = (img.GetWidth()+5, img.GetHeight()+5))
+        help.Bind(wx.EVT_BUTTON, self.onHelp)
+        hbox.Add(help, 0.6, flag = wx.RIGHT | wx.BOTTOM, border =5)
+        
+        buffer2 = wx.StaticText(btnPanel, label = "\t")
+        hbox.Add(buffer2)
 
         run_ext = wx.Button(btnPanel, ID_RUN_EXT, "Generate Subject Lists", (280,10), wx.DefaultSize, 0 )
         self.Bind(wx.EVT_BUTTON, lambda event: self.save(event,'run'), id=ID_RUN_EXT)
@@ -134,7 +142,10 @@ class DataConfig(wx.Frame):
         
     def cancel(self, event):
         self.Close()
-        
+    
+    def onHelp(self, event):
+            comment = "Check the box only if the scans have different slice timing infomation."
+            wx.TipWindow(self, comment, 500)
         
     def run(self, config):
             
