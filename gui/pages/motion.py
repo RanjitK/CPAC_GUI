@@ -47,11 +47,11 @@ class MotionOptions(wx.ScrolledWindow):
                       comment="use the Friston 24-Parameter Model during volume realignment.\n\nIf this option is turned off, only 6 parameters will be used.\n\nThese parameters will also be output as a spreadsheet.",
                       values=["On", "Off"])
 
-        self.page.add(label="Calculate FD and DVARS ",
+        self.page.add(label="Calculate Motion Statistics ",
                       control=control.CHOICE_BOX,
                       name='runGenerateMotionStatistics',
                       type=dtype.LSTR,
-                      comment="Calculate Framewise Displacement (FD) and DVARS.\n\nRequired to run Scrubbing.\n\nThese parameters will also be output as a spreadsheet.",
+                      comment="Calculate motion statistics including Framewise Displacement (FD) and DVARS.\n\nRequired to run Scrubbing.\n\nThese parameters will also be output as a spreadsheet.",
                       values=["On", "Off"])
 
         self.page.set_sizer()

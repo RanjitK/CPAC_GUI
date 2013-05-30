@@ -50,7 +50,7 @@ class TimeSeriesOptions(wx.ScrolledWindow):
                  type=dtype.NUM, 
                  values= "End",
                  validator = CharValidator("no-alpha"),
-                 comment="Last timepoint to include in analysis.\n\nDefault is None (end of timeseries).")
+                 comment="Last timepoint to include in analysis.\n\nDefault is End (end of timeseries).")
         
         self.page.add(label= "TR ",
                  control=control.TEXT_BOX, 

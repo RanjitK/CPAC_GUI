@@ -34,15 +34,15 @@ class SmoothingSettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Smoothing Settings")
+        self.page = GenericClass(self, "Spatial Smoothing Options")
         
-        self.page.add(label= "Gaussian Kernel Width (in mm):",
+        self.page.add(label= "Kernel FWHM (in mm) ",
                  control=control.TEXT_BOX, 
                  name='fwhm', 
                  type=dtype.LNUM, 
                  values= "4",
                  validator = CharValidator("no-alpha"),
-                 comment="Width (FWHM, in mm) of the Gaussian kernel used for spatial smoothing")
+                 comment="Full Width at Half Maximum of the Gaussian kernel used during spatial smoothing.\n\nCan be a single value or multiple values separated by commas.\n\nNote that spatial smoothing is run as the last step in the individual-level analysis pipeline, such that all derivatives are output both smoothed and unsmoothed.")
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

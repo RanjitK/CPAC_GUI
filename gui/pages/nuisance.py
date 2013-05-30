@@ -72,14 +72,13 @@ class NuisanceCorrection(wx.ScrolledWindow):
                      size = (300,120),
                      combo_type =1)
                     
-        self.page.add(label= "Number of Compoenents:",
+        self.page.add(label= "CompCor Components",
                       control = control.TEXT_BOX,
                       name = "nComponents",
                       type = dtype.LNUM,
                       values = "5",
                       validator = CharValidator("no-alpha"),
-                      comment = "Number of Principle Components to calculate for CompCor (usually 5 or 6)\n"\
-                                 "Only for use when 'compcor' is set to 1")
+                      comment = "Number of Principle Components to calculate when running CompCor. We recommend 5 or 6.")
 
 
 
@@ -96,23 +95,23 @@ class MedianAngleCorrection(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Median Angle Correction")
+        self.page = GenericClass(self, "Median Angle Correction Options")
         
-        self.page.add(label="Run Median Angle Correction:", 
+        self.page.add(label="Run Median Angle Correction ", 
                  control=control.CHOICE_BOX, 
                  name='runMedianAngleCorrection', 
                  type=dtype.LSTR, 
-                 comment="Run Nuisance Signal Correction", 
+                 comment="Correct for the global signal using Median Angle Correction.", 
                  values=["Off","On"],
                  wkf_switch = True)
         
-        self.page.add(label= "Target Angle:",
+        self.page.add(label= "Target Angle (degrees)",
                       control = control.TEXT_BOX,
                       name = "targetAngleDeg",
                       type = dtype.LNUM,
                       values = "90",
                       validator = CharValidator("no-alpha"),
-                      comment = "Target angle for median angle correction")
+                      comment = "Target angle used during Median Angle Correction.")
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

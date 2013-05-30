@@ -35,9 +35,9 @@ class GPASettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "FSL Group Analysis")
+        self.page = GenericClass(self, "FSL Group Statistics Options")
         
-        self.page.add(label="Run Group Analysis:", 
+        self.page.add(label="Calculate Group Statistics ", 
                       control=control.CHOICE_BOX, 
                       name='runGroupAnalysis', 
                       type=dtype.LSTR, 

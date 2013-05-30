@@ -39,20 +39,7 @@ class GenerateSeeds(wx.ScrolledWindow):
         self.counter = counter
 
         self.page = GenericClass(self, "Define New Seeds")
-
-        self.page.add(label="Use Seed in Analysis:", 
-         control=control.CHECKLIST_BOX, 
-         name='useSeedInAnalysis', 
-         type=dtype.LNUM, 
-         comment="use the seeds specified in seedSpecificationFile in the following analysis \n"\
-                 "1 = use in roi timeseries extraction \n"\
-                 "2 = use in voxel timeseries extraction \n"\
-                 "3 = use in network centrality \n"\
-                 "users can specify a combination of these options",
-         values=[ 'None', 'ROI Timeseries', 'Voxel Timeseries', 'Network Centrality'],
-         size = (180,80),
-         validation_req = False)
-
+        
         self.page.add(label="Seed Specification File ",
                       control=control.COMBO_BOX,
                       name="seedSpecificationFile",
@@ -65,9 +52,18 @@ class GenerateSeeds(wx.ScrolledWindow):
                       control=control.DIR_COMBO_BOX,
                       name="seedOutputLocation",
                       type=dtype.STR,
-                      comment="Directory where CPAC should write the NIfTI file for new seeds.",
+                      comment="Directory where CPAC should write NIfTI files containing new seeds.",
                       values=os.getcwd(),
                       validation_req = False)
+
+        self.page.add(label="Use New Seeds In ", 
+         control=control.CHECKLIST_BOX, 
+         name='useSeedInAnalysis', 
+         type=dtype.LNUM, 
+         comment="It is possible to use the newly generated seeds when running a number of the analyses included in CPAC. Note that these analyses will be run using all new seeds.\n\nIf you wish to use these new seeds to run Seed-based Correlation Analysis, select ROI Average Timeseries Extraction.\n\nIf you do not wish to use new seeds in these analyses, select none.",
+         values=[ 'None', 'ROI Average Time Series Extraction', 'ROI Voxelwise Time Series Extraction', 'Network Centrality'],
+         size = (310,90),
+         validation_req = False)
 
 
         self.page.set_sizer()
@@ -134,19 +130,19 @@ class VOXELTimeseries(wx.ScrolledWindow):
                       values=["Off", "On"],
                       wkf_switch=True)
 
-        self.page.add(label="Output Options ",
-                      control=control.CHECKLIST_BOX,
-                      name="voxelTSOutputs",
-                      type=dtype.LBOOL,
-                      values=['CSV', 'NUMPY'],
-                      comment="By default, extracted time series are written as both a text file and a 1D file. Additional output formats are as a .csv spreadsheet or a Numpy array.")
-
         self.page.add(label="ROI Specification File ",
                       control=control.COMBO_BOX,
                       name="maskSpecificationFile",
                       type=dtype.STR,
                       comment="Full path to a text file containing a list ROI files.\n\nEach line in this file should be the path to a NIfTI file containing a single ROI.\n\nIf you only wish to extract time series for newly defined spherical seed ROIs, set this field to None.",
                       values="None")
+
+        self.page.add(label="Output Options ",
+                      control=control.CHECKLIST_BOX,
+                      name="voxelTSOutputs",
+                      type=dtype.LBOOL,
+                      values=['CSV', 'NUMPY'],
+                      comment="By default, extracted time series are written as both a text file and a 1D file. Additional output formats are as a .csv spreadsheet or a Numpy array.")
 
         self.page.set_sizer()
         parent.get_page_list().append(self)
