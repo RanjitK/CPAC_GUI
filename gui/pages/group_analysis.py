@@ -35,71 +35,53 @@ class GPASettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "FSL Group Statistics Options")
+        self.page = GenericClass(self, "FSL/FEAT Group Analysis Options")
         
-        self.page.add(label="Calculate Group Statistics ", 
+        self.page.add(label="Run Group Analysis ", 
                       control=control.CHOICE_BOX, 
                       name='runGroupAnalysis', 
                       type=dtype.LSTR, 
-                      comment="Calculate group statistics", 
+                      comment="Run group analysis using FSL/FEAT.", 
                       values=["Off","On"],
                       wkf_switch = True)
         
-        self.page.add(label = "Select Derivatives:",
+        self.page.add(label = "Select Derivatives ",
                     control = control.CHECKLIST_BOX,
                     name = "derivativeList",
                     type = dtype.LSTR,
-                    values = ['SCA(voxel_based)', 
-                              'SCA(roi_based)',
-                              'SCA(temporal_regression)',
+                    values = ['ROI Average SCA', 
+                              'Voxelwise SCA',
+                              'Multiple Regression SCA',
+                              'Dual Regression',
+                              'VMHC',
                               'ALFF', 
-                              'fALFF',
-                              'VMHC', 
+                              'f/ALFF', 
                               'ReHo',
-                              'Centrality',
-                              'Dual_Regression'],
-                    comment = "Select which measures should be included in group analysis:\n"\
-                              "Voxel-based SCA = sca_seed_Z_to_standard_smooth\n"\
-                              "ROI based SCA = sca_roi_Z_to_standard_smooth\n"\
-                              "Temporal REgression based SCA = sca_tempreg_maps_z_files_smooth\n"\
-                              "ALFF = alff_Z_to_standard_smooth\n"\
-                              "fALFF = falff_Z_to_standard_smooth\n"\
-                              "VMHC = vmhc_z_score_stat_map\n"\
-                              "Reho = reho_Z_to_standard_smooth\n"\
-                              "Dual Regression = dr_tempreg_maps_z_files_smooth",
+                              'Network Centrality'],
+                    comment = "Select which derivatives you would like to include when running group analysis.\n\nWhen including Dual Regression, make sure to correct your P-value for the number of maps you are comparing.\n\nWhen including Multiple Regression SCA, you must have more degrees of freedom (subjects) than there were time series.",
                     size = (220,160))
         
-        self.page.add(label = "Model Subjects Specification File:",
+        self.page.add(label = "Models to Run ",
                       control = control.LISTBOX_COMBO,
                       name = 'modelFile',
                       type = dtype.LOFL,
                       values = "",
-                     comment="Location of a text file containing a list of FSL models\n"\
-                             "Each line in this file should be the path\n"\
-                             "to a model directory space subject list for that model\n"\
-                             "Each model directory should contain a .mat, .con, and .grp file\n"\
-                             "If fTest = True (see below), model directories must also contain a .fts file\n"\
-                             "These models can be generated through FSL, or using create_fsl_model.py\n"\
-                             "For instructions on using create_fsl_model.py, see the user guide\n"\
-                             "It can be a file with model and subject list(for that model) path in each line\n"\
-                             " or list of model_dir and subject_list",
-                     size = (400,100),
-                     combo_type = 3)
+                      comment="Use the + to add FSL models to be run.",
+                      size = (400,100),
+                      combo_type = 3)
         
-        self.page.add(label="Z threshold:", 
+        self.page.add(label="Z threshold ", 
                      control=control.FLOAT_CTRL, 
                      name='zThreshold', 
                      type=dtype.NUM, 
-                     comment="Z Statistic threshold value for cluster thresholding. It is the Z value used to\n"\
-                             "determine what level of activation would be statistically significant.\n"\
-                             "Increasing this will result in higher estimates of required effect.", 
+                     comment="Only voxels with a Z-score higher than this value will be considered significant.", 
                      values=2.3)
 
-        self.page.add(label="P threshold:", 
+        self.page.add(label="Cluster Significance Threshold ", 
                      control=control.FLOAT_CTRL, 
                      name='pThreshold', 
                      type=dtype.NUM, 
-                     comment="Probability threshold for cluster thresholding", 
+                     comment="Significance threshold (P-value) to use when doing cluster correction for multiple comparisons.", 
                      values=0.05)
         
         self.page.add(label="Run F-test:", 

@@ -71,7 +71,7 @@ class CentralitySettings(wx.ScrolledWindow):
                      control=control.CHOICE_BOX, 
                      name='correlationThresholdOption', 
                      type = dtype.NUM, 
-                     comment="Select the type of threshold used when creating the adjacency matrix.\n0 = Significance threshold\n1 = Sparsity threshold\n2 = Correlation threshold", 
+                     comment="Select the type of threshold used when creating the adjacency matrix.", 
                      values=["Significance threshold","Sparsity threshold", "Correlation threshold"])
         
         self.page.add(label="Threshold Value ", 

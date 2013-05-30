@@ -35,13 +35,13 @@ class SCASettings(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Seed-based Correlation Analysis (SCA)")
+        self.page = GenericClass(self, "Seed-based Correlation Analysis (SCA) Options")
         
-        self.page.add(label="Run Seed-based Correlation Analysis (SCA):", 
+        self.page.add(label="Run Seed-based Correlation Analysis (SCA) ", 
                      control=control.CHOICE_BOX, 
                      name='runSCA', 
                      type=dtype.LSTR, 
-                     comment="Run Seed-based Correlation Analysis", 
+                     comment="For each extracted ROI Average and/or ROI Voxelwise time series, CPAC will generate a whole-brain correlation map.\n\nIt should be noted that for a given seed/ROI, SCA maps for ROI Average and ROI Voxelwise time series will be the same.", 
                      values=["Off","On"],
                      wkf_switch = True)
         
@@ -59,31 +59,29 @@ class MultipleRegressionSCA(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "SCA using Multiple Regression")
+        self.page = GenericClass(self, "Multiple Regression SCA Options")
         
-        self.page.add(label="Run SCA using Multiple Regression:", 
+        self.page.add(label="Run Multiple Regression SCA ", 
                  control=control.CHOICE_BOX, 
                  name='runMultRegSCA', 
                  type=dtype.LSTR, 
-                 comment="As an additional option, you can use multiple regression as implemented in\n"
-                          "fsl_glm to generate sca maps for each extracted timeseries", 
+                 comment="CPAC will enter all extracted time series from ROI Average TSE, ROI Voxelwise TSE, and Spatial Regression into a single multiple regression model and output a single correlation map.", 
                  values=["Off","On"],
                  wkf_switch = True)
         
-        self.page.add(label="Demean the  TimeSeries:", 
+        self.page.add(label="Demean Time Series ", 
                      control=control.CHOICE_BOX, 
                      name='mrsDemean', 
                      type=dtype.BOOL, 
                      values = ["True", "False"],
-                     comment="do you want to demean your timeseries maps and input functional\n"
-                             "data (True / False)")
+                     comment="Demean each time series before running Multiple Regression SCA.")
                 
-        self.page.add(label="Normalize the TimeSeries:", 
+        self.page.add(label="Normalize Time Series ", 
                      control=control.CHOICE_BOX, 
                      name='mrsNorm', 
                      type=dtype.BOOL, 
                      values = ["True", "False"],
-                     comment="Normalize the timeseries (True / False)")
+                     comment="Normalize each time series before running Multiple Regression SCA.")
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

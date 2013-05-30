@@ -82,7 +82,7 @@ class ROITimeseries(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "ROI Average Time Series Extraction Options")
+        self.page = GenericClass(self, "ROI Average TSE Options")
 
         self.page.add(label="Extract ROI Average Time Series ",
                       control=control.CHOICE_BOX,
@@ -120,7 +120,7 @@ class VOXELTimeseries(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "ROI Voxelwise Time Series Extraction Options")
+        self.page = GenericClass(self, "ROI Voxelwise TSE Options")
 
         self.page.add(label="Extract ROI Voxelwise Time Series ",
                       control=control.CHOICE_BOX,
@@ -158,32 +158,29 @@ class SpatialRegression(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "Spacial Regression")
+        self.page = GenericClass(self, "Spatial Regression Options")
 
-        self.page.add(label="Run Spatial Regression:",
+        self.page.add(label="Run Spatial Regression ",
                       control=control.CHOICE_BOX,
                       name='runSpatialRegression',
                       type=dtype.LSTR,
-                      comment="Extract timeseries from existing spatial/ica maps\n"
-                      "Required if you wish to run dual regression",
+                      comment="Extract the time series from one or more existing spatial maps (such as an ICA map).\n\nRequired if you wish to run Dual Regression.",
                       values=["Off", "On"],
                       wkf_switch=True)
 
-        self.page.add(label="Spatial Pattern Maps Specification File:",
+        self.page.add(label="Spatial Map Specification File ",
                       control=control.COMBO_BOX,
                       name="spatialPatternMaps",
                       type=dtype.STR,
-                      comment="Path to file containing the paths to Spatial Pattern maps \n"
-                      "All spatial patterns for one analysis have to be volumes in one 4D file \n"
-                      "(see User Guide)",
-                      values="/path/to/mask_definitions_file")
+                      comment="Full path to a text file containing a list spatial maps.\n\nEach line in this file should be the path to a 4D NIfTI file containing one spatial map per volume.",
+                      values="")
 
-        self.page.add(label="Demean Spatial Pattern Maps:",
+        self.page.add(label="Demean Spatial Maps ",
                       control=control.CHOICE_BOX,
                       name='spatialDemean',
                       type=dtype.BOOL,
                       values=["True", "False"],
-                      comment="do you want to demean your spatial pattern maps and input data (True / False)")
+                      comment="Demean spatial maps before running spatial regression.")
 
         self.page.set_sizer()
         parent.get_page_list().append(self)

@@ -22,23 +22,22 @@ class DualRegressionOptions(wx.ScrolledWindow):
                 
         self.counter = counter
         
-        self.page = GenericClass(self, "Dual Regression")
+        self.page = GenericClass(self, "Dual Regression Options")
         
-        self.page.add(label="Run Dual Regression:", 
+        self.page.add(label="Run Dual Regression ", 
                  control=control.CHOICE_BOX, 
                  name='runDualReg', 
                  type=dtype.LSTR, 
-                 comment="Run Dual Regression. In Order to run Dual Regression, \n"
-                          "You must also run Spatial Regression for the Timeseries Extraction.", 
+                 comment="Run Dual Regression.\n\nRequires that Spatial Regression be enabled under Time Series Extraction.", 
                  values=["Off","On"],
                  wkf_switch = True)
         
-        self.page.add(label="Normalize the  TimeSeries:", 
+        self.page.add(label="Normalize Time Series ", 
                      control=control.CHOICE_BOX, 
                      name='drNorm', 
                      type=dtype.BOOL, 
                      values = ["True", "False"],
-                     comment="Normalize the timeseries (True / False)")
+                     comment="Normalize time series before running Dual Regression.")
                 
 
         self.page.set_sizer()
