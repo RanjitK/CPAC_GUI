@@ -6,7 +6,7 @@ from ..pages import WorkflowConfig, Motion, AnatomicalPreprocessing, \
     VMHC, VMHCSettings, ReHo, ReHoSettings, \
     SCA, SCASettings, MultipleRegressionSCA,\
     Settings, ComputerSettings, DirectorySettings, \
-    Nuisance, NuisanceCorrection, \
+    Nuisance, NuisanceCorrection, MedianAngleCorrection,\
     CentralitySettings, Centrality,\
     ALFF, ALFFSettings,\
     Smoothing, SmoothingSettings,\
@@ -44,51 +44,52 @@ class Mybook(wx.Treebook):
 
         page12 = Nuisance(self)
         page13 = NuisanceCorrection(self, 7)
+        page14 = MedianAngleCorrection(self, 8)
 
-        page14 = Filtering(self)
-        page15 = FilteringSettings(self, 9)
+        page15 = Filtering(self)
+        page16 = FilteringSettings(self, 9)
 
-        page16 = Motion(self)
-        page17 = MotionOptions(self)
-        page18 = Scrubbing(self, 4)
+        page17 = Motion(self)
+        page18 = MotionOptions(self)
+        page19 = Scrubbing(self, 4)
 
-        page19 = TimeSeries(self)
-        page20 = GenerateSeeds(self)
-        page21 = ROITimeseries(self)
-        page22 = VOXELTimeseries(self)
-        page23 = VerticesTimeSeries(self)
-        page24 = SpatialRegression(self)
+        page20 = TimeSeries(self)
+        page21 = GenerateSeeds(self)
+        page22 = ROITimeseries(self)
+        page23 = VOXELTimeseries(self)
+        page24 = VerticesTimeSeries(self)
+        page25 = SpatialRegression(self)
 
-        page25 = SCA(self)
-        page26 = SCASettings(self)
-        page27 = MultipleRegressionSCA(self)
+        page26 = SCA(self)
+        page27 = SCASettings(self)
+        page28 = MultipleRegressionSCA(self)
 
-        page28 = DualRegression(self)
-        page29 = DualRegressionOptions(self)
+        page29 = DualRegression(self)
+        page30 = DualRegressionOptions(self)
 
-        page30 = VMHC(self)
-        page31 = VMHCSettings(self)
+        page31 = VMHC(self)
+        page32 = VMHCSettings(self)
 
-        page32 = ALFF(self)
-        page33 = ALFFSettings(self)
+        page33 = ALFF(self)
+        page34 = ALFFSettings(self)
 
-        page34 = Centrality(self)
-        page35 = CentralitySettings(self)
+        page35 = Centrality(self)
+        page36 = CentralitySettings(self)
 
-        page36 = ReHo(self)
-        page37 = ReHoSettings(self)
+        page37 = ReHo(self)
+        page38 = ReHoSettings(self)
 
-        page38 = Smoothing(self)
-        page39 = SmoothingSettings(self)
+        page39 = Smoothing(self)
+        page40 = SmoothingSettings(self)
 
-        page40 = BASC(self)
-        page41 = BASCSettings(self)
+        page41 = BASC(self)
+        page42 = BASCSettings(self)
 
-        page42 = CWAS(self)
-        page43 = CWASSettings(self)
+        page43 = CWAS(self)
+        page44 = CWASSettings(self)
 
-        page44 = GroupAnalysis(self)
-        page45 = GPASettings(self)
+        page45 = GroupAnalysis(self)
+        page46 = GPASettings(self)
 
         # add the pages to the notebook with the label to show on the tab
         self.AddPage(page1, "Environment Setup", wx.ID_ANY)
@@ -107,51 +108,52 @@ class Mybook(wx.Treebook):
 
         self.AddPage(page12, "Nuisance", wx.ID_ANY)
         self.AddSubPage(page13, "Nuisance Correction", wx.ID_ANY)
+        self.AddSubPage(page14, "Median Angle Correction", wx.ID_ANY)
 
-        self.AddPage(page14, "Temporal Filtering", wx.ID_ANY)
-        self.AddSubPage(page15, "Temporal Filtering Options", wx.ID_ANY)
+        self.AddPage(page15, "Temporal Filtering", wx.ID_ANY)
+        self.AddSubPage(page16, "Temporal Filtering Options", wx.ID_ANY)
 
-        self.AddPage(page16, "Motion Correction", wx.ID_ANY)
-        self.AddSubPage(page17, "Motion Correction Options", wx.ID_ANY)
-        self.AddSubPage(page18, "Scrubbing Options", wx.ID_ANY)
+        self.AddPage(page17, "Motion Correction", wx.ID_ANY)
+        self.AddSubPage(page18, "Motion Correction Options", wx.ID_ANY)
+        self.AddSubPage(page19, "Scrubbing Options", wx.ID_ANY)
 
-        self.AddPage(page19, "Time Series Extraction", wx.ID_ANY)
-        self.AddSubPage(page20, "Define New Seeds", wx.ID_ANY)
-        self.AddSubPage(page21, "ROI Average Time Series", wx.ID_ANY)
-        self.AddSubPage(page22, "ROI Voxelwise Time Series", wx.ID_ANY)
-        self.AddSubPage(page23, "Surface Vertices Time Series", wx.ID_ANY)
-        self.AddSubPage(page24, "Spatial Regression", wx.ID_ANY)
+        self.AddPage(page20, "Time Series Extraction", wx.ID_ANY)
+        self.AddSubPage(page21, "Define New Seeds", wx.ID_ANY)
+        self.AddSubPage(page22, "ROI Average Time Series", wx.ID_ANY)
+        self.AddSubPage(page23, "ROI Voxelwise Time Series", wx.ID_ANY)
+        self.AddSubPage(page24, "Surface Vertices Time Series", wx.ID_ANY)
+        self.AddSubPage(page25, "Spatial Regression", wx.ID_ANY)
 
-        self.AddPage(page25, "SCA", wx.ID_ANY)
-        self.AddSubPage(page26, "SCA Settings", wx.ID_ANY)
-        self.AddSubPage(page27, "Mutiple Regression SCA", wx.ID_ANY)
+        self.AddPage(page26, "SCA", wx.ID_ANY)
+        self.AddSubPage(page27, "SCA Settings", wx.ID_ANY)
+        self.AddSubPage(page28, "Mutiple Regression SCA", wx.ID_ANY)
 
-        self.AddPage(page28, "Dual Regression", wx.ID_ANY)
-        self.AddSubPage(page29, "Dual Regression Options", wx.ID_ANY)
+        self.AddPage(page29, "Dual Regression", wx.ID_ANY)
+        self.AddSubPage(page30, "Dual Regression Options", wx.ID_ANY)
 
-        self.AddPage(page30, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
-        self.AddSubPage(page31, "VMHC Settings", wx.ID_ANY)
+        self.AddPage(page31, "Voxel-mirrored Homotopic Connectivity", wx.ID_ANY)
+        self.AddSubPage(page32, "VMHC Settings", wx.ID_ANY)
 
-        self.AddPage(page32, "ALFF and f/ALFF", wx.ID_ANY)
-        self.AddSubPage(page33, "ALFF and f/ALFF Options", wx.ID_ANY)
+        self.AddPage(page33, "ALFF and f/ALFF", wx.ID_ANY)
+        self.AddSubPage(page34, "ALFF and f/ALFF Options", wx.ID_ANY)
 
-        self.AddPage(page34, "Network Centrality", wx.ID_ANY)
-        self.AddSubPage(page35, "Network Centrality Options", wx.ID_ANY)
+        self.AddPage(page35, "Network Centrality", wx.ID_ANY)
+        self.AddSubPage(page36, "Network Centrality Options", wx.ID_ANY)
 
-        self.AddPage(page36, "Regional Homogeneity (ReHo)", wx.ID_ANY)
-        self.AddSubPage(page37, "ReHo Options", wx.ID_ANY)
+        self.AddPage(page37, "Regional Homogeneity (ReHo)", wx.ID_ANY)
+        self.AddSubPage(page38, "ReHo Options", wx.ID_ANY)
 
-        self.AddPage(page38, "Spatial Smoothing", wx.ID_ANY)
-        self.AddSubPage(page39, "Spatial Smoothing Options", wx.ID_ANY)
+        self.AddPage(page39, "Spatial Smoothing", wx.ID_ANY)
+        self.AddSubPage(page40, "Spatial Smoothing Options", wx.ID_ANY)
 
-        self.AddPage(page40, "BASC", wx.ID_ANY)
-        self.AddSubPage(page41, "BASC Settings", wx.ID_ANY)
+        self.AddPage(page41, "BASC", wx.ID_ANY)
+        self.AddSubPage(page42, "BASC Settings", wx.ID_ANY)
 
-        self.AddPage(page42, "CWAS", wx.ID_ANY)
-        self.AddSubPage(page43, "CWAS Settings", wx.ID_ANY)
+        self.AddPage(page43, "CWAS", wx.ID_ANY)
+        self.AddSubPage(page44, "CWAS Settings", wx.ID_ANY)
 
-        self.AddPage(page44, "Group Analysis", wx.ID_ANY)
-        self.AddSubPage(page45, "Group Analysis Settings", wx.ID_ANY)
+        self.AddPage(page45, "Group Analysis", wx.ID_ANY)
+        self.AddSubPage(page46, "Group Analysis Settings", wx.ID_ANY)
 
         self.Bind(wx.EVT_TREEBOOK_PAGE_CHANGED, self.OnPageChanged)
         self.Bind(wx.EVT_TREEBOOK_PAGE_CHANGING, self.OnPageChanging)
@@ -240,6 +242,8 @@ class MainFrame(wx.Frame):
                 val = config_file_map.get(str(name))
                 print "loading ctrl -> value", name, "->", val
                 sample_list = ctrl.get_values()
+                s_map = dict((v, k)
+                            for k, v in substitution_map.iteritems())
                 if val:
                     if isinstance(val, list):
                         if ctrl.get_datatype() == 8:
@@ -264,8 +268,7 @@ class MainFrame(wx.Frame):
                                      for i, x in enumerate(val) if x == True]
 
                         elif ctrl.get_datatype() == 4:
-                            s_map = dict((v, k)
-                                         for k, v in substitution_map.iteritems())
+
                             value = [s_map.get(item)
                                      for item in val if s_map.get(item) != None]
                             if not value:
@@ -282,8 +285,8 @@ class MainFrame(wx.Frame):
                                 else:
                                     value = str(v)
                     else:
-                        if ctrl.get_datatype() == 2 and ctrl.get_type == 0:
-                            value = sample_list[v]
+                        if ctrl.get_datatype() == 2 and ctrl.get_type() == 0:
+                            value = sample_list[val]
                         else:
                             value = str(val)
                 else:
@@ -437,7 +440,9 @@ class MainFrame(wx.Frame):
                     if type ==0:
                         value = sample_list.index(value)
                     else:
-                        if value != 'None':
+                        if substitution_map.get(value) != None:
+                            value = substitution_map.get(value)
+                        elif value != 'None':
                             value = ast.literal_eval(str(value))
                     print >>f, label, ": ", value
                     print >>f,"\n"

@@ -340,7 +340,7 @@ class ListBox(wx.Frame):
             path = dlg.GetPath()
             while True:
                 dlg2 = wx.TextEntryDialog(self, 'Please enter a alias name for the Subject List',
-                                     'Sublist Name', "CPAC_Sublist")
+                                     'Sublist Name', os.path.splitext(os.path.basename(path))[0])
             
                 if dlg2.ShowModal() == wx.ID_OK:
                     if len(dlg2.GetValue()) >0:
@@ -355,6 +355,10 @@ class ListBox(wx.Frame):
                               wx.OK | wx.ICON_ERROR)
                             dlg3.ShowModal()
                             dlg3.Destroy()
+                else:
+                    dlg2.Destroy()
+                    dlg.Destroy
+                    break
                             
                             
     def AddConfig(self, event):

@@ -4,7 +4,7 @@ from .vmhc import VMHC, VMHCSettings
 from .reho import ReHo, ReHoSettings
 from .sca import SCA, SCASettings, MultipleRegressionSCA
 from .settings import Settings, ComputerSettings, WorkflowConfig, DirectorySettings
-from .nuisance import Nuisance, NuisanceCorrection
+from .nuisance import Nuisance, NuisanceCorrection, MedianAngleCorrection
 from .motion import Motion, MotionOptions, Scrubbing
 from .centrality import CentralitySettings, Centrality
 from .alff import ALFF, ALFFSettings
@@ -21,7 +21,7 @@ __all__ = ['WorkflowConfig', 'AnatomicalPreprocessing', \
            'VMHC', 'VMHCSettings', 'ReHo', 'ReHoSettings','TimeSeriesOptions', \
            'SCA', 'SCASettings', 'MultipleRegressionSCA'\
            'Settings', 'ComputerSettings', 'Motion', 'DirectorySettings', \
-           'Nuisance', 'NuisanceCorrection', \
+           'Nuisance', 'NuisanceCorrection', 'MedianAngleCorrection',\
            'CentralitySettings', 'Centrality',\
            'ALFF', 'ALFFSettings',\
            'Smoothing', 'SmoothingSettings',\

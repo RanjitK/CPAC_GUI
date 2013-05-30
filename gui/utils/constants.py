@@ -33,4 +33,5 @@ substitution_map = {'On': 1,
                    'ReHo':'reho_Z_to_standard_smooth',
                    'Centrality':'centrality_outputs_smoothed',
                    'Dual_Regression':'dr_tempreg_maps_z_files_smooth',
+                   'End': 'None'
                    }

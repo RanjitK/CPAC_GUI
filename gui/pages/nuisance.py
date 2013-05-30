@@ -81,12 +81,29 @@ class NuisanceCorrection(wx.ScrolledWindow):
                       comment = "Number of Principle Components to calculate for CompCor (usually 5 or 6)\n"\
                                  "Only for use when 'compcor' is set to 1")
 
+
+
+        self.page.set_sizer()
+        parent.get_page_list().append(self)
+        
+    def get_counter(self):
+            return self.counter
+        
+class MedianAngleCorrection(wx.ScrolledWindow):
+    
+    def __init__(self, parent, counter = 0):
+        wx.ScrolledWindow.__init__(self, parent)
+                
+        self.counter = counter
+        
+        self.page = GenericClass(self, "Median Angle Correction")
+        
         self.page.add(label="Run Median Angle Correction:", 
                  control=control.CHOICE_BOX, 
                  name='runMedianAngleCorrection', 
                  type=dtype.LSTR, 
                  comment="Run Nuisance Signal Correction", 
-                 values=["On","Off"],
+                 values=["Off","On"],
                  wkf_switch = True)
         
         self.page.add(label= "Target Angle:",
@@ -96,7 +113,7 @@ class NuisanceCorrection(wx.ScrolledWindow):
                       values = "90",
                       validator = CharValidator("no-alpha"),
                       comment = "Target angle for median angle correction")
-
+        
         self.page.set_sizer()
         parent.get_page_list().append(self)
         

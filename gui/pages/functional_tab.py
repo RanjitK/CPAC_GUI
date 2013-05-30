@@ -48,7 +48,7 @@ class TimeSeriesOptions(wx.ScrolledWindow):
                  control=control.TEXT_BOX, 
                  name='stopIdx', 
                  type=dtype.NUM, 
-                 values= "None",
+                 values= "End",
                  validator = CharValidator("no-alpha"),
                  comment="Last timepoint to include in analysis.\n\nDefault is None (end of timeseries).")
         
