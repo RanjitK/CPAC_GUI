@@ -40,16 +40,17 @@ class GenerateSeeds(wx.ScrolledWindow):
         self.page = GenericClass(self, "Generate Seeds")
         
         self.page.add(label="Use Seed in Analysis:", 
-         control=control.CHOICE_BOX, 
+         control=control.CHECKLIST_BOX, 
          name='useSeedInAnalysis', 
-         type=dtype.LSTR, 
+         type=dtype.LNUM, 
          comment="use the seeds specified in seedSpecificationFile in the following analysis \n"\
                  "1 = use in roi timeseries extraction \n"\
                  "2 = use in voxel timeseries extraction \n"\
                  "3 = use in network centrality \n"\
                  "users can specify a combination of these options",
-         values=["Off","On"],
-         wkf_switch = True)
+         values=[ 'None', 'ROI Timeseries', 'Voxel Timeseries', 'Network Centrality'],
+         size = (180,80),
+         validation_req = False)
         
         self.page.add(label="Seed Specification File:", 
                  control=control.COMBO_BOX, 
@@ -77,7 +78,8 @@ class GenerateSeeds(wx.ScrolledWindow):
                             "60     0   52  6   4 1mm \n"
                             "1     -54 -54  28  4 4mm \n"
                             "7     -60 -24 -18  4 4mm",
-                 values = "/path/to/seed_specification_txt_file")
+                 values = "/path/to/seed_specification_txt_file",
+                 validation_req = False)
         
         self.page.add(label = "Seed Output Location:", 
                       control = control.DIR_COMBO_BOX, 
@@ -85,7 +87,8 @@ class GenerateSeeds(wx.ScrolledWindow):
                       type = dtype.STR, 
                       comment = "Output Directory Location where the ROI files for \n"\
                                 "the newly created seeds will be present",
-                      values = os.getcwd())
+                      values = os.getcwd(),
+                      validation_req = False)
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

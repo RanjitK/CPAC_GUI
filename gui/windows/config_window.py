@@ -261,7 +261,8 @@ class MainFrame(wx.Frame):
                             value = [ s_map.get(item) for item in val if s_map.get(item) != None]
                             if not value:
                                 value = [ str(item) for item in val]
-                                                        
+                        elif ctrl.get_datatype() == 5 and ctrl.get_type() == 6:
+                                value = [sample_list[v] for v in val]
                         else:
                             value = None
                             for v in val:
@@ -270,7 +271,10 @@ class MainFrame(wx.Frame):
                                 else:
                                     value = str(v)
                     else:
-                        value = str(val)
+                        if ctrl.get_datatype() == 2 and ctrl.get_type == 0:
+                            value = sample_list[v]
+                        else:
+                            value = str(val)
                 else:
                     value = ""
                 
@@ -313,7 +317,7 @@ class MainFrame(wx.Frame):
             for ctrl in ctrl_list:
                 
                 #validating
-                if switch == None or validate:
+                if (switch == None or validate) and ctrl.get_validation():
 
                     win = ctrl.get_ctrl()
                     print "validating ctrl-->", ctrl.get_name()
@@ -333,7 +337,7 @@ class MainFrame(wx.Frame):
                         display(win,"%s field is empty!"%ctrl.get_name())
                         return
                         
-                    if '/' in value and '$' not in value and not isinstance(value, list) and ctrl.get_validation():
+                    if '/' in value and '$' not in value and not isinstance(value, list):
                         if not os.path.exists(ctrl.get_selection()):
                             display(win,"%s field contains incorrect path. Please update the path!"%ctrl.get_name())
                             return                   
@@ -406,21 +410,26 @@ class MainFrame(wx.Frame):
             for item in config_list:
                 label = item.get_name()
                 value= item.get_selection()
-                type = item.get_datatype()
+                dtype = item.get_datatype()
+                type = item.get_type()
                 sample_list = item.get_values()
                 comment = item.get_help()
-                print "*****label : type : value -->", label, " : ", type, " : ", value
+                print "*****label : type : value -->", label, " : ", dtype, " : ", value
                 for line in comment.split("\n"):
+                    if line:
                         print>>f, "#", line
-                if type ==0 or type==1:
+                if dtype ==0 or dtype==1:
                     print >>f, label, ": ", str(value)
                     print >>f,"\n"
-                elif type ==2:
-                    if value != 'None':
-                        value = ast.literal_eval(str(value))
+                elif dtype ==2:
+                    if type ==0:
+                        value = sample_list.index(value)
+                    else:
+                        if value != 'None':
+                            value = ast.literal_eval(str(value))
                     print >>f, label, ": ", value
                     print >>f,"\n"
-                elif type ==3:
+                elif dtype ==3:
                     map = ast.literal_eval(str(value))
                     values=[]
                     for x in range(0,len(map.keys())):
@@ -430,7 +439,7 @@ class MainFrame(wx.Frame):
                         values[idx]= v
                     print>> f, label, ": ", values
                     print>>f,"\n"
-                elif type ==4:
+                elif dtype ==4:
                     values=[]
                     if isinstance(value, list):
                         value= ast.literal_eval(str(value))
@@ -447,15 +456,17 @@ class MainFrame(wx.Frame):
                             values.append(val)
                     print>> f, label, ": ", values
                     print>>f,"\n"
-                elif type ==5:
+                elif dtype ==5:
                     value = ast.literal_eval(str(value))
                     if isinstance(value, tuple):
                         value = list(value)
+                    elif isinstance(value, list):
+                        value = [sample_list.index(val) for val in value]
                     else:
                         value =[value]
                     print>>f, label, ":", value
                     print>>f, "\n"
-                elif type ==6:
+                elif dtype ==6:
                     values = [] 
                     
                     for val in ast.literal_eval(str(value)):
@@ -463,7 +474,7 @@ class MainFrame(wx.Frame):
                         
                     print>>f, label, ":", values
                     print>>f, "\n"
-                elif type ==8:
+                elif dtype ==8:
                     print>>f, label,":"
                     value = ast.literal_eval(str(value))
                     for val in value:

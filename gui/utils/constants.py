@@ -32,5 +32,5 @@ substitution_map = {'On': 1,
                    'VMHC':'vmhc_z_score_stat_map',
                    'ReHo':'reho_Z_to_standard_smooth',
                    'Centrality':'centrality_outputs_smoothed',
-                   'Dual_Regression':'dr_tempreg_maps_z_files_smooth'
+                   'Dual_Regression':'dr_tempreg_maps_z_files_smooth',
                    }
