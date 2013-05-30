@@ -13,7 +13,7 @@ ID_EDIT = 7
 ID_ADD = 8
 ID_SHOW = 9
 ID_DISPLAY = 10
-ID_ADDCONFIG = 11
+ID_CLEARALL = 11
 
 class ListBox(wx.Frame):
     def __init__(self, parent, id, title):
@@ -59,16 +59,14 @@ class ListBox(wx.Frame):
         dlt = wx.Button(btnPanel1, ID_DELETE, 'Delete', size=(90, 30))
         load = wx.Button(btnPanel1, ID_LOAD, 'Load', size=(90,30))
         edit = wx.Button(btnPanel1, ID_EDIT, 'Edit', size=(90,30))
-#        add_config = wx.Button(btnPanel1, ID_ADDCONFIG, 'Add', size=(90,30))
-        shw = wx.Button(btnPanel1, ID_DISPLAY, 'Show', size=(90,30))
-        clr = wx.Button(btnPanel1, ID_CLEAR, 'Clear', size=(90, 30))
+        shw = wx.Button(btnPanel1, ID_DISPLAY, 'View', size=(90,30))
+        clr = wx.Button(btnPanel1, ID_CLEARALL, 'Clear', size=(90, 30))
     
         self.Bind(wx.EVT_BUTTON, self.NewItem, id=ID_NEW)
         self.Bind(wx.EVT_BUTTON, self.OnRename, id=ID_RENAME)
         self.Bind(wx.EVT_BUTTON, self.OnDelete, id=ID_DELETE)
         self.Bind(wx.EVT_BUTTON, self.AddConfig, id=ID_LOAD)
         self.Bind(wx.EVT_BUTTON, self.OnEdit, id=ID_EDIT)
-#        self.Bind(wx.EVT_BUTTON, self.AddConfig, id=ID_ADDCONFIG)
         self.Bind(wx.EVT_BUTTON, self.OnDisplay, id= ID_DISPLAY)
         self.Bind(wx.EVT_BUTTON, lambda event: self.OnClear(event, 1), id=ID_CLEAR)
         self.Bind(wx.EVT_LISTBOX_DCLICK, self.OnDisplay)        
@@ -77,7 +75,6 @@ class ListBox(wx.Frame):
         btnSizer1.Add(new)
         btnSizer1.Add(load, 0, wx.TOP, 5)
         btnSizer1.Add(edit, 0, wx.TOP, 5)
-#        btnSizer1.Add(add_config, 0, wx.TOP, 5)
         btnSizer1.Add(shw, 0, wx.TOP, 5)
         btnSizer1.Add(ren, 0, wx.TOP, 5)
         btnSizer1.Add(dlt, 0, wx.TOP, 5)
@@ -104,13 +101,13 @@ class ListBox(wx.Frame):
         lboxPanel2.SetSizer(lboxSizer2)
                 
         create = wx.Button(btnPanel2, ID_CREATE, 'New', size=(90, 30))
-        add = wx.Button(btnPanel2, ID_ADD, 'Add', size= (90,30))
-        show = wx.Button(btnPanel2, ID_SHOW, 'Show', size= (90,30))
+        add = wx.Button(btnPanel2, ID_ADD, 'Load', size= (90,30))
+        show = wx.Button(btnPanel2, ID_SHOW, 'View', size= (90,30))
         clr2 = wx.Button(btnPanel2, ID_CLEAR, 'Clear', size=(90, 30))
         self.Bind(wx.EVT_BUTTON, self.CreateItem, id=ID_CREATE)
         self.Bind(wx.EVT_BUTTON, self.AddItem, id=ID_ADD)
         self.Bind(wx.EVT_BUTTON, self.OnShow, id= ID_SHOW)
-        self.Bind(wx.EVT_BUTTON, lambda event: self.OnClear(event, 2), id=ID_CLEAR)
+        self.Bind(wx.EVT_BUTTON, lambda event: self.OnClear(event, 2), id=ID_CLEARALL)
         btnSizer2.Add((-1, 30))
         btnSizer2.Add(create)
         btnSizer2.Add(add)
@@ -124,8 +121,8 @@ class ListBox(wx.Frame):
         
         innerPanel2.SetSizer(innerSizer2)
         
-        outerSizer1.Add(innerPanel1, 1, wx.EXPAND | wx.ALL)
         outerSizer1.Add(innerPanel2, 1, wx.EXPAND | wx.ALL)
+        outerSizer1.Add(innerPanel1, 1, wx.EXPAND | wx.ALL)
         
         outerPanel1.SetSizer(outerSizer1)
         

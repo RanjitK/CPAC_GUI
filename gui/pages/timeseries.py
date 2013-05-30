@@ -40,6 +40,19 @@ class GenerateSeeds(wx.ScrolledWindow):
 
         self.page = GenericClass(self, "Define New Seeds")
 
+        self.page.add(label="Use Seed in Analysis:", 
+         control=control.CHECKLIST_BOX, 
+         name='useSeedInAnalysis', 
+         type=dtype.LNUM, 
+         comment="use the seeds specified in seedSpecificationFile in the following analysis \n"\
+                 "1 = use in roi timeseries extraction \n"\
+                 "2 = use in voxel timeseries extraction \n"\
+                 "3 = use in network centrality \n"\
+                 "users can specify a combination of these options",
+         values=[ 'None', 'ROI Timeseries', 'Voxel Timeseries', 'Network Centrality'],
+         size = (180,80),
+         validation_req = False)
+
         self.page.add(label="Seed Specification File ",
                       control=control.COMBO_BOX,
                       name="seedSpecificationFile",
@@ -54,17 +67,6 @@ class GenerateSeeds(wx.ScrolledWindow):
                       comment="Directory where CPAC should write the NIfTI file for new seeds.",
                       values=os.getcwd())
 
-        self.page.add(label="Use Seed in Analysis:",
-                      control=control.CHOICE_BOX,
-                      name='useSeedInAnalysis',
-                      type=dtype.LSTR,
-                      comment="use the seeds specified in seedSpecificationFile in the following analysis \n"
-                      "1 = use in roi timeseries extraction \n"
-                      "2 = use in voxel timeseries extraction \n"
-                      "3 = use in network centrality \n"
-                      "users can specify a combination of these options",
-                      values=["Off", "On"],
-                      wkf_switch=True)
 
         self.page.set_sizer()
         parent.get_page_list().append(self)
