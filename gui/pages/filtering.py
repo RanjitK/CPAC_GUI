@@ -51,7 +51,7 @@ class FilteringSettings(wx.ScrolledWindow):
                       name = "nuisanceBandpassFreq",
                       type = dtype.LOFL,
                       values = [0.01, 0.1],
-                      comment = "Define one or more band-pass filters.",
+                      comment = "Define one or more band-pass filters by clicking the + button.",
                      size = (200,100),
                      combo_type = 2)
 

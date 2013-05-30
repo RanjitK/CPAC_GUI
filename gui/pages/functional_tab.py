@@ -27,96 +27,50 @@ class FunctionalPreProcessing(wx.html.HtmlWindow):
             
     def get_counter(self):
         return self.counter
-    
-class Functional(wx.ScrolledWindow):
-    
-    def __init__(self, parent, counter = 0):
-        wx.ScrolledWindow.__init__(self, parent)
-                
-        self.counter = counter
-        
-        self.page = GenericClass(self, "Functional Preprocessing")
-        self.page.add(label="Gather Functional Data:", 
-                 control=control.CHOICE_BOX, 
-                 name='runFunctionalDataGathering', 
-                 type=dtype.LSTR, 
-                 comment="option to fetch functional data", 
-                 values=["On","Off"],
-                 wkf_switch = False)
-        
-        self.page.add(label= "Run Functional Processing:",
-                 control=control.CHOICE_BOX, 
-                 name='runFunctionalPreprocessing', 
-                 type=dtype.LSTR, 
-                 comment="option to run functional processing", 
-                 values=["On","Off"],
-                 wkf_switch = True)
-        
-        self.page.add(label="Generate Motion Statistics:", 
-                 control=control.CHOICE_BOX, 
-                 name='runGenerateMotionStatistics', 
-                 type=dtype.LSTR, 
-                 comment="Generate FD and DVARS motion statistics. Required to run scrubbing, but can also be used as regressors in a GLM", 
-                 values=["On","Off"])
-        
-        self.page.add(label="Generate Friston Motion Statistics:", 
-                 control=control.CHOICE_BOX, 
-                 name='runFristonModel', 
-                 type=dtype.LSTR, 
-                 comment="Generate motion statistics based on the 24 parameter Friston model", 
-                 values=["On","Off"])
-        
-        self.page.set_sizer()
-        parent.get_page_list().append(self)
-        
-    def get_counter(self):
-            return self.counter
 
-class Scrubbing(wx.ScrolledWindow):
+class TimeSeriesOptions(wx.ScrolledWindow):
     
     def __init__(self, parent, counter =0):
         wx.ScrolledWindow.__init__(self, parent)
         
-        self.counter = counter
+        self.page = GenericClass(self, "Time Series Options")
+        self.counter = counter 
                 
-        self.page = GenericClass(self, "Scrubbing Options")
+                
+        self.page.add(label= "First Timepoint ",
+                 control=control.INT_CTRL, 
+                 name='startIdx', 
+                 type=dtype.NUM, 
+                 comment="First timepoint to include in analysis.\n\nDefault is 0 (beginning of timeseries).", 
+                 values=0)
         
-        self.page.add(label="Run Scrubbing ", 
-                 control=control.CHOICE_BOX, 
-                 name='runScrubbing', 
-                 type=dtype.LSTR, 
-                 comment="Remove volumes exhibiting excessive motion.", 
-                 values=["Off","On"],
-                 wkf_switch = True)
-                        
-        self.page.add(label= "Framewise Displacement (FD) Threshold ",
+        self.page.add(label= "Last Timepoint ",
                  control=control.TEXT_BOX, 
-                 name='scrubbingThreshold', 
-                 type=dtype.LNUM, 
-                 values = "0.2",
+                 name='stopIdx', 
+                 type=dtype.NUM, 
+                 values= "None",
                  validator = CharValidator("no-alpha"),
-                 comment="Specify the maximum acceptable Framewise Displacement (FD) in millimeters.\n\nAny volume exhibiting FD greater than this value will be removed.",
-                 size=(100,-1))
+                 comment="Last timepoint to include in analysis.\n\nDefault is None (end of timeseries).")
         
-        self.page.add(label= "Preceeding Volumes to Remove ",
-                 control=control.INT_CTRL, 
-                 name='numRemovePrecedingFrames', 
+        self.page.add(label= "TR ",
+                 control=control.TEXT_BOX, 
+                 name='TR', 
                  type=dtype.NUM, 
-                 comment="Number of volumes to remove preceeding a volume with excessive FD.", 
-                 values=1)
+                 values= "None",
+                 validator = CharValidator("no-alpha"),
+                 comment="Specify the TR at which images were acquired.\n\nDefault is None (TR information is read from image file header)")
         
-        self.page.add(label= "Subsequent Volumes to Remove ",
-                 control=control.INT_CTRL, 
-                 name='numRemoveSubsequentFrames', 
-                 type=dtype.NUM, 
-                 comment="Number of volumes to remove subsequent to a volume with excessive FD.", 
-                 values=2)        
         
-        self.page.set_sizer()
+    
+        self.page.set_sizer() 
         parent.get_page_list().append(self)
-        
+
     def get_counter(self):
         return self.counter
+
+
+
+
     
 class AnatToFuncRegistration(wx.ScrolledWindow):
     def __init__(self, parent, counter = 0):

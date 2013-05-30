@@ -28,34 +28,6 @@ class AnatomicalPreprocessing(wx.html.HtmlWindow):
     def get_counter(self):
         return self.counter
             
-class Anatomical(wx.ScrolledWindow):
-    
-    def __init__(self, parent, counter = 0):
-        wx.ScrolledWindow.__init__(self, parent)
-                
-        self.counter = counter
-        
-        self.page = GenericClass(self, "Anatomical Preprocessing")
-        self.page.add(label="Gather Anatomical Data:", 
-                 control=control.CHOICE_BOX, 
-                 name='runAnatomicalDataGathering', 
-                 type=dtype.LSTR, 
-                 comment="option to fetch anatomical data", 
-                 values=["On","Off"])
-        
-        self.page.add(label= "Run Anatomical Processing",
-                 control=control.CHOICE_BOX, 
-                 name='runAnatomicalPreprocessing', 
-                 type=dtype.LSTR, 
-                 comment="option to run anatomical processing", 
-                 values=["On","Off"],
-                 wkf_switch = True)
-        
-        self.page.set_sizer()
-        parent.get_page_list().append(self)
-        
-    def get_counter(self):
-            return self.counter
 
 class Segmentation(wx.ScrolledWindow):
 
