@@ -60,14 +60,7 @@ class GPASettings(wx.ScrolledWindow):
                               'Network Centrality'],
                     comment = "Select which derivatives you would like to include when running group analysis.\n\nWhen including Dual Regression, make sure to correct your P-value for the number of maps you are comparing.\n\nWhen including Multiple Regression SCA, you must have more degrees of freedom (subjects) than there were time series.",
                     size = (220,160))
-
-        self.page.add(label="Include All Scans ", 
-                 control=control.CHOICE_BOX, 
-                 name='mixedScanAnalysis', 
-                 type=dtype.BOOL, 
-                 comment="In cases where each subject has more than one functional scan, specify whether all or only the first scan should be included when running group analysis.", 
-                 values=["False","True"])
-        
+ 
         self.page.add(label = "Models to Run ",
                       control = control.LISTBOX_COMBO,
                       name = 'modelFile',
@@ -97,7 +90,14 @@ class GPASettings(wx.ScrolledWindow):
                      type=dtype.NUM, 
                      comment="Significance threshold (P-value) to use when doing cluster correction for multiple comparisons.", 
                      values=0.05)
-        
+
+        self.page.add(label="Include All Scans ", 
+                 control=control.CHOICE_BOX, 
+                 name='mixedScanAnalysis', 
+                 type=dtype.BOOL, 
+                 comment="In cases where each subject has more than one functional scan, specify whether all or only the first scan should be included when running group analysis.", 
+                 values=["False","True"])
+                
         self.page.set_sizer()
         parent.get_page_list().append(self)
         
