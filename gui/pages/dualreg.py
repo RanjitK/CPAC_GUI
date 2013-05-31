@@ -44,5 +44,6 @@ class DualRegressionOptions(wx.ScrolledWindow):
         self.page.set_sizer()
         parent.get_page_list().append(self)
         
+
     def get_counter(self):
         return self.counter
