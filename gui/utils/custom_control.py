@@ -15,7 +15,7 @@ class FileSelectorCombo(wx.combo.ComboCtrl):
     def OnButtonClick(self):
         path = ""
         name = ""
-        wildcard = "CPAC files (*.gz,*.nii,*.txt,*.mat.*.cnf,*.sch)|*gz;*.nii;*.txt;*.cnf;*.sch;*.mat"
+        wildcard = "CPAC files (*.gz,*.nii,*.txt,*.mat.*.cnf,*.sch,*.csv)|*gz;*.nii;*.txt;*.cnf;*.sch;*.mat;*.csv"
         if self.GetValue():
             path, name = os.path.split(self.GetValue())
         
