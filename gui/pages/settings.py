@@ -36,6 +36,11 @@ class ComputerSettings(wx.ScrolledWindow):
     def __init__(self, parent, counter=0):
         wx.ScrolledWindow.__init__(self, parent)
         self.counter = counter
+        
+        fsl = ""
+        if os.environ.get('FSLDIR'):
+            fsl = os.environ['FSLDIR']
+            
 
         self.page = GenericClass(self, "Computer Settings")
         self.page.add(label="Run CPAC on Grid:",
@@ -50,7 +55,7 @@ class ComputerSettings(wx.ScrolledWindow):
                       control=control.DIR_COMBO_BOX,
                       name='FSLDIR',
                       type=dtype.STR,
-                      values=os.environ['FSLDIR'],
+                      values=fsl,
                       comment="Full path to the FSL version to be used by CPAC.\n\nIf you have specified an FSL path in your .bashrc file, this path will be set automatically.")
 
         self.page.add(label="Job Scheduler / Resource Manager ",

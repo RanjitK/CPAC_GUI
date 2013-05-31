@@ -35,6 +35,10 @@ class NuisanceCorrection(wx.ScrolledWindow):
         import os
         
         self.counter = counter
+
+        fsl = os.environ.get('FSLDIR')
+        if not fsl:
+            fsl = "$FSLDIR"
         
         self.page = GenericClass(self, "Nuisance Signal Correction Options")
         
@@ -50,7 +54,7 @@ class NuisanceCorrection(wx.ScrolledWindow):
                      control=control.COMBO_BOX, 
                      name='harvardOxfordMask', 
                      type=dtype.STR, 
-                     values = os.path.join(os.environ['FSLDIR'], "data/atlases/HarvardOxford/HarvardOxford-sub-maxprob-thr25-2mm.nii.gz"),
+                     values = os.path.join(fsl, "data/atlases/HarvardOxford/HarvardOxford-sub-maxprob-thr25-2mm.nii.gz"),
                      comment="Standard FSL Anatomical Brain Image")
 
         self.page.add(label = "Corrections:",
