@@ -39,20 +39,7 @@ class GenerateSeeds(wx.ScrolledWindow):
         self.counter = counter
 
         self.page = GenericClass(self, "Define New Seeds")
-
-        self.page.add(label="Use Seed in Analysis:", 
-         control=control.CHECKLIST_BOX, 
-         name='useSeedInAnalysis', 
-         type=dtype.LNUM, 
-         comment="use the seeds specified in seedSpecificationFile in the following analysis \n"\
-                 "1 = use in roi timeseries extraction \n"\
-                 "2 = use in voxel timeseries extraction \n"\
-                 "3 = use in network centrality \n"\
-                 "users can specify a combination of these options",
-         values=[ 'None', 'ROI Timeseries', 'Voxel Timeseries', 'Network Centrality'],
-         size = (180,80),
-         validation_req = False)
-
+        
         self.page.add(label="Seed Specification File ",
                       control=control.COMBO_BOX,
                       name="seedSpecificationFile",
@@ -65,9 +52,18 @@ class GenerateSeeds(wx.ScrolledWindow):
                       control=control.DIR_COMBO_BOX,
                       name="seedOutputLocation",
                       type=dtype.STR,
-                      comment="Directory where CPAC should write the NIfTI file for new seeds.",
+                      comment="Directory where CPAC should write NIfTI files containing new seeds.",
                       values=os.getcwd(),
                       validation_req = False)
+
+        self.page.add(label="Use New Seeds In ", 
+         control=control.CHECKLIST_BOX, 
+         name='useSeedInAnalysis', 
+         type=dtype.LNUM, 
+         comment="It is possible to use the newly generated seeds when running a number of the analyses included in CPAC. Note that these analyses will be run using all new seeds.\n\nIf you wish to use these new seeds to run Seed-based Correlation Analysis, select ROI Average Timeseries Extraction.\n\nIf you do not wish to use new seeds in these analyses, select none.",
+         values=[ 'None', 'ROI Average Time Series Extraction', 'ROI Voxelwise Time Series Extraction', 'Network Centrality'],
+         size = (310,90),
+         validation_req = False)
 
 
         self.page.set_sizer()
@@ -86,7 +82,7 @@ class ROITimeseries(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "ROI Average Time Series Extraction Options")
+        self.page = GenericClass(self, "ROI Average TSE Options")
 
         self.page.add(label="Extract ROI Average Time Series ",
                       control=control.CHOICE_BOX,
@@ -124,7 +120,7 @@ class VOXELTimeseries(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "ROI Voxelwise Time Series Extraction Options")
+        self.page = GenericClass(self, "ROI Voxelwise TSE Options")
 
         self.page.add(label="Extract ROI Voxelwise Time Series ",
                       control=control.CHOICE_BOX,
@@ -134,19 +130,19 @@ class VOXELTimeseries(wx.ScrolledWindow):
                       values=["Off", "On"],
                       wkf_switch=True)
 
-        self.page.add(label="Output Options ",
-                      control=control.CHECKLIST_BOX,
-                      name="voxelTSOutputs",
-                      type=dtype.LBOOL,
-                      values=['CSV', 'NUMPY'],
-                      comment="By default, extracted time series are written as both a text file and a 1D file. Additional output formats are as a .csv spreadsheet or a Numpy array.")
-
         self.page.add(label="ROI Specification File ",
                       control=control.COMBO_BOX,
                       name="maskSpecificationFile",
                       type=dtype.STR,
                       comment="Full path to a text file containing a list ROI files.\n\nEach line in this file should be the path to a NIfTI file containing a single ROI.\n\nIf you only wish to extract time series for newly defined spherical seed ROIs, set this field to None.",
                       values="None")
+
+        self.page.add(label="Output Options ",
+                      control=control.CHECKLIST_BOX,
+                      name="voxelTSOutputs",
+                      type=dtype.LBOOL,
+                      values=['CSV', 'NUMPY'],
+                      comment="By default, extracted time series are written as both a text file and a 1D file. Additional output formats are as a .csv spreadsheet or a Numpy array.")
 
         self.page.set_sizer()
         parent.get_page_list().append(self)
@@ -162,32 +158,29 @@ class SpatialRegression(wx.ScrolledWindow):
 
         self.counter = counter
 
-        self.page = GenericClass(self, "Spacial Regression")
+        self.page = GenericClass(self, "Spatial Regression Options")
 
-        self.page.add(label="Run Spatial Regression:",
+        self.page.add(label="Run Spatial Regression ",
                       control=control.CHOICE_BOX,
                       name='runSpatialRegression',
                       type=dtype.LSTR,
-                      comment="Extract timeseries from existing spatial/ica maps\n"
-                      "Required if you wish to run dual regression",
+                      comment="Extract the time series from one or more existing spatial maps (such as an ICA map).\n\nRequired if you wish to run Dual Regression.",
                       values=["Off", "On"],
                       wkf_switch=True)
 
-        self.page.add(label="Spatial Pattern Maps Specification File:",
+        self.page.add(label="Spatial Map Specification File ",
                       control=control.COMBO_BOX,
                       name="spatialPatternMaps",
                       type=dtype.STR,
-                      comment="Path to file containing the paths to Spatial Pattern maps \n"
-                      "All spatial patterns for one analysis have to be volumes in one 4D file \n"
-                      "(see User Guide)",
-                      values="/path/to/mask_definitions_file")
+                      comment="Full path to a text file containing a list spatial maps.\n\nEach line in this file should be the path to a 4D NIfTI file containing one spatial map per volume.",
+                      values="")
 
-        self.page.add(label="Demean Spatial Pattern Maps:",
+        self.page.add(label="Demean Spatial Maps ",
                       control=control.CHOICE_BOX,
                       name='spatialDemean',
                       type=dtype.BOOL,
                       values=["True", "False"],
-                      comment="do you want to demean your spatial pattern maps and input data (True / False)")
+                      comment="Demean spatial maps before running spatial regression.")
 
         self.page.set_sizer()
         parent.get_page_list().append(self)

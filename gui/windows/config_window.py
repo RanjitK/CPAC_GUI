@@ -73,12 +73,12 @@ class Mybook(wx.Treebook):
         page33 = ALFF(self)
         page34 = ALFFSettings(self)
 
-        page35 = Centrality(self)
-        page36 = CentralitySettings(self)
+        page35 = ReHo(self)
+        page36 = ReHoSettings(self)
 
-        page37 = ReHo(self)
-        page38 = ReHoSettings(self)
-
+        page37 = Centrality(self)
+        page38 = CentralitySettings(self)
+        
         page39 = Smoothing(self)
         page40 = SmoothingSettings(self)
 
@@ -117,16 +117,16 @@ class Mybook(wx.Treebook):
         self.AddSubPage(page18, "Motion Correction Options", wx.ID_ANY)
         self.AddSubPage(page19, "Scrubbing Options", wx.ID_ANY)
 
-        self.AddPage(page20, "Time Series Extraction", wx.ID_ANY)
+        self.AddPage(page20, "Time Series Extraction (TSE)", wx.ID_ANY)
         self.AddSubPage(page21, "Define New Seeds", wx.ID_ANY)
-        self.AddSubPage(page22, "ROI Average Time Series", wx.ID_ANY)
-        self.AddSubPage(page23, "ROI Voxelwise Time Series", wx.ID_ANY)
-        self.AddSubPage(page24, "Surface Vertices Time Series", wx.ID_ANY)
+        self.AddSubPage(page22, "ROI Average TSE", wx.ID_ANY)
+        self.AddSubPage(page23, "ROI Voxelwise TSE", wx.ID_ANY)
+        self.AddSubPage(page24, "Surface Vertices TSE", wx.ID_ANY)
         self.AddSubPage(page25, "Spatial Regression", wx.ID_ANY)
 
-        self.AddPage(page26, "SCA", wx.ID_ANY)
-        self.AddSubPage(page27, "SCA Settings", wx.ID_ANY)
-        self.AddSubPage(page28, "Mutiple Regression SCA", wx.ID_ANY)
+        self.AddPage(page26, "Seed-based Correlation Analysis (SCA)", wx.ID_ANY)
+        self.AddSubPage(page27, "SCA Options", wx.ID_ANY)
+        self.AddSubPage(page28, "Mutiple Regression SCA Options", wx.ID_ANY)
 
         self.AddPage(page29, "Dual Regression", wx.ID_ANY)
         self.AddSubPage(page30, "Dual Regression Options", wx.ID_ANY)
@@ -137,12 +137,12 @@ class Mybook(wx.Treebook):
         self.AddPage(page33, "ALFF and f/ALFF", wx.ID_ANY)
         self.AddSubPage(page34, "ALFF and f/ALFF Options", wx.ID_ANY)
 
-        self.AddPage(page35, "Network Centrality", wx.ID_ANY)
-        self.AddSubPage(page36, "Network Centrality Options", wx.ID_ANY)
+        self.AddPage(page35, "Regional Homogeneity (ReHo)", wx.ID_ANY)
+        self.AddSubPage(page36, "ReHo Options", wx.ID_ANY)
 
-        self.AddPage(page37, "Regional Homogeneity (ReHo)", wx.ID_ANY)
-        self.AddSubPage(page38, "ReHo Options", wx.ID_ANY)
-
+        self.AddPage(page37, "Network Centrality", wx.ID_ANY)
+        self.AddSubPage(page38, "Network Centrality Options", wx.ID_ANY)
+        
         self.AddPage(page39, "Spatial Smoothing", wx.ID_ANY)
         self.AddSubPage(page40, "Spatial Smoothing Options", wx.ID_ANY)
 

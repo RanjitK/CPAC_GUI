@@ -144,26 +144,43 @@ class TextBoxFrame(wx.Frame):
 class ConfigFslFrame(wx.Frame):
     
     def __init__(self, parent, values):
-        wx.Frame.__init__(self, parent, title="Select FSL Model Directory and SubjectList", size = (700,200))
+        wx.Frame.__init__(self, parent, title="Specify FSL Model and Subject List", size = (680,210))
         sizer = wx.BoxSizer(wx.VERTICAL)
         panel = wx.Panel(self)
         
-        button1 = wx.Button(panel, -1, 'Create FSL Model', size= (150,50))
+        button1 = wx.Button(panel, -1, 'Create New FSL Model', size= (160,50))
         button1.Bind(wx.EVT_BUTTON, self.onButtonClick)
-        sizer.Add(button1,1, wx.LEFT, border = 10)
+        sizer.Add(button1, 0, wx.ALIGN_CENTER|wx.TOP, border = 15)
         
-        flexsizer = wx.FlexGridSizer(cols=2, hgap=5, vgap=10) 
+        flexsizer = wx.FlexGridSizer(cols=2, hgap=5, vgap=10)
+
+        hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+        img = wx.Image("images/help.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        help1 = wx.BitmapButton(panel, id=-1, bitmap=img,
+                                 pos=(10, 20), size = (img.GetWidth()+5, img.GetHeight()+5))
+        help1.Bind(wx.EVT_BUTTON, lambda event: \
+                         self.OnShowDoc(event, 1))
         
-        label1 = wx.StaticText(panel, -1, label = 'Select Model Directory:')
+        label1 = wx.StaticText(panel, -1, label = 'Model Directory ')
         self.box1 = DirSelectorCombo(panel, id = wx.ID_ANY, size = (500, -1))
-        
-        flexsizer.Add(label1)
+        hbox1.Add(label1)
+        hbox1.Add(help1)
+
+        flexsizer.Add(hbox1)
         flexsizer.Add(self.box1,flag = wx.EXPAND | wx.ALL)
         
-        label2 = wx.StaticText(panel, -1, label = 'Select Subject List for the model:')
+        label2 = wx.StaticText(panel, -1, label = 'Subject List ')
         self.box2 = FileSelectorCombo(panel, id = wx.ID_ANY,  size = (500, -1))
         
-        flexsizer.Add(label2)
+        hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+        help2 = wx.BitmapButton(panel, id=-1, bitmap=img,
+                                 pos=(10, 20), size = (img.GetWidth()+5, img.GetHeight()+5))
+        help2.Bind(wx.EVT_BUTTON, lambda event: \
+                         self.OnShowDoc(event, 2))
+        
+        hbox2.Add(label2)
+        hbox2.Add(help2)
+        flexsizer.Add(hbox2)
         flexsizer.Add(self.box2, flag = wx.EXPAND | wx.ALL)
         
         hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -177,7 +194,7 @@ class ConfigFslFrame(wx.Frame):
         hbox.Add(button2, 1, wx.EXPAND, border =5)
         
         sizer.Add(flexsizer, 1, wx.EXPAND | wx.ALL, 10)
-        sizer.Add(hbox,0, wx.ALIGN_RIGHT)
+        sizer.Add(hbox,0, wx.ALIGN_CENTER, 5)
         panel.SetSizer(sizer)
         
         self.Show()
@@ -198,6 +215,13 @@ class ConfigFslFrame(wx.Frame):
                 self.Close()
         else:
             wx.MessageBox("Please provide the path for the model directory and subject list.")
+
+    def OnShowDoc(self, event, flag):
+        if flag == 1:
+            wx.TipWindow(self, "Full path to a directory containing files for a single FSL model. All models must include .con, .mat, and .grp files. Models in which an F-Test is specified must also include a .fts file.", 500)
+        elif flag == 2:
+            wx.TipWindow(self, "Full path to a subject list to be used with this model.\n\nThis should be a text file with one subject per line.", 500)
+
 
 class ListBoxCombo(wx.Panel):
     
