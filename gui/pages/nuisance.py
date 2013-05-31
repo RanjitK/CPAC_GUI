@@ -36,9 +36,9 @@ class NuisanceCorrection(wx.ScrolledWindow):
         
         self.counter = counter
         
-        self.page = GenericClass(self, "Nuisance Correction")
+        self.page = GenericClass(self, "Nuisance Signal Correction Options")
         
-        self.page.add(label="Run Nuisance Signal Correction:", 
+        self.page.add(label="Run Nuisance Signal Correction ", 
                  control=control.CHOICE_BOX, 
                  name='runNuisance', 
                  type=dtype.LSTR, 
@@ -72,7 +72,7 @@ class NuisanceCorrection(wx.ScrolledWindow):
                      size = (300,120),
                      combo_type =1)
                     
-        self.page.add(label= "CompCor Components",
+        self.page.add(label= "CompCor Components ",
                       control = control.TEXT_BOX,
                       name = "nComponents",
                       type = dtype.LNUM,
@@ -105,7 +105,7 @@ class MedianAngleCorrection(wx.ScrolledWindow):
                  values=["Off","On"],
                  wkf_switch = True)
         
-        self.page.add(label= "Target Angle (degrees)",
+        self.page.add(label= "Target Angle (degrees) ",
                       control = control.TEXT_BOX,
                       name = "targetAngleDeg",
                       type = dtype.LNUM,

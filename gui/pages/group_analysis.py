@@ -60,6 +60,13 @@ class GPASettings(wx.ScrolledWindow):
                               'Network Centrality'],
                     comment = "Select which derivatives you would like to include when running group analysis.\n\nWhen including Dual Regression, make sure to correct your P-value for the number of maps you are comparing.\n\nWhen including Multiple Regression SCA, you must have more degrees of freedom (subjects) than there were time series.",
                     size = (220,160))
+
+        self.page.add(label="Include All Scans ", 
+                 control=control.CHOICE_BOX, 
+                 name='mixedScanAnalysis', 
+                 type=dtype.BOOL, 
+                 comment="In cases where each subject has more than one functional scan, specify whether all or only the first scan should be included when running group analysis.", 
+                 values=["False","True"])
         
         self.page.add(label = "Models to Run ",
                       control = control.LISTBOX_COMBO,
@@ -69,6 +76,13 @@ class GPASettings(wx.ScrolledWindow):
                       comment="Use the + to add FSL models to be run.",
                       size = (400,100),
                       combo_type = 3)
+
+        self.page.add(label="Models Contain F-tests ", 
+                 control=control.CHOICE_BOX, 
+                 name='fTest', 
+                 type=dtype.BOOL, 
+                 comment = "Set this option to True if any of the models specified above contain F-tests.", 
+                 values=["False","True"])
         
         self.page.add(label="Z threshold ", 
                      control=control.FLOAT_CTRL, 
@@ -83,27 +97,6 @@ class GPASettings(wx.ScrolledWindow):
                      type=dtype.NUM, 
                      comment="Significance threshold (P-value) to use when doing cluster correction for multiple comparisons.", 
                      values=0.05)
-        
-        self.page.add(label="Run F-test:", 
-                 control=control.CHOICE_BOX, 
-                 name='fTest', 
-                 type=dtype.BOOL, 
-                 comment = "Ftest help investigate several contrasts at the same time\n"\
-                           "for example to see whether any of them (or any combination of them) is\n"\
-                           "significantly non-zero. Also, the F-test allows you to compare the\n"\
-                           "contribution of each contrast to the model and decide on significant\n"\
-                           "and non-significant ones", 
-                 values=["False","True"])
-                
-        self.page.add(label="Run Mixed Scan Analysis:", 
-                 control=control.CHOICE_BOX, 
-                 name='mixedScanAnalysis', 
-                 type=dtype.BOOL, 
-                 comment="Specify whether to include all scans from a subject or only a single session\n"\
-                         "If a subject has multiple scans:\n"\
-                         "False = Consider only the first scan session during group analysis\n"\
-                         "True = Consider all scan sessions", 
-                 values=["False","True"])
         
         self.page.set_sizer()
         parent.get_page_list().append(self)

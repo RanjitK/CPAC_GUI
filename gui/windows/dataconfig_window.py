@@ -54,7 +54,7 @@ class DataConfig(wx.Frame):
                            "If 'None' is specified, CPAC will include all subjects.", 
                  values = "None")
         
-        self.page.add(label="Subject to Exclude (Optional) ", 
+        self.page.add(label="Subjects to Exclude (Optional) ", 
                  control=control.COMBO_BOX, 
                  name = "exclusionSubjectList", 
                  type = dtype.COMBO, 
@@ -91,7 +91,7 @@ class DataConfig(wx.Frame):
                       name = "outputSubjectListLocation", 
                       type = dtype.STR, 
                       comment = "Directory where CPAC should place subject list files.",
-                      values = os.getcwd())
+                      values = "")
         self.page.set_sizer()
          
         mainSizer.Add(self.window, 1, wx.EXPAND)

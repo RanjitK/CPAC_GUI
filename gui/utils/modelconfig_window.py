@@ -38,7 +38,7 @@ class ModelConfig(wx.Frame):
                       comment="Full path to a .csv file containing EV information for each subject.\n\nTip: A file in this format (containing a single column listing all subjects run through CPAC) was generated along with the main CPAC subject list (see template_phenotypic.csv).",
                       values="")
 
-        self.page.add(label="Subject Column Name ",
+        self.page.add(label="Subjects Column Name ",
                       control=control.TEXT_BOX,
                       name="subjectColumn",
                       type=dtype.STR,
@@ -110,7 +110,7 @@ class ModelConfig(wx.Frame):
                       name="outputModelFilesDirectory",
                       type=dtype.STR,
                       comment="Full path to the directory where CPAC should place model files.",
-                      values=os.getcwd())
+                      values="")
 
         self.page.add(label="Model CSV File Name ",
                       control=control.TEXT_BOX,
