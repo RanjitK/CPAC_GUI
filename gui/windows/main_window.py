@@ -390,5 +390,8 @@ class ListBox(wx.Frame):
                                        wx.OK | wx.ICON_ERROR)
                             dlg3.ShowModal()
                             dlg3.Destroy()
-                        
+                else:
+                    dlg2.Destroy()
+                    dlg.Destroy
+                    break
                     
